@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:main="clr-namespace:Valorant_Instalocker.Main">
 
     <Style x:Key="ModernButton" TargetType="Button">
         <Setter Property="Background" Value="#EF4444"/>
@@ -88,5 +89,25 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <Style x:Key="StatusCircle" TargetType="Ellipse">
+        <Setter Property="Width" Value="12"/>
+        <Setter Property="Height" Value="12"/>
+        <Style.Triggers>
+            <!-- ONLINE DURUMU -->
+            <DataTrigger Binding="{Binding IsClientLoggedIn, Source={x:Static main:AppStateManager.Instance}}" Value="True">
+                <Setter Property="Fill" Value="#22C55E"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="#22C55E" BlurRadius="10" ShadowDepth="0" Opacity="0.8"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
 
+            <!-- OFFLINE DURUMU -->
+            <DataTrigger Binding="{Binding IsClientLoggedIn, Source={x:Static main:AppStateManager.Instance}}" Value="False">
+                <Setter Property="Fill" Value="#94A3B8"/>
+                <Setter Property="Effect" Value="{x:Null}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>
