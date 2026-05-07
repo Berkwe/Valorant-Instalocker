@@ -23,7 +23,7 @@ namespace Valorant_Instalocker.Main.Game
             try
             {
                 if (AppStateManager.OnlySelect)
-                {
+                { 
                     await SelectAgent();
                 }
                 else

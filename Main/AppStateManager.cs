@@ -1,4 +1,5 @@
 ﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,16 +11,22 @@ using RadiantConnect;
 using Valorant_Instalocker.Main.Game;
 using Serilog;
 using Valorant_Instalocker.Utils.Constants;
+using System.Windows;
 namespace Valorant_Instalocker.Main
 {
-    public static class AppStateManager
+    public partial class AppStateManager : ObservableObject
     {
         public static Initiator initiator;
+        public static AppStateManager Instance { get; } = new AppStateManager();
         public static UserSettings CurrentUserSettings { get; set; } = new Utils.Configs.UserSettings();
         public static Dictionary<ValorantTables.Agent, string> Agents = new Dictionary<ValorantTables.Agent, string>();
         public static ValorantTables.Agent SelectedAgent;
         public static bool OnlySelect = false;
         
+        [ObservableProperty] private bool isClientLoggedIn = false;
+        
+        [ObservableProperty] private string userName = "Player";
+
         private static void InitializeLogger()
         {
             Log.Logger = new LoggerConfiguration()
@@ -33,14 +40,19 @@ namespace Valorant_Instalocker.Main
             Log.Information("Instalocker Başladı..");
 
         }
-        public static void Initialize()
+        public static async void Initialize()
         {
 
             InitializeLogger();
-
             CurrentUserSettings = ConfigManager.InitializeSettings();
-            initiator = Connection.ConnectValorant();
+            await Connection.ConnectValorant();
+            if (Instance.IsClientLoggedIn)
+            {
+                Instance.UserName = await Connection.GetUserName();
+
+
+            }
         }
-    
+
     }
 }

@@ -5,7 +5,7 @@
         Background="#0F172A" WindowStartupLocation="CenterScreen"
         FontFamily="Segoe UI">
 
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -42,8 +42,22 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Row="1" Margin="20">
+        <Grid Grid.Row="0" Margin="20">
             <ContentControl x:Name="MainContent" />
         </Grid>
+        <Border Background="#334155" 
+            CornerRadius="20" 
+            Padding="8" 
+            Margin="0,0,20,20"
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Bottom"
+            BorderBrush="#475569"
+            BorderThickness="1" Grid.Row="1" RenderTransformOrigin="0.983,1.498">
+            <StackPanel Orientation="Horizontal">
+                <Ellipse Style="{StaticResource StatusCircle}"/>
+                <TextBlock Text="Connecting..." Foreground="White" FontSize="10" Margin="5,0,0,0" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
     </Grid>
+
 </Window>
