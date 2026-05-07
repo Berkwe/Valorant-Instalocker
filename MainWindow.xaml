@@ -6,4 +6,44 @@
         FontFamily="Segoe UI">
 
     
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#1E293B" BorderBrush="#334155" BorderThickness="0,0,0,1">
+            <Grid Margin="20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Background="#EF4444" Width="36" Height="36" CornerRadius="8" Margin="0,0,10,0">
+                        <TextBlock Text="🎯" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                    </Border>
+                    <TextBlock Text="INSTALOCKER" FontSize="22" FontWeight="Black" VerticalAlignment="Center">
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#EF4444" Offset="0.0"/>
+                                <GradientStop Color="#FB7185" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button x:Name="BtnNavDashboard" Content="Hızlı Seçim" Style="{StaticResource TabButton}" Foreground="#EF4444" BorderBrush="#EF4444" Click="SwitchTab_Click"/>
+                    <Button x:Name="BtnNavMacros" Content="Macrolar" Style="{StaticResource TabButton}" Click="SwitchTab_Click"/>
+                    <Button x:Name="BtnNavSettings" Content="Ayarlar" Style="{StaticResource TabButton}" Click="SwitchTab_Click"/>
+                    <Button x:Name="BtnNavAbout" Content="Hakkında" Style="{StaticResource TabButton}" Margin="0" Click="SwitchTab_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="20">
+            <ContentControl x:Name="MainContent" />
+        </Grid>
+    </Grid>
 </Window>

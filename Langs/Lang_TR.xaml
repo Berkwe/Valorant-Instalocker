@@ -1,12 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-namespace Valorant_Instalocker.Langs
-{
-class Lang_TR
-{
-}
-}
+	<system:String x:Key="AboutTitle">Hakkında</system:String>
+	<system:String x:Key="AboutDesc">Valorant Instalocker, ajan seçiminde size avantaj sağlamak için tasarlanmış gelişmiş bir araçtır. Sistemimiz, insan reflekslerinden çok daha hızlı çalışacak şekilde optimize edilmiştir.</system:String>
+	<system:String x:Key="AboutWarning">⚠️ Bu yazılım sadece eğitim ve test amaçlıdır.</system:String>
+	<system:String x:Key="DevTeamTitle">Geliştirici Ekip</system:String>
+	<system:String x:Key="LeadDevRole">Lead Developer</system:String>
+	<system:String x:Key="UIDevRole">UI/UX Designer</system:String>
+
+	<system:String x:Key="WelcomeText">Hoş Geldin, </system:String>
+	<system:String x:Key="PlayerText">Oyuncu</system:String>
+	<system:String x:Key="DashboardSubtitle">Ajanını seç ve herkesten önce kilitlen!</system:String>
+	<system:String x:Key="StatusTitle">📊 Anlık Durum</system:String>
+	<system:String x:Key="StateLabel">Durum:</system:String>
+	<system:String x:Key="StateLobby">Lobi</system:String>
+	<system:String x:Key="LevelLabel">Seviye:</system:String>
+	<system:String x:Key="StatusWaiting">Ajan seçimi bekleniyor...</system:String>
+	<system:String x:Key="LockAgentBtn">AJANI KİLİTLE</system:String>
+	<system:String x:Key="CancelBtn">İPTAL</system:String>
+
+	<system:String x:Key="MacrosTitle">⚙️ Gelişmiş Macrolar</system:String>
+	<system:String x:Key="MacrosDesc">Oyun içi otomasyonlarınızı buradan yapılandırın.</system:String>
+	<system:String x:Key="Macro1Title">Multi-Agent Lock</system:String>
+	<system:String x:Key="Macro1Desc">Sırasıyla birden fazla ajan deneme önceliği.</system:String>
+	<system:String x:Key="Macro2Title">Anti-Ban Tekniği</system:String>
+	<system:String x:Key="Macro2Desc">İnsan benzeri gecikme süreleri ekleyerek tespiti zorlaştırır.</system:String>
+	<system:String x:Key="EnableBtn">Aktif Et</system:String>
+
+	<system:String x:Key="SettingsConfigTitle">🛠️ Yapılandırma</system:String>
+	<system:String x:Key="SettingsTargetAgent">Hedef Ajan</system:String>
+	<system:String x:Key="SettingsLanguage">Dil (Language)</system:String>
+	<system:String x:Key="SettingsAutoLock">Oyun bulunduğunda otomatik kilitle</system:String>
+	<system:String x:Key="SettingsOnlySelect">Sadece Seçim Modu (Kilitlemez)</system:String>
+	<system:String x:Key="SettingsSaveBtn">AYARLARI KAYDET</system:String>
+	<system:String x:Key="SettingsConnectionTitle">🌐 Bağlantı Durumu</system:String>
+	<system:String x:Key="ConnValorant">Valorant: Bağlı</system:String>
+	<system:String x:Key="ConnWebSocket">WebSocket: Pasif</system:String>
+	<system:String x:Key="ConnAPI">API: Bekleniyor...</system:String>
+</ResourceDictionary>
