@@ -1,12 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿<UserControl x:Class="Valorant_Instalocker.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid x:Name="SettingsSection">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-namespace Valorant_Instalocker.Views
-{
-class SettingsView
-{
-}
-}
+        <Border Grid.Column="0" Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="0,0,10,0">
+            <StackPanel>
+
+
+                <TextBlock Text="{DynamicResource SettingsLanguage}" Foreground="#94A3B8" FontWeight="Bold" Margin="0,0,0,5"/>
+                <ComboBox x:Name="LanguageComboBox" Background="#0F172A" Foreground="Black" FontSize="14" Padding="8" Margin="0,0,0,20" SelectionChanged="LanguageCombo_SelectionChanged">
+                    
+                    <ComboBoxItem Content="Türkçe" IsSelected="True" Tag="TR"/>
+                    <ComboBoxItem Content="English" Tag="EN"/>
+                </ComboBox>
+
+                <CheckBox x:Name="AutoLockCheckBox" Content="{DynamicResource SettingsAutoLock}" Foreground="#CBD5E1" Margin="0,0,0,10"/>
+                <CheckBox Content="{DynamicResource SettingsOnlySelect}" Foreground="#CBD5E1" Margin="0,0,0,20"/>
+
+                <Button Content="{DynamicResource SettingsSaveBtn}" Style="{StaticResource ModernButton}" Click="SettingsSaveBtn_Click" HorizontalAlignment="Left" Padding="20,10"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="10,0,0,0" VerticalAlignment="Top">
+            <StackPanel>
+                <TextBlock Text="{DynamicResource SettingsConnectionTitle}" FontSize="20" FontWeight="Bold" Foreground="White" Margin="0,0,0,20"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                    <Ellipse Width="12" Height="12" Fill="#22C55E" Margin="0,0,10,0"/>
+                    <TextBlock Text="{DynamicResource ConnValorant}" Foreground="#CBD5E1" FontSize="14"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                    <Ellipse Width="12" Height="12" Fill="#EF4444" Margin="0,0,10,0"/>
+                    <TextBlock Text="{DynamicResource ConnWebSocket}" Foreground="#CBD5E1" FontSize="14"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="12" Height="12" Fill="#FACC15" Margin="0,0,10,0"/>
+                    <TextBlock Text="{DynamicResource ConnAPI}" Foreground="#CBD5E1" FontSize="14"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,12 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-namespace Valorant_Instalocker.Langs
-{
-class Lang_EN
-{
-}
-}
+	<system:String x:Key="AboutTitle">About</system:String>
+	<system:String x:Key="AboutDesc">Valorant Instalocker is an advanced tool designed to give you an edge in agent selection. Our system is optimized to work much faster than human reflexes.</system:String>
+	<system:String x:Key="AboutWarning">⚠️ This software is for educational and testing purposes only.</system:String>
+	<system:String x:Key="DevTeamTitle">Development Team</system:String>
+	<system:String x:Key="LeadDevRole">Lead Developer</system:String>
+	<system:String x:Key="UIDevRole">UI/UX Designer</system:String>
+
+	<system:String x:Key="WelcomeText">Welcome, </system:String>
+	<system:String x:Key="PlayerText">Player</system:String>
+	<system:String x:Key="DashboardSubtitle">Select your agent and lock in before anyone else!</system:String>
+	<system:String x:Key="StatusTitle">📊 Live Status</system:String>
+	<system:String x:Key="StateLabel">State:</system:String>
+	<system:String x:Key="StateLobby">Lobby</system:String>
+	<system:String x:Key="LevelLabel">Level:</system:String>
+	<system:String x:Key="StatusWaiting">Waiting for agent selection...</system:String>
+	<system:String x:Key="LockAgentBtn">LOCK AGENT</system:String>
+	<system:String x:Key="CancelBtn">CANCEL</system:String>
+
+	<system:String x:Key="MacrosTitle">⚙️ Advanced Macros</system:String>
+	<system:String x:Key="MacrosDesc">Configure your in-game automations here.</system:String>
+	<system:String x:Key="Macro1Title">Multi-Agent Lock</system:String>
+	<system:String x:Key="Macro1Desc">Priority for trying multiple agents in sequence.</system:String>
+	<system:String x:Key="Macro2Title">Anti-Ban Technique</system:String>
+	<system:String x:Key="Macro2Desc">Makes detection harder by adding human-like delays.</system:String>
+	<system:String x:Key="EnableBtn">Enable</system:String>
+
+	<system:String x:Key="SettingsConfigTitle">🛠️ Configuration</system:String>
+	<system:String x:Key="SettingsTargetAgent">Target Agent</system:String>
+	<system:String x:Key="SettingsLanguage">Language</system:String>
+	<system:String x:Key="SettingsAutoLock">Auto-lock when game is found</system:String>
+	<system:String x:Key="SettingsOnlySelect">Select Mode Only (No Lock)</system:String>
+	<system:String x:Key="SettingsSaveBtn">SAVE SETTINGS</system:String>
+	<system:String x:Key="SettingsConnectionTitle">🌐 Connection Status</system:String>
+	<system:String x:Key="ConnValorant">Valorant: Connected</system:String>
+	<system:String x:Key="ConnWebSocket">WebSocket: Inactive</system:String>
+	<system:String x:Key="ConnAPI">API: Waiting...</system:String>
+</ResourceDictionary>

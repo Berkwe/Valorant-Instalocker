@@ -1,12 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿<UserControl x:Class="Valorant_Instalocker.Views.MacrosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid x:Name="MacrosSection">
+        <StackPanel>
+            <TextBlock Text="{DynamicResource MacrosTitle}" Foreground="#EF4444" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+            <TextBlock Text="{DynamicResource MacrosDesc}" Foreground="#94A3B8" HorizontalAlignment="Center" Margin="0,0,0,25"/>
 
-namespace Valorant_Instalocker.Views
-{
-class MacrosView
-{
-}
-}
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource Macro1Title}" FontSize="18" FontWeight="Bold" Foreground="#EF4444" Margin="0,0,0,10"/>
+                        <TextBlock Text="{DynamicResource Macro1Desc}" TextWrapping="Wrap" Foreground="#CBD5E1" Margin="0,0,0,15"/>
+                        <CheckBox Content="{DynamicResource EnableBtn}" Foreground="White"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="10,0,0,0">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource Macro2Title}" FontSize="18" FontWeight="Bold" Foreground="#EF4444" Margin="0,0,0,10"/>
+                        <TextBlock Text="{DynamicResource Macro2Desc}" TextWrapping="Wrap" Foreground="#CBD5E1" Margin="0,0,0,15"/>
+                        <CheckBox Content="{DynamicResource EnableBtn}" IsChecked="True" Foreground="White"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>
