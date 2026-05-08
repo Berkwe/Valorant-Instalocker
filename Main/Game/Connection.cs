@@ -25,11 +25,10 @@ namespace Valorant_Instalocker.Main.Game
 
         }
 
-            public static async Task ConnectValorant(IProgress<string> progress = null)
+            public static async Task ConnectValorant()
             {
 
                 Log.Information("Valorant istemcisine bağlanılmaya çalışılıyor...");
-                progress?.Report("Valorant bekleniyor...");
 
             try
             {
@@ -38,15 +37,16 @@ namespace Valorant_Instalocker.Main.Game
                     return new Initiator(ignoreVpn: true);
                 });
                 AppStateManager.Instance.IsClientLoggedIn = true;
-                progress?.Report("Bağlantı başarılı!");
                 Log.Information("RadiantConnect başarıyla başlatıldı.");
+            }
+            catch (System.TimeoutException ex)
+            {
+                Log.Error(ex, "Giriş yapılırken hata: Valorant açık değil.");
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Initiator başlatılırken hata oluştu.");
-                progress?.Report("Hata: İstemci bulunamadı.");
+                Log.Error("Giriş yapılırken Bir Hata Oluştu : ", ex);
                 throw;
-
             }
         }
     }

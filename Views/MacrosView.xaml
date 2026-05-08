@@ -12,19 +12,9 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0" Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="0,0,10,0">
+                <Border Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="0,0,0,0" Grid.ColumnSpan="2">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource Macro1Title}" FontSize="18" FontWeight="Bold" Foreground="#EF4444" Margin="0,0,0,10"/>
-                        <TextBlock Text="{DynamicResource Macro1Desc}" TextWrapping="Wrap" Foreground="#CBD5E1" Margin="0,0,0,15"/>
-                        <CheckBox Content="{DynamicResource EnableBtn}" Foreground="White"/>
-                    </StackPanel>
-                </Border>
-
-                <Border Grid.Column="1" Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="10,0,0,0">
-                    <StackPanel>
-                        <TextBlock Text="{DynamicResource Macro2Title}" FontSize="18" FontWeight="Bold" Foreground="#EF4444" Margin="0,0,0,10"/>
-                        <TextBlock Text="{DynamicResource Macro2Desc}" TextWrapping="Wrap" Foreground="#CBD5E1" Margin="0,0,0,15"/>
-                        <CheckBox Content="{DynamicResource EnableBtn}" IsChecked="True" Foreground="White"/>
+                        <TextBlock Text="Coming Soon..." FontSize="18" FontWeight="Bold" Foreground="#EF4444" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Border>
             </Grid>

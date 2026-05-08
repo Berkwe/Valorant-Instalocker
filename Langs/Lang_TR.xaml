@@ -2,6 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
+    <system:String x:Key="HomeTab">Hızlı Seçim</system:String>
+    <system:String x:Key="MacrosTab">Makrolar</system:String>
+    <system:String x:Key="SettingsTab">Ayarlar</system:String>
+    <system:String x:Key="AboutTab">Hakkında</system:String>
+    
+    
 	<system:String x:Key="AboutTitle">Hakkında</system:String>
 	<system:String x:Key="AboutDesc">Valorant Instalocker, ajan seçiminde size avantaj sağlamak için tasarlanmış gelişmiş bir araçtır. Sistemimiz, insan reflekslerinden çok daha hızlı çalışacak şekilde optimize edilmiştir.</system:String>
 	<system:String x:Key="AboutWarning">⚠️ Bu yazılım sadece eğitim ve test amaçlıdır.</system:String>

@@ -34,7 +34,7 @@ namespace Valorant_Instalocker.Views
                 await AgentFetcher.UpdateAgents();
                 foreach (ValorantTables.Agent agent in AppStateManager.Agents.Keys)
                 {
-                    AddAgentImageToDashboard(AppStateManager.Agents[agent], ValorantTables.AgentToId[agent]);
+                    Utils.Helpers.AgentUIHelper.CreateAgentCard(AppStateManager.Agents[agent], ValorantTables.AgentToId[agent]);
                 }
 
             }
@@ -63,37 +63,7 @@ namespace Valorant_Instalocker.Views
             AgentsContainer.Children.Add(card);
         }
 
-        private void AgentCard_Click(object sender, MouseButtonEventArgs e)
-        {
-            Border selected = sender as Border;
-            foreach (Border b in AgentsContainer.Children)
-            {
-                b.BorderBrush = System.Windows.Media.Brushes.Transparent;
-                b.Effect = null;
-                b.RenderTransform = new ScaleTransform(1, 1);
-            }
-            if (selected.Tag.ToString() == _selectedAgent)
-            {
-                _selectedAgent = "";
-                ActionBtn.IsEnabled = false;
-                ActionBtn.Content = OnlySelectCheckBox.IsChecked == true ? $"SEÇ!" : $"KİLİTLE";
-                return;
-            }
-            selected.BorderBrush = (System.Windows.Media.Brush)new System.Windows.Media.BrushConverter().ConvertFrom("#EF4444");
-            selected.RenderTransform = new ScaleTransform(1.15, 1.15);
-            selected.Effect = new System.Windows.Media.Effects.DropShadowEffect
-            {
-                Color = System.Windows.Media.Color.FromRgb(239, 68, 68),
-                BlurRadius = 20,
-                ShadowDepth = 0,
-                Opacity = 0.8
-            };
-
-            _selectedAgent = selected.Tag.ToString();
-            ActionBtn.IsEnabled = true;
-            var selectedName = ValorantTables.AgentIdToAgent[_selectedAgent].ToString();
-            ActionBtn.Content = OnlySelectCheckBox.IsChecked == true ? $"{selectedName} SEÇ!" : $"{selectedName} KİLİTLE";
-        }
+        
 
 
 
