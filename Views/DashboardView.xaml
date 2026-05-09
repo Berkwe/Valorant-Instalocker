@@ -3,7 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Valorant_Instalocker" 
              xmlns:main="clr-namespace:Valorant_Instalocker.Main"
+ 
              >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+    </UserControl.Resources>
+    
     <Grid x:Name="DashboardSection">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -29,17 +34,51 @@
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0" Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="0,0,10,0">
-                <StackPanel>
+                <StackPanel HorizontalAlignment="Stretch">
                     <TextBlock Text="{DynamicResource StatusTitle}" Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,15"/>
                     <Rectangle Height="1" Fill="#334155" Margin="0,0,0,15"/>
                     <Grid Margin="0,0,0,10">
                         <TextBlock Text="{DynamicResource StateLabel}" Foreground="#94A3B8" HorizontalAlignment="Left"/>
-                        <TextBlock x:Name="GameStateText" Text="{DynamicResource StateLobby}" Foreground="#FACC15" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        <TextBlock x:Name="GameStateText" Text="{Binding Path=CurrentPhase, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" Foreground="#FACC15" FontWeight="Bold" HorizontalAlignment="Right"/>
                     </Grid>
                     <Grid Margin="0,0,0,10">
                         <TextBlock Text="{DynamicResource LevelLabel}" Foreground="#94A3B8" HorizontalAlignment="Left"/>
-                        <TextBlock x:Name="AccountLevelText" Text="--" Foreground="White" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        <TextBlock x:Name="AccountLevelText" Text="{Binding Path=CurrentPlayerLevel, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Right"/>
                     </Grid>
+
+                    <StackPanel Visibility="{Binding Path=IsInstalockRunning, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}" Margin="0,15,0,0" HorizontalAlignment="Center">
+                        <Rectangle Height="1" Fill="#334155" Margin="0,0,0,15"/>
+
+                        <Image Source="{Binding Path=SelectedAgentImage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" 
+                   Width="64" Height="64" RenderOptions.BitmapScalingMode="HighQuality"
+                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+                        <TextBlock Text="{Binding Path=SelectedAgentName, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" 
+                       Foreground="White" FontWeight="Bold" FontSize="13"
+                       HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+                        <TextBlock Text="{DynamicResource WaitingForAgentSelect}" 
+                       Foreground="#94A3B8" FontSize="11" TextWrapping="Wrap"
+                       HorizontalAlignment="Center" TextAlignment="Center" Margin="0,0,0,10"/>
+
+                        <Ellipse Width="24" Height="24" HorizontalAlignment="Center"
+                     Stroke="#EF4444" StrokeThickness="3" StrokeDashArray="6 2">
+                            <Ellipse.RenderTransform>
+                                <RotateTransform x:Name="SpinnerRotate" CenterX="12" CenterY="12"/>
+                            </Ellipse.RenderTransform>
+                            <Ellipse.Triggers>
+                                <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard RepeatBehavior="Forever">
+                                            <DoubleAnimation Storyboard.TargetName="SpinnerRotate"
+                                                 Storyboard.TargetProperty="Angle"
+                                                 From="0" To="360" Duration="0:0:1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Ellipse.Triggers>
+                        </Ellipse>
+                    </StackPanel>
                 </StackPanel>
             </Border>
 
@@ -69,7 +108,7 @@
                     <Button x:Name="ActionBtn" 
                         Grid.Row="2" 
                         Content="KİLİTLE"
-                        IsEnabled="{Binding Source={x:Static main:AppStateManager.Instance}, Path=IsClientLoggedIn}"
+                        IsEnabled="False"
                         Style="{StaticResource ModernButton}" 
                         Click="ActionBtn_Click" 
                         HorizontalAlignment="Center" 

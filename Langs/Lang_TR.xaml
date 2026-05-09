@@ -44,4 +44,13 @@
 	<system:String x:Key="ConnValorant">Valorant: Bağlı</system:String>
 	<system:String x:Key="ConnWebSocket">WebSocket: Pasif</system:String>
 	<system:String x:Key="ConnAPI">API: Bekleniyor...</system:String>
+
+    <system:String x:Key="PhaseIdle">Lobide</system:String>
+    <system:String x:Key="PhasePregame">Ajan Seçimi</system:String>
+    <system:String x:Key="PhaseIngame">Oyunda</system:String>
+    <system:String x:Key="PhaseUnknown">Bilinmiyor</system:String>
+
+    <system:String x:Key="ClientConnected">Bağlandı</system:String>
+    <system:String x:Key="ClientConnecting">Bağlanıyor...</system:String>
+    <system:String x:Key="WaitingForAgentSelect">Ajan seçim ekranı bekleniyor...</system:String>
 </ResourceDictionary>

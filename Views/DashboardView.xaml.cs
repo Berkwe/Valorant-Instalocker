@@ -1,69 +1,111 @@
-﻿using RadiantConnect;
-using RadiantConnect.Methods;
+﻿using RadiantConnect.Methods;
+using RadiantConnect.Services;
+using RadiantConnect.ValorantApi;
+using Serilog;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Valorant_Instalocker.Main;
 using Valorant_Instalocker.Main.API;
 using Valorant_Instalocker.Main.Game;
+using Valorant_Instalocker.Main.Helpers;
+using static RadiantConnect.ValorantApi.Agents;
 namespace Valorant_Instalocker.Views
 {
     public partial class DashboardView : UserControl
     {
         private string _selectedAgent = "";
-        public static readonly IReadOnlyDictionary<string, ValorantTables.Agent> IdToAgent = ValorantTables.AgentToId.ToDictionary(pair => pair.Value, pair => pair.Key);
+        private Border _activeCard = null;
+        private readonly Brush _selectColor = (Brush)new BrushConverter().ConvertFrom("#EF4444");
+        private static string GetPhaseString(string key) =>
+            Application.Current.FindResource(key) as string ?? key;
+
+        public static string TranslatePhase(string phase) => GetPhaseString(phase.ToLower() switch
+        {
+            "ıdle" or "menus" or "default" => "PhaseIdle",
+            "pregame" => "PhasePregame",
+            "ingame" or "gameplay" => "PhaseIngame",
+            _ => "PhaseUnknown"
+            
+        });
+
+
+        public static readonly IReadOnlyDictionary<string, ValorantTables.Agent> NameToAgent =
+            ValorantTables.AgentToId.ToDictionary(
+                pair => pair.Key.ToString(),
+                pair => pair.Key,
+                StringComparer.OrdinalIgnoreCase
+            );
+
+
+
+
         public DashboardView()
         {
             InitializeComponent();
-            InitializeDashboardScreen();
-
-            ActionBtn.IsEnabled = false;
-
-            Application.Current.Dispatcher.Invoke(() => {
-                AppStateManager.OnlySelect = OnlySelectCheckBox.IsChecked ?? false;
-            });
+            LoadAgents();
+            UpdateUIState(null, null);
         }
 
-        private async void InitializeDashboardScreen()
+        private async void LoadAgents()
         {
             try
             {
                 await AgentFetcher.UpdateAgents();
-                foreach (ValorantTables.Agent agent in AppStateManager.Agents.Keys)
-                {
-                    Utils.Helpers.AgentUIHelper.CreateAgentCard(AppStateManager.Agents[agent], ValorantTables.AgentToId[agent]);
-                }
+                var style = (Style)FindResource("AgentCardStyle");
 
+                foreach (var agent in AppStateManager.Agents)
+                {
+                    var card = AgentUIHelper.CreateAgentCard(agent.Value, agent.Key.ToString(), AgentCard_Click, style);
+                    AgentsContainer.Children.Add(card);
+                }
             }
             catch (Exception ex)
             {
+
+                Log.Error(ex.ToString());
+
             }
         }
 
-
-
-
-        private void AddAgentImageToDashboard(string url, string name)
+        private void AgentCard_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Border card = new Border { Style = (Style)FindResource("AgentCardStyle") };
-            Image img = new Image
+            if (!(sender is Border clickedCard)) return;
+
+            if (_activeCard != null) _activeCard.BorderBrush = Brushes.Transparent;
+
+            if (_activeCard == clickedCard)
             {
-                Source = new BitmapImage(new Uri(url, UriKind.Absolute)),
-                Stretch = System.Windows.Media.Stretch.UniformToFill,
-                Margin = new Thickness(2)
-            };
+                _activeCard = null;
+                _selectedAgent = null;
+                if (ActionBtn.IsEnabled) ActionBtn.IsEnabled = false;
+            }
+            else
+            {
+                if (AppStateManager.Instance.IsClientLoggedIn) ActionBtn.IsEnabled = true;
+                _activeCard = clickedCard;
+                _activeCard.BorderBrush = _selectColor;
+                _selectedAgent = _activeCard.Tag.ToString();
+            }
 
-            card.Child = img;
-            card.Tag = name;
-            card.MouseDown += AgentCard_Click;
-
-            AgentsContainer.Children.Add(card);
+            UpdateUIState(null, null);
         }
 
-        
+        private void UpdateUIState(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_selectedAgent))
+            {
+                ActionBtn.Content = "AJAN SEÇİN";
+                return;
+            }
+
+            string name = _selectedAgent.ToUpper();
+            string mode = OnlySelectCheckBox.IsChecked == true ? "SEÇ" : "KİLİTLE";
+            ActionBtn.Content = $"{name} {mode}";
+        }
+
+
 
 
 
@@ -74,18 +116,31 @@ namespace Valorant_Instalocker.Views
 
             if (OnlySelectCheckBox.IsChecked == true)
             {
+                AppStateManager.OnlySelect = true;
                 ActionBtn.Content = "SADECE SEÇ";
             }
             else
             {
+                AppStateManager.OnlySelect = false;
                 ActionBtn.Content = "KİLİTLE";
             }
         }
 
+
         private void ActionBtn_Click(object sender, RoutedEventArgs e)
         {
-            AppStateManager.SelectedAgent = IdToAgent[_selectedAgent];
+            if (AppStateManager.Instance.IsInstalockRunning) AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded -= Controller.GameControlHandler;
+            var SelectedAgent = NameToAgent[_selectedAgent];
+            AppStateManager.Instance.SelectedAgentName = _selectedAgent;
+            AppStateManager.Instance.SelectedAgentImage = AppStateManager.Agents[SelectedAgent].ToString();
+            AppStateManager.SelectedAgent = SelectedAgent;
+            if (AppStateManager.Instance.CurrentPhase.ToLower() == "pregame" || AppStateManager.Instance.CurrentPhase.ToLower() == "gameplay")
+            {
+                Controller.GameControlHandler();
+                return;
+            }
             AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded += Controller.GameControlHandler;
+            AppStateManager.Instance.IsInstalockRunning = true;
         }
 
     }
