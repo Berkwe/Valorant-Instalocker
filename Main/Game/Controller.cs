@@ -18,7 +18,7 @@ namespace Valorant_Instalocker.Main.Game
         {
             await AppStateManager.initiator.Endpoints.PreGameEndpoints.SelectCharacterAsync(AppStateManager.SelectedAgent);
         }
-        public static async void GameControlHandler(string MatchID)
+        public static async void GameControlHandler(string MatchID = "")
         {
             try
             {
@@ -30,6 +30,8 @@ namespace Valorant_Instalocker.Main.Game
                 {
                     await LockAgent();
                 }
+                AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded -= Controller.GameControlHandler;
+                AppStateManager.Instance.IsInstalockRunning = false;
             }
             catch (Exception ex) {
             

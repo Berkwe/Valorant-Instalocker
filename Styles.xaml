@@ -61,15 +61,37 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="StatusCircle" TargetType="Ellipse">
+        <Setter Property="Width" Value="12"/>
+        <Setter Property="Height" Value="12"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsClientLoggedIn, Source={x:Static main:AppStateManager.Instance}}" Value="True">
+                <Setter Property="Fill" Value="#22C55E"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="#22C55E" BlurRadius="10" ShadowDepth="0" Opacity="0.8"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding IsClientLoggedIn, Source={x:Static main:AppStateManager.Instance}}" Value="False">
+                <Setter Property="Fill" Value="#94A3B8"/>
+                <Setter Property="Effect" Value="{x:Null}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    
+    <!-- ajan kartları -->
     <Style x:Key="AgentCardStyle" TargetType="Border">
-        <Setter Property="Width" Value="75"/>
-        <Setter Property="Height" Value="75"/>
-        <Setter Property="Margin" Value="8"/>
-        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Width" Value="85"/>
+        <Setter Property="Height" Value="85"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="CornerRadius" Value="10"/>
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Background" Value="#1E293B"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Background" Value="#0F172A"/>
         <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
         <Setter Property="RenderTransform">
             <Setter.Value>
@@ -79,11 +101,12 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#334155"/>
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.1" Duration="0:0:0.1"/>
-                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.1" Duration="0:0:0.1"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:0.1"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:0.1"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
@@ -96,27 +119,20 @@
                     </BeginStoryboard>
                 </Trigger.ExitActions>
             </Trigger>
-        </Style.Triggers>
-    </Style>
-    <Style x:Key="StatusCircle" TargetType="Ellipse">
-        <Setter Property="Width" Value="12"/>
-        <Setter Property="Height" Value="12"/>
-        <Style.Triggers>
-            <!-- ONLINE DURUMU -->
-            <DataTrigger Binding="{Binding IsClientLoggedIn, Source={x:Static main:AppStateManager.Instance}}" Value="True">
-                <Setter Property="Fill" Value="#22C55E"/>
+
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=BorderBrush.ToString}" Value="#FFEF4444">
                 <Setter Property="Effect">
                     <Setter.Value>
-                        <DropShadowEffect Color="#22C55E" BlurRadius="10" ShadowDepth="0" Opacity="0.8"/>
+                        <DropShadowEffect Color="#EF4444" BlurRadius="15" ShadowDepth="0" Opacity="0.7"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-
-            <!-- OFFLINE DURUMU -->
-            <DataTrigger Binding="{Binding IsClientLoggedIn, Source={x:Static main:AppStateManager.Instance}}" Value="False">
-                <Setter Property="Fill" Value="#94A3B8"/>
-                <Setter Property="Effect" Value="{x:Null}"/>
-            </DataTrigger>
         </Style.Triggers>
     </Style>
+
 </ResourceDictionary>
