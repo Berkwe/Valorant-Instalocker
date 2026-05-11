@@ -22,9 +22,9 @@ namespace Valorant_Instalocker.Main
         public static Dictionary<ValorantTables.Agent, string> Agents = new Dictionary<ValorantTables.Agent, string>();
         public static ValorantTables.Agent SelectedAgent;
         public static bool OnlySelect = false;
+        public string CurrentPhase = "";
 
         [ObservableProperty] private bool isInstalockRunning = false;
-
 
         [ObservableProperty] private string selectedAgentName = "";
         [ObservableProperty] private string selectedAgentImage = "";
@@ -33,7 +33,7 @@ namespace Valorant_Instalocker.Main
         [ObservableProperty] private bool isClientLoggedIn = false;
         
         [ObservableProperty] private string userName = "Player";
-        [ObservableProperty] private string currentPhase = "";
+        [ObservableProperty] private string currentPhaseTranslated = "";
         private static void InitializeLogger()
         {
             Log.Logger = new LoggerConfiguration()
@@ -60,11 +60,13 @@ namespace Valorant_Instalocker.Main
                 // phase alma ve evente ekleme
                 var CurrentPhase = await Connection.GetCurrentPhase();
                 var TranslatedPhase = DashboardView.TranslatePhase(CurrentPhase);
-                Instance.CurrentPhase = TranslatedPhase;
+                Instance.CurrentPhase = CurrentPhase;
+                Instance.CurrentPhaseTranslated = TranslatedPhase;
                 initiator.TcpEvents.OnGameStateChanged += (string phase) =>
                 {
                     var EventTranslatedPhase = DashboardView.TranslatePhase(phase);
-                    AppStateManager.Instance.CurrentPhase = EventTranslatedPhase;
+                    Instance.CurrentPhase = phase;
+                    Instance.CurrentPhaseTranslated = EventTranslatedPhase;
 
                 };
 
