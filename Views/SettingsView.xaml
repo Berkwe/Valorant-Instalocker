@@ -18,32 +18,11 @@
                     <ComboBoxItem Content="English" Tag="EN"/>
                 </ComboBox>
 
-                <CheckBox x:Name="AutoLockCheckBox" Content="{DynamicResource SettingsAutoLock}" Foreground="#CBD5E1" Margin="0,0,0,10"/>
-                <CheckBox Content="{DynamicResource SettingsOnlySelect}" Foreground="#CBD5E1" Margin="0,0,0,20"/>
-
-                <Button Content="{DynamicResource SettingsSaveBtn}" Style="{StaticResource ModernButton}" Click="SettingsSaveBtn_Click" HorizontalAlignment="Left" Padding="20,10"/>
+                
+                <Button Content="{DynamicResource SettingsSaveBtn}" Style="{StaticResource ModernButton}" Click="SettingsSaveBtn_Click" HorizontalAlignment="Right" Padding="20,10"/>
             </StackPanel>
         </Border>
 
-        <Border Grid.Column="1" Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="10,0,0,0" VerticalAlignment="Top">
-            <StackPanel>
-                <TextBlock Text="{DynamicResource SettingsConnectionTitle}" FontSize="20" FontWeight="Bold" Foreground="White" Margin="0,0,0,20"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                    <Ellipse Width="12" Height="12" Fill="#22C55E" Margin="0,0,10,0"/>
-                    <TextBlock Text="{DynamicResource ConnValorant}" Foreground="#CBD5E1" FontSize="14"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                    <Ellipse Width="12" Height="12" Fill="#EF4444" Margin="0,0,10,0"/>
-                    <TextBlock Text="{DynamicResource ConnWebSocket}" Foreground="#CBD5E1" FontSize="14"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
-                    <Ellipse Width="12" Height="12" Fill="#FACC15" Margin="0,0,10,0"/>
-                    <TextBlock Text="{DynamicResource ConnAPI}" Foreground="#CBD5E1" FontSize="14"/>
-                </StackPanel>
-            </StackPanel>
-        </Border>
+     
     </Grid>
 </UserControl>

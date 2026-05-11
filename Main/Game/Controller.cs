@@ -1,11 +1,13 @@
-﻿using RadiantConnect.Methods;
+﻿using RadiantConnect;
+using RadiantConnect.Methods;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
-using Serilog;
+using Valorant_Instalocker.Views;
 
 namespace Valorant_Instalocker.Main.Game
 {
@@ -102,6 +104,20 @@ namespace Valorant_Instalocker.Main.Game
             AppStateManager.Instance.IsInstalockRunning = false;
 
             Log.Information("[CancelControlHandler] İptal işlemi başarıyla tamamlandı. State sıfırlandı.");
+        }
+
+        public static async Task QuitPreGame()
+        {
+            try
+            {
+                await AppStateManager.initiator.Endpoints.PreGameEndpoints.QuitGameAsync();
+            }
+            catch (RadiantConnectNetworkStatusException)
+            {
+
+
+            }
+
         }
     }
 }

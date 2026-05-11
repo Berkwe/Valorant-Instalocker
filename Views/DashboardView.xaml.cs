@@ -45,7 +45,6 @@ namespace Valorant_Instalocker.Views
         {
             InitializeComponent();
             LoadAgents();
-            UpdateUIState(null, null);
         }
 
         private async void LoadAgents()
@@ -89,20 +88,6 @@ namespace Valorant_Instalocker.Views
                 _selectedAgent = _activeCard.Tag.ToString();
             }
 
-            UpdateUIState(null, null);
-        }
-
-        private void UpdateUIState(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(_selectedAgent))
-            {
-                ActionBtn.Content = "AJAN SEÇİN";
-                return;
-            }
-
-            string name = _selectedAgent.ToUpper();
-            string mode = OnlySelectCheckBox.IsChecked == true ? "SEÇ" : "KİLİTLE";
-            ActionBtn.Content = $"{name} {mode}";
         }
 
 
@@ -117,18 +102,18 @@ namespace Valorant_Instalocker.Views
             if (OnlySelectCheckBox.IsChecked == true)
             {
                 AppStateManager.OnlySelect = true;
-                ActionBtn.Content = "SADECE SEÇ";
             }
             else
             {
                 AppStateManager.OnlySelect = false;
-                ActionBtn.Content = "KİLİTLE";
             }
         }
 
 
         private void ActionBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (ActionBtn == null) return;
+
             var SelectedAgent = NameToAgent[_selectedAgent];
             var SelectedAgentName = _selectedAgent;
             var SelectedAgentImageURL = AppStateManager.Agents[SelectedAgent].ToString();
@@ -137,7 +122,16 @@ namespace Valorant_Instalocker.Views
 
         private void CancelInstalockAction_Click(object sender, RoutedEventArgs e)
         {
+            if (CancelInstalockAction == null) return;
+
             Controller.CancelControlHandler();
+        }
+
+        private async void QuitPreGameAction_Click(object sender, RoutedEventArgs e)
+        {
+            if (QuitPreGameAction == null) return;
+            await Controller.QuitPreGame();
+            AppStateManager.Instance.QuitPreGameBtnBool = false;
         }
     }
 }

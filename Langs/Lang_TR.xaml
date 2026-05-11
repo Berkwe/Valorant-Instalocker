@@ -23,10 +23,13 @@
 	<system:String x:Key="StateLobby">Lobi</system:String>
 	<system:String x:Key="LevelLabel">Seviye:</system:String>
 	<system:String x:Key="StatusWaiting">Ajan seçimi bekleniyor...</system:String>
-	<system:String x:Key="LockAgentBtn">AJANI KİLİTLE</system:String>
-	<system:String x:Key="CancelBtn">İPTAL</system:String>
+    <system:String x:Key="LockAgentBtn">Ajanı Kilitle</system:String>
+    <system:String x:Key="OnlySelectCheckBox">Sadece Seç</system:String>
+    <system:String x:Key="CancelBtn">İptal ET</system:String>
+    <system:String x:Key="QuitPreGameBtn">Oyunu Boz</system:String>
 
-	<system:String x:Key="MacrosTitle">⚙️ Gelişmiş Macrolar</system:String>
+
+    <system:String x:Key="MacrosTitle">⚙️ Gelişmiş Makrolar</system:String>
 	<system:String x:Key="MacrosDesc">Oyun içi otomasyonlarınızı buradan yapılandırın.</system:String>
 	<system:String x:Key="Macro1Title">Multi-Agent Lock</system:String>
 	<system:String x:Key="Macro1Desc">Sırasıyla birden fazla ajan deneme önceliği.</system:String>

@@ -22,8 +22,10 @@
 	<system:String x:Key="StateLobby">Lobby</system:String>
 	<system:String x:Key="LevelLabel">Level:</system:String>
 	<system:String x:Key="StatusWaiting">Waiting for agent selection...</system:String>
-	<system:String x:Key="LockAgentBtn">LOCK AGENT</system:String>
-	<system:String x:Key="CancelBtn">CANCEL</system:String>
+    <system:String x:Key="LockAgentBtn">Lock Agent</system:String>
+    <system:String x:Key="OnlySelectCheckBox">Only Select</system:String>
+    <system:String x:Key="CancelBtn">Cancel</system:String>
+    <system:String x:Key="QuitPreGameBtn">Break Game</system:String>
 
 	<system:String x:Key="MacrosTitle">⚙️ Advanced Macros</system:String>
 	<system:String x:Key="MacrosDesc">Configure your in-game automations here.</system:String>
