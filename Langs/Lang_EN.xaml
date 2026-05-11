@@ -16,7 +16,7 @@
 
 	<system:String x:Key="WelcomeText">Welcome, </system:String>
 	<system:String x:Key="PlayerText">Player</system:String>
-	<system:String x:Key="DashboardSubtitle">Select your agent and lock in before anyone else!</system:String>
+	<system:String x:Key="DashboardSubtitle">How are you today?</system:String>
 	<system:String x:Key="StatusTitle">📊 Live Status</system:String>
 	<system:String x:Key="StateLabel">State:</system:String>
 	<system:String x:Key="StateLobby">Lobby</system:String>
@@ -55,6 +55,6 @@
     <system:String x:Key="ClientConnected">Connected</system:String>
     <system:String x:Key="ClientConnecting">Connecting...</system:String>
 
-    <system:String x:Key="WaitingForAgentSelect">Ajan seçim ekranı bekleniyor...</system:String>
+    <system:String x:Key="WaitingForAgentSelect">Waiting for Agent Selection Screen...</system:String>
 
 </ResourceDictionary>

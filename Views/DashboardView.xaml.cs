@@ -129,19 +129,15 @@ namespace Valorant_Instalocker.Views
 
         private void ActionBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (AppStateManager.Instance.IsInstalockRunning) AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded -= Controller.GameControlHandler;
             var SelectedAgent = NameToAgent[_selectedAgent];
-            AppStateManager.Instance.SelectedAgentName = _selectedAgent;
-            AppStateManager.Instance.SelectedAgentImage = AppStateManager.Agents[SelectedAgent].ToString();
-            AppStateManager.SelectedAgent = SelectedAgent;
-            if (AppStateManager.Instance.CurrentPhase.ToLower() == "pregame" || AppStateManager.Instance.CurrentPhase.ToLower() == "gameplay")
-            {
-                Controller.GameControlHandler();
-                return;
-            }
-            AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded += Controller.GameControlHandler;
-            AppStateManager.Instance.IsInstalockRunning = true;
+            var SelectedAgentName = _selectedAgent;
+            var SelectedAgentImageURL = AppStateManager.Agents[SelectedAgent].ToString();
+            Controller.CreateInstalockGameHandler(SelectedAgent, SelectedAgentName, SelectedAgentImageURL);
         }
 
+        private void CancelInstalockAction_Click(object sender, RoutedEventArgs e)
+        {
+            Controller.CancelControlHandler();
+        }
     }
 }

@@ -39,14 +39,15 @@
                     <Rectangle Height="1" Fill="#334155" Margin="0,0,0,15"/>
                     <Grid Margin="0,0,0,10">
                         <TextBlock Text="{DynamicResource StateLabel}" Foreground="#94A3B8" HorizontalAlignment="Left"/>
-                        <TextBlock x:Name="GameStateText" Text="{Binding Path=CurrentPhase, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" Foreground="#FACC15" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        <TextBlock x:Name="GameStateText" Text="{Binding Path=CurrentPhaseTranslated, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" Foreground="#FACC15" FontWeight="Bold" HorizontalAlignment="Right"/>
                     </Grid>
                     <Grid Margin="0,0,0,10">
                         <TextBlock Text="{DynamicResource LevelLabel}" Foreground="#94A3B8" HorizontalAlignment="Left"/>
                         <TextBlock x:Name="AccountLevelText" Text="{Binding Path=CurrentPlayerLevel, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Right"/>
                     </Grid>
 
-                    <StackPanel Visibility="{Binding Path=IsInstalockRunning, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}" Margin="0,15,0,0" HorizontalAlignment="Center">
+
+                    <StackPanel Visibility="{Binding Path=IsInstalockRunning, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}{Binding Path=IsInstalockRunning, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}" Margin="0,15,0,0" HorizontalAlignment="Center">
                         <Rectangle Height="1" Fill="#334155" Margin="0,0,0,15"/>
 
                         <Image Source="{Binding Path=SelectedAgentImage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" 
@@ -78,8 +79,27 @@
                                 </EventTrigger>
                             </Ellipse.Triggers>
                         </Ellipse>
+                        <Button x:Name="CancelInstalockAction" 
+                            Grid.Row="2" 
+                            Margin="0, 20, 0, 0"
+                            Content="{DynamicResource CancelBtn}"
+                            IsEnabled="True"
+                            Style="{StaticResource ModernButton}" 
+                            Click="CancelInstalockAction_Click"
+                            HorizontalAlignment="Center" 
+                        Width="130"/>           
                     </StackPanel>
+
+                    <StackPanel>
+                        
+                        
+                        
+                    </StackPanel>
+                    
+                    
+                
                 </StackPanel>
+                
             </Border>
 
             <Border Grid.Column="1" Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="10,0,0,0">
