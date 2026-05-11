@@ -47,7 +47,7 @@
                     </Grid>
 
 
-                    <StackPanel Visibility="{Binding Path=IsInstalockRunning, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}{Binding Path=IsInstalockRunning, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}" Margin="0,15,0,0" HorizontalAlignment="Center">
+                    <StackPanel Visibility="{Binding Path=IsInstalockRunning, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}" Margin="0,15,0,0" HorizontalAlignment="Center">
                         <Rectangle Height="1" Fill="#334155" Margin="0,0,0,15"/>
 
                         <Image Source="{Binding Path=SelectedAgentImage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" 
