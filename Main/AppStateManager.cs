@@ -22,7 +22,13 @@ namespace Valorant_Instalocker.Main
         public static Dictionary<ValorantTables.Agent, string> Agents = new Dictionary<ValorantTables.Agent, string>();
         public static ValorantTables.Agent SelectedAgent;
         public static bool OnlySelect = false;
-        public string CurrentPhase = "";
+        [ObservableProperty] private string currentPhase = "";
+
+        public Visibility AgentPickTableVisibility =>
+            (!Instance.IsInstalockRunning && (Instance.CurrentPhase == "pregame" || Instance.CurrentPhase == "gameplay"))
+                ? Visibility.Visible : Visibility.Collapsed;
+
+        [ObservableProperty] public bool quitPreGameBtnBool = false;
 
         [ObservableProperty] private bool isInstalockRunning = false;
 
@@ -34,6 +40,21 @@ namespace Valorant_Instalocker.Main
         
         [ObservableProperty] private string userName = "Player";
         [ObservableProperty] private string currentPhaseTranslated = "";
+
+
+        partial void OnIsInstalockRunningChanged(bool value)
+        {
+            OnPropertyChanged(nameof(AgentPickTableVisibility));
+        }
+
+        partial void OnCurrentPhaseChanged(string value)
+        {
+            OnPropertyChanged(nameof(AgentPickTableVisibility));
+            Instance.QuitPreGameBtnBool = true;
+        }
+
+
+
         private static void InitializeLogger()
         {
             Log.Logger = new LoggerConfiguration()
@@ -60,12 +81,12 @@ namespace Valorant_Instalocker.Main
                 // phase alma ve evente ekleme
                 var CurrentPhase = await Connection.GetCurrentPhase();
                 var TranslatedPhase = DashboardView.TranslatePhase(CurrentPhase);
-                Instance.CurrentPhase = CurrentPhase;
+                Instance.CurrentPhase = CurrentPhase.ToLower();
                 Instance.CurrentPhaseTranslated = TranslatedPhase;
                 initiator.TcpEvents.OnGameStateChanged += (string phase) =>
                 {
                     var EventTranslatedPhase = DashboardView.TranslatePhase(phase);
-                    Instance.CurrentPhase = phase;
+                    Instance.CurrentPhase = phase.ToLower();
                     Instance.CurrentPhaseTranslated = EventTranslatedPhase;
 
                 };

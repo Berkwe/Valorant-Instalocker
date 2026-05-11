@@ -48,7 +48,7 @@
 
 
                     <StackPanel Visibility="{Binding Path=IsInstalockRunning, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}" Margin="0,15,0,0" HorizontalAlignment="Center">
-                        <Rectangle Height="1" Fill="#334155" Margin="0,0,0,15"/>
+                        <Rectangle Height="1" Fill="#334155" Margin="0,5,0,15"/>
 
                         <Image Source="{Binding Path=SelectedAgentImage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" 
                    Width="64" Height="64" RenderOptions.BitmapScalingMode="HighQuality"
@@ -87,21 +87,26 @@
                             Style="{StaticResource ModernButton}" 
                             Click="CancelInstalockAction_Click"
                             HorizontalAlignment="Center" 
-                        Width="130"/>           
+                        Width="130"/>
                     </StackPanel>
 
-                    <StackPanel>
-                        
-                        
-                        
+                    <StackPanel Visibility="{Binding Path=AgentPickTableVisibility, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}">
+
+                        <Rectangle Height="1" Fill="#334155" Margin="0,5,0,15"/>
+
+                        <Button x:Name="QuitPreGameAction" 
+                            Grid.Row="2" 
+                            Margin="0, 20, 0, 0"
+                            Content="{DynamicResource QuitPreGameBtn}"
+                            IsEnabled="{Binding Path=QuitPreGameBtnBool, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}"
+                            Style="{StaticResource ModernButton}" 
+                            Click="QuitPreGameAction_Click"
+                            HorizontalAlignment="Center"
+                        Width="130"/>
+
                     </StackPanel>
-                    
-                    
-                
                 </StackPanel>
-                
             </Border>
-
             <Border Grid.Column="1" Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="10,0,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -116,7 +121,7 @@
 
                     <CheckBox x:Name="OnlySelectCheckBox" 
                               Grid.Row="1" 
-                              Content="Sadece Seç" 
+                              Content="{DynamicResource OnlySelectCheckBox}" 
                               Foreground="#CBD5E1" 
                               FontSize="14"
                               Cursor="Hand"
@@ -127,7 +132,7 @@
 
                     <Button x:Name="ActionBtn" 
                         Grid.Row="2" 
-                        Content="KİLİTLE"
+                        Content="{DynamicResource LockAgentBtn}"
                         IsEnabled="False"
                         Style="{StaticResource ModernButton}" 
                         Click="ActionBtn_Click" 
