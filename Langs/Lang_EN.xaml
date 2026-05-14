@@ -35,17 +35,13 @@
 	<system:String x:Key="Macro2Desc">Makes detection harder by adding human-like delays.</system:String>
 	<system:String x:Key="EnableBtn">Enable</system:String>
 
-	<system:String x:Key="SettingsConfigTitle">🛠️ Configuration</system:String>
-	<system:String x:Key="SettingsTargetAgent">Target Agent</system:String>
-	<system:String x:Key="SettingsLanguage">Language</system:String>
-	<system:String x:Key="SettingsAutoLock">Auto-lock when game is found</system:String>
-	<system:String x:Key="SettingsOnlySelect">Select Mode Only (No Lock)</system:String>
-	<system:String x:Key="SettingsSaveBtn">SAVE SETTINGS</system:String>
-	<system:String x:Key="SettingsConnectionTitle">🌐 Connection Status</system:String>
-	<system:String x:Key="ConnValorant">Valorant: Connected</system:String>
-	<system:String x:Key="ConnWebSocket">WebSocket: Inactive</system:String>
-	<system:String x:Key="ConnAPI">API: Waiting...</system:String>
-
+    <system:String x:Key="SettingsConfigTitle">🛠️ Configuration</system:String>
+    <system:String x:Key="SettingsThemesConfig">Themes</system:String>
+    <system:String x:Key="SettingsDarkTheme">Dark</system:String>
+    <system:String x:Key="SettingsLightTheme">Light</system:String>
+    <system:String x:Key="SettingsCustomTheme">Custom</system:String>
+    <system:String x:Key="SettingsLanguage">Language</system:String>
+    <system:String x:Key="SettingsSaveBtn">SAVE SETTINGS</system:String>
     <system:String x:Key="PhaseIdle">In Lobby</system:String>
     <system:String x:Key="PhasePregame">Agent Selection</system:String>
     <system:String x:Key="PhaseIngame">In Game</system:String>

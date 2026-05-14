@@ -75,6 +75,13 @@ namespace Valorant_Instalocker.Views
         {
             ConfigManager.SaveSettings(AppStateManager.CurrentUserSettings);
         }
+
+        private void ThemeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e) {  
+        
+        
+        
+        }
+
     }
 
 }

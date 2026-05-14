@@ -7,22 +7,29 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="0,0,10,0">
+        <Border Grid.Column="0"  Background="{DynamicResource SurfaceBackground}" CornerRadius="12" BorderBrush="{DynamicResource DefaultBorder}" BorderThickness="1" Padding="20" Margin="0,0,10,0">
             <StackPanel>
 
 
-                <TextBlock Text="{DynamicResource SettingsLanguage}" Foreground="#94A3B8" FontWeight="Bold" Margin="0,0,0,5"/>
-                <ComboBox x:Name="LanguageComboBox" Background="#0F172A" Foreground="Black" FontSize="14" Padding="8" Margin="0,0,0,20" SelectionChanged="LanguageCombo_SelectionChanged">
-                    
+                <TextBlock Text="{DynamicResource SettingsLanguage}" Foreground="{DynamicResource TextSecondary}" FontWeight="Bold" Margin="0,0,0,5"/>
+                <ComboBox x:Name="LanguageComboBox" Style="{StaticResource InstalockerComboBoxStyle}"  FontSize="14" Padding="8" Margin="0,0,0,20" SelectionChanged="LanguageCombo_SelectionChanged">
+
                     <ComboBoxItem Content="Türkçe" IsSelected="True" Tag="TR"/>
                     <ComboBoxItem Content="English" Tag="EN"/>
                 </ComboBox>
 
-                
+                <TextBlock Text="{DynamicResource SettingsThemesConfig}" Foreground="{DynamicResource TextSecondary}" FontWeight="Bold" Margin="0,0,0,5"/>
+                <ComboBox x:Name="ThemeComboBox" Style="{StaticResource InstalockerComboBoxStyle}" FontSize="14" Padding="8" Margin="0,0,0,20"  SelectionChanged="ThemeCombo_SelectionChanged">
+                    <ComboBoxItem Content="{DynamicResource SettingsDarkTheme}" IsSelected="True" Tag="dark"/>
+                    <ComboBoxItem Content="{DynamicResource SettingsLightTheme}"  Tag="light"/>
+                    <ComboBoxItem Content="{DynamicResource SettingsCustomTheme}" Tag="custom"/>
+                </ComboBox>
+
+
                 <Button Content="{DynamicResource SettingsSaveBtn}" Style="{StaticResource ModernButton}" Click="SettingsSaveBtn_Click" HorizontalAlignment="Right" Padding="20,10"/>
             </StackPanel>
         </Border>
 
-     
+
     </Grid>
 </UserControl>
