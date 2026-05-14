@@ -38,15 +38,13 @@
 	<system:String x:Key="EnableBtn">Aktif Et</system:String>
 
 	<system:String x:Key="SettingsConfigTitle">🛠️ Yapılandırma</system:String>
-	<system:String x:Key="SettingsTargetAgent">Hedef Ajan</system:String>
-	<system:String x:Key="SettingsLanguage">Dil (Language)</system:String>
-	<system:String x:Key="SettingsAutoLock">Oyun bulunduğunda otomatik kilitle</system:String>
-	<system:String x:Key="SettingsOnlySelect">Sadece Seçim Modu (Kilitlemez)</system:String>
-	<system:String x:Key="SettingsSaveBtn">AYARLARI KAYDET</system:String>
-	<system:String x:Key="SettingsConnectionTitle">🌐 Bağlantı Durumu</system:String>
-	<system:String x:Key="ConnValorant">Valorant: Bağlı</system:String>
-	<system:String x:Key="ConnWebSocket">WebSocket: Pasif</system:String>
-	<system:String x:Key="ConnAPI">API: Bekleniyor...</system:String>
+    <system:String x:Key="SettingsThemesConfig">Tema</system:String>
+    <system:String x:Key="SettingsDarkTheme">Koyu</system:String>
+    <system:String x:Key="SettingsLightTheme">Açık</system:String>
+    <system:String x:Key="SettingsCustomTheme">Özel</system:String>
+    <system:String x:Key="SettingsLanguage">Dil (Language)</system:String>
+    <system:String x:Key="SettingsSaveBtn">AYARLARI KAYDET</system:String>
+
 
     <system:String x:Key="PhaseIdle">Lobide</system:String>
     <system:String x:Key="PhasePregame">Ajan Seçimi</system:String>

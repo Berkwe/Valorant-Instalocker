@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid x:Name="MacrosSection">
         <StackPanel>
-            <TextBlock Text="{DynamicResource MacrosTitle}" Foreground="#EF4444" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
-            <TextBlock Text="{DynamicResource MacrosDesc}" Foreground="#94A3B8" HorizontalAlignment="Center" Margin="0,0,0,25"/>
+            <TextBlock Text="{DynamicResource MacrosTitle}" Foreground="{DynamicResource AccentPrimary}" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+            <TextBlock Text="{DynamicResource MacrosDesc}" Foreground="{DynamicResource TextSecondary}" HorizontalAlignment="Center" Margin="0,0,0,25"/>
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -12,9 +12,9 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="20" Margin="0,0,0,0" Grid.ColumnSpan="2">
+                <Border Background="{DynamicResource SurfaceBackground}" CornerRadius="12" BorderBrush="{DynamicResource DefaultBorder}" BorderThickness="1" Padding="20" Margin="0,0,0,0" Grid.ColumnSpan="2">
                     <StackPanel>
-                        <TextBlock Text="Coming Soon..." FontSize="18" FontWeight="Bold" Foreground="#EF4444" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Coming Soon..." FontSize="18" FontWeight="Bold" Foreground="{DynamicResource AccentPrimary}" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Border>
             </Grid>

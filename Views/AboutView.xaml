@@ -1,41 +1,41 @@
 ﻿<UserControl x:Class="Valorant_Instalocker.Views.AboutView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<Grid x:Name="AboutSection">
-		<Border Background="#1E293B" CornerRadius="12" BorderBrush="#334155" BorderThickness="1" Padding="30">
-			<StackPanel>
-				<TextBlock Text="{DynamicResource AboutTitle}" Foreground="#EF4444" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
-				<TextBlock Text="{DynamicResource AboutDesc}" Foreground="#CBD5E1" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,10"/>
-				<TextBlock Text="{DynamicResource AboutWarning}" Foreground="#FACC15" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+    <Grid x:Name="AboutSection">
+        <Border Background="{DynamicResource SurfaceBackground}" CornerRadius="12" BorderBrush="{DynamicResource DefaultBorder}" BorderThickness="1" Padding="30">
+            <StackPanel>
+                <TextBlock Text="{DynamicResource AboutTitle}" Foreground="{DynamicResource AccentPrimary}" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                <TextBlock Text="{DynamicResource AboutDesc}" Foreground="{DynamicResource TextMuted}" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,10"/>
+                <TextBlock Text="{DynamicResource AboutWarning}" Foreground="{DynamicResource AccentWarning}" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,30"/>
 
-				<Rectangle Height="1" Fill="#334155" Margin="0,0,0,20"/>
-				<TextBlock Text="{DynamicResource DevTeamTitle}" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
+                <Rectangle Height="1" Fill="{DynamicResource SeparatorBrush}" Margin="0,0,0,20"/>
+                <TextBlock Text="{DynamicResource DevTeamTitle}" Foreground="{DynamicResource TextPrimary}" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
 
-				<StackPanel Orientation="Horizontal">
-					<Border Background="#0F172A" CornerRadius="8" Padding="15" Margin="0,0,10,0" Width="180">
-						<StackPanel Orientation="Horizontal">
-							<Border Background="#EF4444" CornerRadius="20" Width="40" Height="40" Margin="0,0,10,0">
-								<TextBlock Text="BW" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-							</Border>
-							<StackPanel VerticalAlignment="Center">
-								<TextBlock Text="Berkwe" Foreground="White" FontWeight="Bold"/>
-								<TextBlock Text="{DynamicResource LeadDevRole}" Foreground="#94A3B8" FontSize="11"/>
-							</StackPanel>
-						</StackPanel>
-					</Border>
-					<Border Background="#0F172A" CornerRadius="8" Padding="15" Margin="0,0,10,0" Width="180">
-						<StackPanel Orientation="Horizontal">
-							<Border Background="#8B5CF6" CornerRadius="20" Width="40" Height="40" Margin="0,0,10,0">
-								<TextBlock Text="AS" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-							</Border>
-							<StackPanel VerticalAlignment="Center">
-								<TextBlock Text="Asistan" Foreground="White" FontWeight="Bold"/>
-								<TextBlock Text="{DynamicResource UIDevRole}" Foreground="#94A3B8" FontSize="11"/>
-							</StackPanel>
-						</StackPanel>
-					</Border>
-				</StackPanel>
-			</StackPanel>
-		</Border>
-	</Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Border Background="{DynamicResource AppBackground}" CornerRadius="8" Padding="15" Margin="0,0,10,0" Width="180">
+                        <StackPanel Orientation="Horizontal">
+                            <Border Background="{DynamicResource AccentPrimary}" CornerRadius="20" Width="40" Height="40" Margin="0,0,10,0">
+                                <TextBlock Text="BW" Foreground="{DynamicResource TextPrimary}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="Berkwe" Foreground="{DynamicResource TextPrimary}" FontWeight="Bold"/>
+                                <TextBlock Text="{DynamicResource LeadDevRole}" Foreground="{DynamicResource TextSecondary}" FontSize="11"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="{DynamicResource AppBackground}" CornerRadius="8" Padding="15" Margin="0,0,10,0" Width="180">
+                        <StackPanel Orientation="Horizontal">
+                            <Border Background="{DynamicResource AccentSecondary}" CornerRadius="20" Width="40" Height="40" Margin="0,0,10,0">
+                                <TextBlock Text="AS" Foreground="{DynamicResource TextPrimary}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="Asistan" Foreground="{DynamicResource TextPrimary}" FontWeight="Bold"/>
+                                <TextBlock Text="{DynamicResource UIDevRole}" Foreground="{DynamicResource TextSecondary}" FontSize="11"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
 </UserControl>
