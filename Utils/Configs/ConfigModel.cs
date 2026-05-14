@@ -3,6 +3,7 @@ namespace Valorant_Instalocker.Utils.Configs
 {
     public record UserSettings
     {
-        public string Language { get; set; } = Languages.english; // [cite: 31]
+        public string Language { get; set; } = Languages.english; 
+        public string Theme { get; set; } = "dark";
     }
 }

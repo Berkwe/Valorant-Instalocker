@@ -19,27 +19,7 @@ namespace Valorant_Instalocker
 
         }
 
-        // Pencereyi sürüklemek için
-        private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                this.DragMove();
-            }
-        }
-
-        // Pencereyi aşağıya indirmek için
-        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
-
-        // Pencereyi kapatmak için
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
+      
 
         private void SwitchTab_Click(object sender, RoutedEventArgs e)
         {

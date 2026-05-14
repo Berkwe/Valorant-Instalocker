@@ -22,7 +22,7 @@
                 <ComboBox x:Name="ThemeComboBox" Style="{StaticResource InstalockerComboBoxStyle}" FontSize="14" Padding="8" Margin="0,0,0,20"  SelectionChanged="ThemeCombo_SelectionChanged">
                     <ComboBoxItem Content="{DynamicResource SettingsDarkTheme}" IsSelected="True" Tag="dark"/>
                     <ComboBoxItem Content="{DynamicResource SettingsLightTheme}"  Tag="light"/>
-                    <ComboBoxItem Content="{DynamicResource SettingsCustomTheme}" Tag="custom"/>
+                    <!-- <ComboBoxItem Content="{DynamicResource SettingsCustomTheme}" Tag="custom"/> -->
                 </ComboBox>
 
 

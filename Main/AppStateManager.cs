@@ -66,6 +66,7 @@ namespace Valorant_Instalocker.Main
             )
             .CreateLogger();
             Log.Information("Instalocker Başladı..");
+            
 
         }
         public static async void Initialize()
@@ -95,6 +96,8 @@ namespace Valorant_Instalocker.Main
                 Instance.CurrentPlayerLevel = await Connection.GetCurrentPlayerLevel();
 
             }
+
+
         }
 
     }
