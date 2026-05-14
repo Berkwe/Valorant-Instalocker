@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:main="clr-namespace:Valorant_Instalocker.Main"
         Title="VALO.HUB - Instalocker" Height="650" Width="950"
-        Background="#0F172A" WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource AppBackground}" WindowStartupLocation="CenterScreen"
         
         FontFamily="Segoe UI">
 
@@ -16,7 +16,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Background="#1E293B" BorderBrush="#334155" BorderThickness="0,0,0,1">
+        <Border Grid.Row="0" Background="{DynamicResource SurfaceBackground}" BorderBrush="{DynamicResource DefaultBorder}" BorderThickness="0,0,0,1">
             <Grid Margin="20,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -24,8 +24,8 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <Border Background="#EF4444" Width="36" Height="36" CornerRadius="8" Margin="0,0,10,0">
-                        <TextBlock Text="🎯" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                    <Border Background="{DynamicResource AccentPrimary}" Width="36" Height="36" CornerRadius="8" Margin="0,0,10,0">
+                        <TextBlock Text="🎯" Foreground="{DynamicResource TextPrimary}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
                     </Border>
                     <TextBlock Text="INSTALOCKER" FontSize="22" FontWeight="Black" VerticalAlignment="Center">
                         <TextBlock.Foreground>
@@ -38,7 +38,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button x:Name="BtnNavDashboard" Content="{DynamicResource HomeTab}" Style="{StaticResource TabButton}" Foreground="#EF4444" BorderBrush="#EF4444" Click="SwitchTab_Click"/>
+                    <Button x:Name="BtnNavDashboard" Content="{DynamicResource HomeTab}" Style="{StaticResource TabButton}" Foreground="{DynamicResource AccentPrimary}" BorderBrush="{DynamicResource AccentPrimary}" Click="SwitchTab_Click"/>
                     <Button x:Name="BtnNavMacros" Content="{DynamicResource MacrosTab}" Style="{StaticResource TabButton}" Click="SwitchTab_Click"/>
                     <Button x:Name="BtnNavSettings" Content="{DynamicResource SettingsTab}" Style="{StaticResource TabButton}" Click="SwitchTab_Click"/>
                     <Button x:Name="BtnNavAbout" Content="{DynamicResource AboutTab}" Style="{StaticResource TabButton}" Margin="0" Click="SwitchTab_Click"/>
@@ -51,28 +51,55 @@
 
         </Grid>
 
-        <Border Background="#334155" 
+        <Border Background="{DynamicResource SeparatorBrush}" 
             CornerRadius="20" 
             Padding="8" 
             Margin="0,0,5,5"
             HorizontalAlignment="Right" 
             VerticalAlignment="Bottom"
-            BorderBrush="#475569"
+            BorderBrush="{DynamicResource DefaultBorder}"
             BorderThickness="1" Grid.Row="1" RenderTransformOrigin="0.983,1.498">
             <StackPanel Orientation="Horizontal">
                 <Ellipse Style="{StaticResource StatusCircle}"/>
-                <TextBlock Foreground="White" FontSize="10" Margin="5,0,0,0" VerticalAlignment="Center">
+                <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="10" Margin="5,0,0,0" VerticalAlignment="Center">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Setter Property="Text" Value="{DynamicResource ClientConnecting}"/>
+                            <Setter Property="Opacity" Value="1"/>
+                            <Setter Property="MaxWidth" Value="200"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=IsClientLoggedIn, Source={x:Static main:AppStateManager.Instance}}" Value="True">
                                     <Setter Property="Text" Value="{DynamicResource ClientConnected}"/>
+
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                                 To="0" Duration="0:0:1.2" />
+                                                <DoubleAnimation Storyboard.TargetProperty="MaxWidth" 
+                                                 To="0" Duration="0:0:1.5">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <ExponentialEase Exponent="5" EasingMode="EaseInOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                                 To="1" Duration="0:0:0.4" />
+                                                <DoubleAnimation Storyboard.TargetProperty="MaxWidth" 
+                                                 To="200" Duration="0:0:0.4" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
-
                 </TextBlock>
             </StackPanel>
         </Border>

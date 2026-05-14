@@ -135,23 +135,44 @@
     <Style x:Key="StatusCircle" TargetType="Ellipse">
         <Setter Property="Width" Value="12"/>
         <Setter Property="Height" Value="12"/>
+        <!-- Varsayılan (Bağlı Değil) Durumu -->
+        <Setter Property="Fill" Value="{DynamicResource TextSecondary}"/>
+
         <Style.Triggers>
             <DataTrigger Binding="{Binding IsClientLoggedIn, Source={x:Static main:AppStateManager.Instance}}" Value="True">
                 <Setter Property="Fill" Value="{DynamicResource AccentSuccess}"/>
                 <Setter Property="Effect">
                     <Setter.Value>
-                        <DropShadowEffect Color="#22C55E" BlurRadius="10" ShadowDepth="0" Opacity="0.8"/>
+                        <!-- Işık efekti başta 0 saydamlıkta başlar -->
+                        <DropShadowEffect Color="#22C55E" BlurRadius="12" ShadowDepth="0" Opacity="0"/>
                     </Setter.Value>
                 </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IsClientLoggedIn, Source={x:Static main:AppStateManager.Instance}}" Value="False">
-                <Setter Property="Fill" Value="{DynamicResource TextSecondary}"/>
-                <Setter Property="Effect" Value="{x:Null}"/>
+
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!-- HTML Transition gibi 1.5 saniyede yavaşça yanma -->
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" 
+                                         To="0.8" Duration="0:0:1.5" />
+
+                            
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+
+                <DataTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!-- Bağlantı koparsa ışık hızlıca söner -->
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" 
+                                         To="0" Duration="0:0:0.3" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.ExitActions>
             </DataTrigger>
         </Style.Triggers>
     </Style>
 
-    <!-- ajan kartları -->
     <Style x:Key="AgentCardStyle" TargetType="Border">
         <Setter Property="Width" Value="85"/>
         <Setter Property="Height" Value="85"/>
@@ -244,7 +265,6 @@
                           IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">   
                             <ToggleButton.Template>
                                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                    <!-- ToggleButton'ın kendi görselini boşaltıyoruz, böylece beyaz hover efekti oluşmaz -->
                                     <Border Background="Transparent"/>
                                 </ControlTemplate>
                             </ToggleButton.Template>
@@ -303,6 +323,87 @@
                             <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="ScrollBarLineButton" TargetType="{x:Type RepeatButton}">
+        <Setter Property="Visibility" Value="Collapsed"/>
+    </Style>
+
+    <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border CornerRadius="3" Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0" Width="6" Margin="2,0"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="VerticalScrollBar" TargetType="{x:Type ScrollBar}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="18"/>
+                <RowDefinition Height="0.00001*"/>
+                <RowDefinition MaxHeight="18"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.RowSpan="3" CornerRadius="4" Background="Transparent" />
+
+            <RepeatButton Grid.Row="0" Style="{StaticResource ScrollBarLineButton}" Height="18" Command="ScrollBar.LineUpCommand" Content="M 0 4 L 8 4 L 4 0 Z" />
+
+            <Track x:Name="PART_Track" Grid.Row="1" IsDirectionReversed="true">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageUpCommand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0"/>
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Style="{StaticResource ScrollBarThumb}" Background="{DynamicResource TextMuted}" Margin="1,0,1,0"/>
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageDownCommand" Background="Transparent" BorderBrush="Transparent" BorderThickness="0"/>
+                </Track.IncreaseRepeatButton>
+            </Track>
+
+            <RepeatButton Grid.Row="2" Style="{StaticResource ScrollBarLineButton}" Height="18" Command="ScrollBar.LineDownCommand" Content="M 0 0 L 4 4 L 8 0 Z"/>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type ScrollBar}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Width" Value="10"/>
+                <Setter Property="Height" Value="Auto"/>
+                <Setter Property="Template" Value="{StaticResource VerticalScrollBar}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type ScrollViewer}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Grid.Column="0" Grid.Row="0" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" CanContentScroll="{TemplateBinding CanContentScroll}"/>
+                        <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1" Grid.Row="0" Minimum="0" Maximum="{TemplateBinding ScrollableHeight}" ViewportSize="{TemplateBinding ViewportHeight}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+                        <ScrollBar x:Name="PART_HorizontalScrollBar" Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Minimum="0" Maximum="{TemplateBinding ScrollableWidth}" ViewportSize="{TemplateBinding ViewportWidth}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
