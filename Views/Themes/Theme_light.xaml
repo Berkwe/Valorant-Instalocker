@@ -1,45 +1,25 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- Ana Arka Planlar -->
     <SolidColorBrush x:Key="AppBackground" Color="#F8FAFC"/>
-    <!-- Saf beyaz yerine Slate-50 -->
     <SolidColorBrush x:Key="SurfaceBackground" Color="#FFFFFF"/>
-    <!-- Kartlar tam beyaz, derinlik için -->
     <SolidColorBrush x:Key="SurfaceElevated" Color="#F1F5F9"/>
-    <!-- Hover/Input alanları -->
 
-    <!-- Kenarlıklar ve Ayraçlar -->
     <SolidColorBrush x:Key="DefaultBorder" Color="#E2E8F0"/>
-    <!-- Slate-200 -->
     <SolidColorBrush x:Key="SeparatorBrush" Color="#F1F5F9"/>
-    <!-- Slate-100 -->
 
-    <!-- Metin Renkleri -->
     <SolidColorBrush x:Key="TextPrimary" Color="#0F172A"/>
-    <!-- Slate-900 (Saf siyah değil) -->
     <SolidColorBrush x:Key="TextSecondary" Color="#475569"/>
-    <!-- Slate-600 -->
     <SolidColorBrush x:Key="TextMuted" Color="#94A3B8"/>
-    <!-- Slate-400 -->
-
-    <!-- Vurgu Renkleri (Açık temada daha canlı tutulur) -->
     <SolidColorBrush x:Key="AccentPrimary" Color="#FF4655"/>
-    <!-- Valorant Red -->
     <SolidColorBrush x:Key="AccentHover" Color="#FF5E6B"/>
-    <!-- Daha açık kırmızı -->
     <SolidColorBrush x:Key="AccentSecondary" Color="#7C3AED"/>
-    <!-- Mor avatar vurgusu -->
 
     <SolidColorBrush x:Key="DisabledBackground" Color="#E2E8F0"/>
     <SolidColorBrush x:Key="DisabledButon" Color="#94A3B8"/>
 
     <SolidColorBrush x:Key="AccentWarning" Color="#D97706"/>
-    <!-- Açık temada okunabilirlik için koyulaştırıldı -->
     <SolidColorBrush x:Key="AccentSuccess" Color="#16A34A"/>
-    <!-- Açık temada okunabilirlik için koyulaştırıldı -->
-
-    <!-- Gölgeler (Açık temanın modern görünmesi için ŞART) -->
     <Color x:Key="ShadowColor">#000000</Color>
 
 </ResourceDictionary>

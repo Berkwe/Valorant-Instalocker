@@ -16,6 +16,8 @@ namespace Valorant_Instalocker.Utils.Constants
         public static string LogsPath = Path.Combine(InstalockerPath, "Logs");
         public static string LogPath = Path.Combine(LogsPath, "Instalocker.log");
         public static string SettingsPath = Path.Combine(InstalockerPath, "settings.json");
+        public static string CachePath = Path.Combine(InstalockerPath, "Cache");
+        public static string CacheImagesPath = Path.Combine(CachePath, "Images");
         
 
     }

@@ -22,11 +22,14 @@ namespace Valorant_Instalocker.Main
         public static Dictionary<ValorantTables.Agent, string> Agents = new Dictionary<ValorantTables.Agent, string>();
         public static ValorantTables.Agent SelectedAgent;
         public static bool OnlySelect = false;
-        [ObservableProperty] private string currentPhase = "";
+
 
         public Visibility AgentPickTableVisibility =>
             (!Instance.IsInstalockRunning && (Instance.CurrentPhase == "pregame" || Instance.CurrentPhase == "gameplay"))
                 ? Visibility.Visible : Visibility.Collapsed;
+
+        [ObservableProperty] private bool isAgentLocked = false;
+        [ObservableProperty] private string currentPhase = "";
 
         [ObservableProperty] public bool quitPreGameBtnBool = false;
 
@@ -89,6 +92,8 @@ namespace Valorant_Instalocker.Main
                     var EventTranslatedPhase = DashboardView.TranslatePhase(phase);
                     Instance.CurrentPhase = phase.ToLower();
                     Instance.CurrentPhaseTranslated = EventTranslatedPhase;
+                    
+                    if (phase.ToLower() != "pregame") AppStateManager.Instance.IsAgentLocked = false;
 
                 };
 

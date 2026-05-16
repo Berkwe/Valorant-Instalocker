@@ -1,20 +1,43 @@
-﻿<UserControl x:Class="Valorant_Instalocker.Views.MacrosView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<UserControl
+    x:Class="Valorant_Instalocker.Views.MacrosView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid x:Name="MacrosSection">
         <StackPanel>
-            <TextBlock Text="{DynamicResource MacrosTitle}" Foreground="{DynamicResource AccentPrimary}" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
-            <TextBlock Text="{DynamicResource MacrosDesc}" Foreground="{DynamicResource TextSecondary}" HorizontalAlignment="Center" Margin="0,0,0,25"/>
+            <TextBlock
+                Margin="0,0,0,5"
+                HorizontalAlignment="Center"
+                FontSize="24"
+                FontWeight="Bold"
+                Foreground="{DynamicResource AccentPrimary}"
+                Text="{DynamicResource MacrosTitle}" />
+            <TextBlock
+                Margin="0,0,0,25"
+                HorizontalAlignment="Center"
+                Foreground="{DynamicResource TextSecondary}"
+                Text="{DynamicResource MacrosDesc}" />
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Border Background="{DynamicResource SurfaceBackground}" CornerRadius="12" BorderBrush="{DynamicResource DefaultBorder}" BorderThickness="1" Padding="20" Margin="0,0,0,0" Grid.ColumnSpan="2">
+                <Border
+                    Grid.ColumnSpan="2"
+                    Margin="0,0,0,0"
+                    Padding="20"
+                    Background="{DynamicResource SurfaceBackground}"
+                    BorderBrush="{DynamicResource DefaultBorder}"
+                    BorderThickness="1"
+                    CornerRadius="12">
                     <StackPanel>
-                        <TextBlock Text="Coming Soon..." FontSize="18" FontWeight="Bold" Foreground="{DynamicResource AccentPrimary}" HorizontalAlignment="Center"/>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource AccentPrimary}"
+                            Text="Coming Soon..." />
                     </StackPanel>
                 </Border>
             </Grid>

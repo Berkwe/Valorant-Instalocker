@@ -1,143 +1,431 @@
-﻿<UserControl x:Class="Valorant_Instalocker.Views.DashboardView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Valorant_Instalocker" 
-             xmlns:main="clr-namespace:Valorant_Instalocker.Main">
+﻿<UserControl
+    x:Class="Valorant_Instalocker.Views.DashboardView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:helpers="clr-namespace:Valorant_Instalocker.Main.Helpers"
+    xmlns:local="clr-namespace:Valorant_Instalocker"
+    xmlns:main="clr-namespace:Valorant_Instalocker.Main">
 
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     </UserControl.Resources>
 
     <Grid x:Name="DashboardSection">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Background="{DynamicResource SurfaceBackground}" CornerRadius="12" BorderBrush="{DynamicResource DefaultBorder}" BorderThickness="1" Padding="20" Margin="0,0,0,20">
+        <Border
+            Margin="0,0,0,20"
+            Padding="20"
+            Background="{DynamicResource SurfaceBackground}"
+            BorderBrush="{DynamicResource DefaultBorder}"
+            BorderThickness="1"
+            CornerRadius="12">
             <Grid>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{DynamicResource WelcomeText}" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
-                        <TextBlock x:Name="PlayerNameText" FontSize="20" Margin="5 0 " FontWeight="Bold" Foreground="{DynamicResource AccentPrimary}"><Run Language="tr-tr" Text="{Binding Path=UserName, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}"/></TextBlock>
+                        <TextBlock
+                            FontSize="20"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource TextPrimary}"
+                            Text="{DynamicResource WelcomeText}" />
+                        <TextBlock
+                            x:Name="PlayerNameText"
+                            Margin="5,0"
+                            FontSize="20"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource AccentPrimary}"><Run Language="tr-tr" Text="{Binding Path=UserName, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" /></TextBlock>
                     </StackPanel>
-                    <TextBlock Text="{DynamicResource DashboardSubtitle}" Foreground="{DynamicResource TextSecondary}" Margin="0,5,0,0"/>
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        Foreground="{DynamicResource TextSecondary}"
+                        Text="{DynamicResource DashboardSubtitle}" />
                 </StackPanel>
             </Grid>
         </Border>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" Background="{DynamicResource SurfaceBackground}" CornerRadius="12" BorderBrush="{DynamicResource DefaultBorder}" BorderThickness="1" Padding="20" Margin="0,0,10,0">
+            <Border
+                Grid.Column="0"
+                Margin="0,0,10,0"
+                Padding="20"
+                Background="{DynamicResource SurfaceBackground}"
+                BorderBrush="{DynamicResource DefaultBorder}"
+                BorderThickness="1"
+                CornerRadius="12">
                 <StackPanel HorizontalAlignment="Stretch">
-                    <TextBlock Text="{DynamicResource StatusTitle}" Foreground="{DynamicResource TextPrimary}" FontSize="16" FontWeight="Bold" Margin="0,0,0,15"/>
-                    <Rectangle Height="1" Fill="{DynamicResource SeparatorBrush}" Margin="0,0,0,15"/>
+                    <TextBlock
+                        Margin="0,0,0,15"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource TextPrimary}"
+                        Text="{DynamicResource StatusTitle}" />
+                    <Rectangle
+                        Height="1"
+                        Margin="0,0,0,15"
+                        Fill="{DynamicResource SeparatorBrush}" />
                     <Grid Margin="0,0,0,10">
-                        <TextBlock Text="{DynamicResource StateLabel}" Foreground="{DynamicResource TextSecondary}" HorizontalAlignment="Left"/>
-                        <TextBlock x:Name="GameStateText" Text="{Binding Path=CurrentPhaseTranslated, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" Foreground="{DynamicResource AccentWarning}" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Foreground="{DynamicResource TextSecondary}"
+                            Text="{DynamicResource StateLabel}" />
+                        <TextBlock
+                            x:Name="GameStateText"
+                            HorizontalAlignment="Right"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource AccentWarning}"
+                            Text="{Binding Path=CurrentPhaseTranslated, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
                     </Grid>
                     <Grid Margin="0,0,0,10">
-                        <TextBlock Text="{DynamicResource LevelLabel}" Foreground="{DynamicResource TextSecondary}" HorizontalAlignment="Left"/>
-                        <TextBlock x:Name="AccountLevelText" Text="{Binding Path=CurrentPlayerLevel, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" Foreground="{DynamicResource TextPrimary}" FontWeight="Bold" HorizontalAlignment="Right"/>
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Foreground="{DynamicResource TextSecondary}"
+                            Text="{DynamicResource LevelLabel}" />
+                        <TextBlock
+                            x:Name="AccountLevelText"
+                            HorizontalAlignment="Right"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource TextPrimary}"
+                            Text="{Binding Path=CurrentPlayerLevel, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
                     </Grid>
 
 
-                    <StackPanel Visibility="{Binding Path=IsInstalockRunning, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}" Margin="0,15,0,0" HorizontalAlignment="Center">
-                        <Rectangle Height="1" Fill="{DynamicResource SeparatorBrush}" Margin="0,5,0,15"/>
+                    <StackPanel
+                        Margin="0,15,0,0"
+                        HorizontalAlignment="Stretch"
+                        Visibility="{Binding Path=IsInstalockRunning, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}">
+                        <Rectangle
+                            Height="1"
+                            Margin="0,5,0,15"
+                            Fill="{DynamicResource SeparatorBrush}" />
 
-                        <Image Source="{Binding Path=SelectedAgentImage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" 
-                   Width="64" Height="64" RenderOptions.BitmapScalingMode="HighQuality"
-                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <Image
+                            Width="64"
+                            Height="64"
+                            Margin="0,0,0,8"
+                            HorizontalAlignment="Center"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Source="{Binding Path=SelectedAgentImage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
 
-                        <TextBlock Text="{Binding Path=SelectedAgentName, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" 
-                       Foreground="{DynamicResource TextPrimary}" FontWeight="Bold" FontSize="13"
-                       HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock
+                            Margin="0,0,0,8"
+                            HorizontalAlignment="Center"
+                            FontSize="13"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource TextPrimary}"
+                            Text="{Binding Path=SelectedAgentName, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
 
-                        <TextBlock Text="{DynamicResource WaitingForAgentSelect}" 
-                       Foreground="{DynamicResource TextSecondary}" FontSize="11" TextWrapping="Wrap"
-                       HorizontalAlignment="Center" TextAlignment="Center" Margin="0,0,0,10"/>
+                        <StackPanel x:Name="WaitingPanel">
+                            <TextBlock
+                                Margin="0,0,0,10"
+                                HorizontalAlignment="Center"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextPrimary}"
+                                Text="{DynamicResource WaitingForAgentSelect}"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap" />
+                            <Grid
+                                Width="32"
+                                Height="32"
+                                HorizontalAlignment="Center">
 
-                        <Ellipse Width="24" Height="24" HorizontalAlignment="Center"
-                     Stroke="{DynamicResource AccentPrimary}" StrokeThickness="3" StrokeDashArray="6 2">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform x:Name="SpinnerRotate" CenterX="12" CenterY="12"/>
-                            </Ellipse.RenderTransform>
-                            <Ellipse.Triggers>
-                                <EventTrigger RoutedEvent="Loaded">
-                                    <BeginStoryboard>
-                                        <Storyboard RepeatBehavior="Forever">
-                                            <DoubleAnimation Storyboard.TargetName="SpinnerRotate"
-                                                 Storyboard.TargetProperty="Angle"
-                                                 From="0" To="360" Duration="0:0:1"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                            </Ellipse.Triggers>
-                        </Ellipse>
-                        <Button x:Name="CancelInstalockAction" 
-                            Grid.Row="2" 
-                            Margin="0, 20, 0, 0"
-                            Content="{DynamicResource CancelBtn}"
-                            IsEnabled="True"
-                            Style="{StaticResource ModernButton}" 
+                                <Grid
+                                    Width="50"
+                                    Height="25"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <Grid.Triggers>
+                                        <EventTrigger RoutedEvent="Loaded">
+                                            <BeginStoryboard>
+                                                <Storyboard RepeatBehavior="Forever">
+
+                                                    <DoubleAnimationUsingKeyFrames
+                                                        BeginTime="0:0:0"
+                                                        Storyboard.TargetName="Trans1"
+                                                        Storyboard.TargetProperty="Y">
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0" />
+                                                        <SplineDoubleKeyFrame
+                                                            KeySpline="0.2,0,0.3,1"
+                                                            KeyTime="0:0:0.2"
+                                                            Value="-5" />
+                                                        <SplineDoubleKeyFrame
+                                                            KeySpline="0.7,0,0.8,1"
+                                                            KeyTime="0:0:0.4"
+                                                            Value="0" />
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0" />
+                                                    </DoubleAnimationUsingKeyFrames>
+
+                                                    <DoubleAnimationUsingKeyFrames
+                                                        BeginTime="0:0:0"
+                                                        Storyboard.TargetName="Dot1"
+                                                        Storyboard.TargetProperty="Opacity">
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0.4" />
+                                                        <SplineDoubleKeyFrame
+                                                            KeySpline="0.2,0,0.3,1"
+                                                            KeyTime="0:0:0.2"
+                                                            Value="1.0" />
+                                                        <SplineDoubleKeyFrame
+                                                            KeySpline="0.7,0,0.8,1"
+                                                            KeyTime="0:0:0.4"
+                                                            Value="0.4" />
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0.4" />
+                                                    </DoubleAnimationUsingKeyFrames>
+
+                                                    <DoubleAnimationUsingKeyFrames
+                                                        BeginTime="0:0:0.15"
+                                                        Storyboard.TargetName="Trans2"
+                                                        Storyboard.TargetProperty="Y">
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0" />
+                                                        <SplineDoubleKeyFrame
+                                                            KeySpline="0.2,0,0.3,1"
+                                                            KeyTime="0:0:0.2"
+                                                            Value="-5" />
+                                                        <SplineDoubleKeyFrame
+                                                            KeySpline="0.7,0,0.8,1"
+                                                            KeyTime="0:0:0.4"
+                                                            Value="0" />
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0" />
+                                                    </DoubleAnimationUsingKeyFrames>
+                                                    <DoubleAnimationUsingKeyFrames
+                                                        BeginTime="0:0:0.15"
+                                                        Storyboard.TargetName="Dot2"
+                                                        Storyboard.TargetProperty="Opacity">
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0.4" />
+                                                        <SplineDoubleKeyFrame
+                                                            KeySpline="0.2,0,0.3,1"
+                                                            KeyTime="0:0:0.2"
+                                                            Value="1.0" />
+                                                        <SplineDoubleKeyFrame
+                                                            KeySpline="0.7,0,0.8,1"
+                                                            KeyTime="0:0:0.4"
+                                                            Value="0.4" />
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0.4" />
+                                                    </DoubleAnimationUsingKeyFrames>
+
+                                                    <DoubleAnimationUsingKeyFrames
+                                                        BeginTime="0:0:0.3"
+                                                        Storyboard.TargetName="Trans3"
+                                                        Storyboard.TargetProperty="Y">
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0" />
+                                                        <SplineDoubleKeyFrame
+                                                            KeySpline="0.2,0,0.3,1"
+                                                            KeyTime="0:0:0.2"
+                                                            Value="-5" />
+                                                        <SplineDoubleKeyFrame
+                                                            KeySpline="0.7,0,0.8,1"
+                                                            KeyTime="0:0:0.4"
+                                                            Value="0" />
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0" />
+                                                    </DoubleAnimationUsingKeyFrames>
+                                                    <DoubleAnimationUsingKeyFrames
+                                                        BeginTime="0:0:0.3"
+                                                        Storyboard.TargetName="Dot3"
+                                                        Storyboard.TargetProperty="Opacity">
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0.4" />
+                                                        <SplineDoubleKeyFrame
+                                                            KeySpline="0.2,0,0.3,1"
+                                                            KeyTime="0:0:0.2"
+                                                            Value="1.0" />
+                                                        <SplineDoubleKeyFrame
+                                                            KeySpline="0.7,0,0.8,1"
+                                                            KeyTime="0:0:0.4"
+                                                            Value="0.4" />
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0.4" />
+                                                    </DoubleAnimationUsingKeyFrames>
+
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Grid.Triggers>
+                                    <StackPanel
+                                        Margin="0,0,0,2"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        Orientation="Horizontal">
+                                        <Ellipse
+                                            x:Name="Dot1"
+                                            Width="5.5"
+                                            Height="5.5"
+                                            Margin="2.5,0"
+                                            Fill="{DynamicResource AccentPrimary}"
+                                            Opacity="0.4">
+                                            <Ellipse.RenderTransform>
+                                                <TranslateTransform x:Name="Trans1" Y="0" />
+                                            </Ellipse.RenderTransform>
+                                        </Ellipse>
+
+                                        <Ellipse
+                                            x:Name="Dot2"
+                                            Width="5.5"
+                                            Height="5.5"
+                                            Margin="2.5,0"
+                                            Fill="{DynamicResource AccentPrimary}"
+                                            Opacity="0.4">
+                                            <Ellipse.RenderTransform>
+                                                <TranslateTransform x:Name="Trans2" Y="0" />
+                                            </Ellipse.RenderTransform>
+                                        </Ellipse>
+
+                                        <Ellipse
+                                            x:Name="Dot3"
+                                            Width="5.5"
+                                            Height="5.5"
+                                            Margin="2.5,0"
+                                            Fill="{DynamicResource AccentPrimary}"
+                                            Opacity="0.4">
+                                            <Ellipse.RenderTransform>
+                                                <TranslateTransform x:Name="Trans3" Y="0" />
+                                            </Ellipse.RenderTransform>
+                                        </Ellipse>
+                                    </StackPanel>
+                                </Grid>
+
+                            </Grid>
+                        </StackPanel>
+
+                        <Button
+                            x:Name="CancelInstalockAction"
+                            Width="130"
+                            Margin="0,20,0,0"
+                            HorizontalAlignment="Center"
                             Click="CancelInstalockAction_Click"
-                            HorizontalAlignment="Center" 
-                        Width="130"/>
+                            Content="{DynamicResource CancelBtn}"
+                            Style="{StaticResource ModernButton}" />
                     </StackPanel>
 
-                    <StackPanel Visibility="{Binding Path=AgentPickTableVisibility, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}">
+                    <StackPanel x:Name="LockedPanel" Visibility="{Binding Path=IsAgentLocked, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}">
 
-                        <Rectangle Height="1" Fill="{DynamicResource SeparatorBrush}" Margin="0,5,0,15"/>
+                        <Rectangle
+                            Height="1"
+                            Margin="0,5,0,15"
+                            Fill="{DynamicResource SeparatorBrush}" />
 
-                        <Button x:Name="QuitPreGameAction" 
-                            Grid.Row="2" 
-                            Margin="0, 20, 0, 0"
+                        <Image
+                            Width="64"
+                            Height="64"
+                            Margin="0,0,0,8"
+                            HorizontalAlignment="Center"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Source="{Binding Path=SelectedAgentImage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
+
+                        <TextBlock
+                            Margin="0,0,0,8"
+                            HorizontalAlignment="Center"
+                            FontSize="13"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource TextPrimary}"
+                            Text="{Binding Path=SelectedAgentName, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
+
+
+                        <TextBlock
+                            Margin="0,0,0,10"
+                            HorizontalAlignment="Center"
+                            FontSize="11"
+                            FontWeight="Bold"
+                            Foreground="#4CAF50"
+                            Text="{DynamicResource StatusLocked}"
+                            TextAlignment="Center" />
+                        <Grid
+                            Width="28"
+                            Height="28"
+                            Margin="0,0,0,15"
+                            HorizontalAlignment="Center">
+                            <Ellipse Stroke="#4CAF50" StrokeThickness="2.5" />
+                            <Path
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Data="M 7,14 L 12,19 L 21,9"
+                                Stroke="#4CAF50"
+                                StrokeEndLineCap="Round"
+                                StrokeLineJoin="Round"
+                                StrokeStartLineCap="Round"
+                                StrokeThickness="2.5">
+                                <Path.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    From="0"
+                                                    To="1"
+                                                    Duration="0:0:0.4" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Path.Triggers>
+                            </Path>
+                        </Grid>
+
+                        <Button
+                            x:Name="QuitPreGameAction"
+                            Width="130"
+                            HorizontalAlignment="Center"
+                            Click="QuitPreGameAction_Click"
                             Content="{DynamicResource QuitPreGameBtn}"
                             IsEnabled="{Binding Path=QuitPreGameBtnBool, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}"
-                            Style="{StaticResource ModernButton}" 
-                            Click="QuitPreGameAction_Click"
-                            HorizontalAlignment="Center"
-                        Width="130"/>
-
+                            Style="{StaticResource ModernButton}" />
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <Border Grid.Column="1" Background="{DynamicResource SurfaceBackground}" CornerRadius="12" BorderBrush="{DynamicResource DefaultBorder}" BorderThickness="1" Padding="20" Margin="10,0,0,0">
+            <Border
+                Grid.Column="1"
+                Margin="10,0,0,0"
+                Padding="20"
+                Background="{DynamicResource SurfaceBackground}"
+                BorderBrush="{DynamicResource DefaultBorder}"
+                BorderThickness="1"
+                CornerRadius="12">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,0,0,20">
-                        <WrapPanel x:Name="AgentsContainer" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ScrollViewer
+                        Grid.Row="0"
+                        Margin="0,0,0,20"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Auto">
+                        <helpers:CenteredWrapPanel
+                            x:Name="AgentsContainer"
+                            ItemHeight="95"
+                            ItemWidth="95" />
                     </ScrollViewer>
 
-                    <CheckBox x:Name="OnlySelectCheckBox" 
-                              Grid.Row="1" 
-                              Content="{DynamicResource OnlySelectCheckBox}" 
-                              Style="{StaticResource ModernCheckBox}"
-                              Foreground="{DynamicResource TextMuted}" 
-                              FontSize="14"
-                              Cursor="Hand"
-                              HorizontalAlignment="Center" 
-                              Margin="0,0,0,15" 
-                              Checked="OnlySelectCheckBox_Changed" 
-                              Unchecked="OnlySelectCheckBox_Changed"/>
+                    <CheckBox
+                        x:Name="OnlySelectCheckBox"
+                        Grid.Row="1"
+                        Margin="0,0,0,40"
+                        HorizontalAlignment="Center"
+                        Checked="OnlySelectCheckBox_Changed"
+                        Content="{DynamicResource OnlySelectCheckBox}"
+                        Cursor="Hand"
+                        FontSize="14"
+                        Foreground="{DynamicResource TextMuted}"
+                        Style="{StaticResource ModernCheckBox}"
+                        Unchecked="OnlySelectCheckBox_Changed" />
 
-                    <Button x:Name="ActionBtn" 
-                        Grid.Row="1" 
+                    <Button
+                        x:Name="ActionBtn"
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Width="200"
+                        Height="36"
+                        Margin="0,33,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Click="ActionBtn_Click"
                         Content="{DynamicResource LockAgentBtn}"
                         IsEnabled="False"
-                        Style="{StaticResource ModernButton}" 
-                        Click="ActionBtn_Click" 
-                        HorizontalAlignment="Center" 
-                    Width="200" Height="36" Margin="0,33,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                        Style="{StaticResource ModernButton}" />
                 </Grid>
             </Border>
         </Grid>

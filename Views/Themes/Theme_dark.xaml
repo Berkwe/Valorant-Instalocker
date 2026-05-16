@@ -1,33 +1,20 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- Ana Arka Planlar -->
-    <SolidColorBrush x:Key="SurfaceBackground" Color="#1E293B"/>
-    <!-- Border Arka Planları -->
-    <SolidColorBrush x:Key="AppBackground" Color="#0F172A"/>
-    <!-- Ana Grid/Pencere Arka Planı -->
+    <SolidColorBrush x:Key="SurfaceBackground" Color="#1E293B" />
+    <SolidColorBrush x:Key="AppBackground" Color="#0F172A" />
 
-    <!-- Kenarlıklar ve Ayraçlar -->
-    <SolidColorBrush x:Key="DefaultBorder" Color="#334155"/>
-    <SolidColorBrush x:Key="SeparatorBrush" Color="#334155"/>
+    <SolidColorBrush x:Key="DefaultBorder" Color="#334155" />
+    <SolidColorBrush x:Key="SeparatorBrush" Color="#334155" />
 
-    <!-- Metin Renkleri -->
-    <SolidColorBrush x:Key="TextPrimary" Color="White"/>
-    <SolidColorBrush x:Key="TextSecondary" Color="#94A3B8"/>
-    <SolidColorBrush x:Key="TextMuted" Color="#CBD5E1"/>
+    <SolidColorBrush x:Key="TextPrimary" Color="White" />
+    <SolidColorBrush x:Key="TextSecondary" Color="#94A3B8" />
+    <SolidColorBrush x:Key="TextMuted" Color="#CBD5E1" />
 
-    <!-- Vurgu Renkleri (Valorant Red & Gold) -->
-    <SolidColorBrush x:Key="AccentPrimary" Color="#EF4444"/>
-    <!-- Kırmızı Butonlar ve Vurgular -->
-    <SolidColorBrush x:Key="AccentHover" Color="#DC2626"/>
-    <!-- Disabled button durumu -->
-    <SolidColorBrush x:Key="DisabledButon" Color="#475569"/>
-    <!-- Hover Durumu -->
-    <SolidColorBrush x:Key="AccentWarning" Color="#FACC15"/>
-    <!-- Oyun Durumu Altın Rengi -->
+    <SolidColorBrush x:Key="AccentPrimary" Color="#EF4444" />
+    <SolidColorBrush x:Key="AccentHover" Color="#DC2626" />
+    <SolidColorBrush x:Key="DisabledButon" Color="#475569" />
+    <SolidColorBrush x:Key="AccentWarning" Color="#FACC15" />
+    <SolidColorBrush x:Key="AccentSuccess" Color="#22C55E" />
 
-    <!-- Başarı/Onay Rengi (StatusCircle vb. için) -->
-    <SolidColorBrush x:Key="AccentSuccess" Color="#22C55E"/>
-    
 
 </ResourceDictionary>
