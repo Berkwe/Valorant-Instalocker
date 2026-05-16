@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:helpers="clr-namespace:Valorant_Instalocker.Main.Helpers"
     xmlns:local="clr-namespace:Valorant_Instalocker"
-    xmlns:main="clr-namespace:Valorant_Instalocker.Main">
+    xmlns:main="clr-namespace:Valorant_Instalocker.Main"
+    xmlns:styles="clr-namespace:Valorant_Instalocker.Utils.Styles">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
@@ -38,10 +39,7 @@
                             FontWeight="Bold"
                             Foreground="{DynamicResource AccentPrimary}"><Run Language="tr-tr" Text="{Binding Path=UserName, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" /></TextBlock>
                     </StackPanel>
-                    <TextBlock
-                        Margin="0,5,0,0"
-                        Foreground="{DynamicResource TextSecondary}"
-                        Text="{DynamicResource DashboardSubtitle}" />
+                    <styles:MarqueeTextBlock Margin="0,5,0,0" Text="{Binding Path=ActiveGreetingMessage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
                 </StackPanel>
             </Grid>
         </Border>

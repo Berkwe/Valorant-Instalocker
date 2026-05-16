@@ -1,0 +1,47 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="OctopusEightLeg">One of the 8 legs of male octopuses is a reproductive arm called a 'hectocotylus', good luck searching!</system:String>
+    <system:String x:Key="RecepCred">Seriously, who counted 300 different fish species?</system:String>
+    <system:String x:Key="CatMario">Did you know that the developer of Cat Mario is a Japanese person named Chiku? And yes, you can find his address and phone number on our GitHub page to raid his house.</system:String>
+    <system:String x:Key="FairIceCream">Life itself is as meaningless as finding stuffed grape leaves (sarma) inside a 1300 ML Fair ice cream tub; add meaning to it with your efforts!</system:String>
+    <system:String x:Key="ToggBigBang">Researching the Big Bang and black holes is great, but the real cosmic question is: Is our Togg automobile local and national?</system:String>
+    <system:String x:Key="EiffelTax">The Eiffel Tower grows by 15 centimeters in the summer due to thermal expansion. Fortunately, the special consumption tax (ÖTV) is not yet applied to the expansion of metals.</system:String>
+    <system:String x:Key="ServerPlug">Unplugging and plugging it back in when servers crash is arguably the most powerful magic wand of the modern era.</system:String>
+    <system:String x:Key="ThermodynamicsBug">Fixing a bug in software only to have two new bugs appear in its place is the hidden fourth law of thermodynamics.</system:String>
+    <system:String x:Key="FirstTryCode">If a written block of code works perfectly on the first try, there is a much more insidious problem hidden inside it.</system:String>
+    <system:String x:Key="RamAmnesia">Insufficient RAM is exactly a computer's way of saying, "Wait a second, what was I just thinking?"</system:String>
+    <system:String x:Key="AiVsPassword">In an era where there's fear of AI taking over the world, humanity is still battling the warning: "Your password must contain at least one uppercase letter."</system:String>
+    <system:String x:Key="HoneyNeverSpoils">Honey never spoils. Even thousands of years old honey found in ancient Egyptian tombs is still safe to consume today.</system:String>
+    <system:String x:Key="CrdroidEasterEgg">Stars shine brightest in the darkest hours. ~A CrDroid proverb~</system:String>
+    <system:String x:Key="ShipOfTheseus">If all the parts of a ship are replaced with new ones over time, is it still the same ship as the original?</system:String>
+    <system:String x:Key="AreWeAlone">In the vast universe, both being alone and not being alone are two equally terrifying possibilities.</system:String>
+    <system:String x:Key="VenusDayLongerThanYear">Venus rotates on its axis so slowly that one full day there lasts longer than one full year of Venus revolving around the Sun.</system:String>
+    <system:String x:Key="WhyCatsNotTalk">Did you know that cats don't speak so they don't have to pay taxes?</system:String>
+    <system:String x:Key="SharksOlderThanTrees">Sharks are even older than trees; they ruled the oceans when there were no trees on Earth yet.</system:String>
+    <system:String x:Key="BananasAreBerries">According to botany, a banana is actually considered a berry, while a strawberry does not fall into this category.</system:String>
+    <system:String x:Key="MeaningOfLife">Instead of searching for a universal meaning of life, adding personal meaning to existence is one of the most fundamental ways out in philosophy.</system:String>
+    <system:String x:Key="FreeWillIllusion">The thesis that all decisions made are merely the inevitable result of chemical reactions in the brain opens free will to debate.</system:String>
+    <system:String x:Key="CatPurrHealing">It has been proven that the purring frequency of cats reduces stress levels in humans and even accelerates bone healing.</system:String>
+    <system:String x:Key="DreamOrReality">Whether dreams are the brain processing daytime data or the reflection of experiences in parallel universes remains a literary debate.</system:String>
+    <system:String x:Key="CleopatraAndMoonLanding">Perception of time is often misleading; the era Cleopatra lived in is closer to the first manned Moon landing than to the construction of the Great Pyramids.</system:String>
+    <system:String x:Key="CloudsAreHeavy">A floating, ordinary, and light-looking cluster of clouds in the sky carries an average of 500 tons of water.</system:String>
+    <system:String x:Key="TimeTravelThought">The fact that time only flows forward might not be a rule of the universe, but merely a limit of human perception.</system:String>
+    <system:String x:Key="StarsAndSand">There are far more stars than the total number of grains of sand on all the beaches and deserts on Earth.</system:String>
+    <system:String x:Key="AIConsciousness">If one day an artificial intelligence truly gains consciousness, what its first feeling will be is one of the greatest mysteries of modern philosophy.</system:String>
+    <system:String x:Key="MpembaEffect">Under specific conditions, hot water freezing faster than cold water is a physical phenomenon known as the "Mpemba effect".</system:String>
+    <system:String x:Key="GrassSmellIsDistress">The fresh smell of newly cut grass that gives peace to humans is actually a chemical emergency distress call released into the air by the plant.</system:String>
+    <system:String x:Key="WhatIsHappiness">Whether happiness is a final destination to be reached or the ongoing journey itself has been debated for centuries.</system:String>
+    <system:String x:Key="ParallelUniverses">If there are an infinite number of parallel universes, it means countless realities are currently being experienced where the laws of physics work completely differently.</system:String>
+    <system:String x:Key="BrainEnergy">Although the human brain makes up only two percent of total body weight, it consumes twenty percent of the total energy in the body.</system:String>
+    <system:String x:Key="PineappleTime">It takes an average of two full years for an ordinary pineapple to grow from seed to harvest size.</system:String>
+    <system:String x:Key="ObjectiveMorality">Whether the concepts of good and evil have universal validity or are merely a social construct of humanity is a deep ethical issue.</system:String>
+    <system:String x:Key="TheSoundOfSilence">A person staying for a long time in a perfectly soundproofed room (anechoic chamber) can hear the sound of their own blood circulation and nervous system.</system:String>
+    <system:String x:Key="WombatPoop">The feces of the creature called the wombat living in Australia is cube-shaped, which is one of the strangest engineering designs in nature.</system:String>
+    <system:String x:Key="MemoryAccuracy">Memories of the past are never fixed like a video recording; the human brain reconstructs a memory every time it recalls an event.</system:String>
+    <system:String x:Key="OxfordUniversityAztecs">Oxford University is much more deep-rooted than you think; so much so that it was providing education long before the founding of the Aztec Empire.</system:String>
+    <system:String x:Key="HumanBioluminescence">The human body emits light around it, albeit weakly, but this glow is at too low a level for the human eye to perceive.</system:String>
+
+</ResourceDictionary>

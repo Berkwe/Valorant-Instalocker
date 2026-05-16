@@ -1,0 +1,47 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="OctopusEightLeg">Erkek ahtapotların 8 bacağından biri 'hekodaktil' adı verilen üreme koludur, ararken bol şans!</system:String>
+    <system:String x:Key="RecepCred">Harbiden 300 çeşit balık türünü kim saydı?</system:String>
+    <system:String x:Key="CatMario">Cat mario'nun geliştiricisinin chiku adındaki bir japon olduğunu biliyormuydun? Ve evet evini basmak için adresini ve telefon numarasını github sayfamızdan bulabilirsin.</system:String>
+    <system:String x:Key="FairIceCream">Hayatın kendisi 1300 ML Fair dondurma kutusundan sarma çıkması kadar anlamsız, çabalarınla anlam kat!</system:String>
+    <system:String x:Key="ToggBigBang">Büyük Patlama'yı ve kara delikleri araştırmak harikadır ama asıl kozmik soru şu: Togg otomobilimiz yerli ve milli mi?</system:String>
+    <system:String x:Key="EiffelTax">Eyfel Kulesi yaz aylarında genleşme nedeniyle 15 santimetre uzar. Neyse ki metallerin genleşmesinden henüz ÖTV alınmıyor.</system:String>
+    <system:String x:Key="ServerPlug">Sunucular çöktüğünde fişi çekip tekrar takmak, modern çağın tartışmasız en güçlü sihirli değneğidir.</system:String>
+    <system:String x:Key="BiosHack">Efsanelere göre Anonymus mahallede top oynarken, bazı insanlar f1 tuşuna basarak sistem hackliyordu.</system:String>
+    <system:String x:Key="ThermodynamicsBug">Yazılımda bir hatayı düzelttikten sonra yerine iki yeni hatanın çıkması, termodinamiğin gizli dördüncü yasasıdır.</system:String>
+    <system:String x:Key="FirstTryCode">Yazılan bir kod bloğu ilk denemede tamamen hatasız çalışıyorsa, o kodun içinde çok daha sinsi bir terslik gizlidir.</system:String>
+    <system:String x:Key="RamAmnesia">RAM yetersizliği, bilgisayarların tam olarak "Bir saniye, az önce ben ne düşünüyordum?" deme şeklidir.</system:String>
+    <system:String x:Key="AiVsPassword">Yapay zekanın dünyayı ele geçireceğinden korkulan bir çağda, insanlık hala "Şifreniz en az bir büyük harf içermelidir" uyarısıyla savaşıyor.</system:String>
+    <system:String x:Key="HoneyNeverSpoils">Bal asla bozulmaz. Antik Mısır mezarlarında bulunan binlerce yıllık bal bile bugün hala güvenle tüketilebilir durumdadır.</system:String>
+    <system:String x:Key="CrdroidEasterEgg">Yıldızlar en karanlık saatlerde parlar. ~Bi CrDroid atasözü~</system:String>
+    <system:String x:Key="ShipOfTheseus">Bir geminin zamanla tüm parçaları yenileriyle değiştirilirse, o gemi hala başlangıçtaki aynı gemi midir?</system:String>
+    <system:String x:Key="AreWeAlone">Koskoca evrende yalnız olmak da, yalnız olmamak da eşit derecede ürkütücü iki ihtimaldir.</system:String>
+    <system:String x:Key="VenusDayLongerThanYear">Venüs kendi etrafında o kadar yavaş döner ki oradaki bir tam gün, Venüs'ün Güneş etrafında attığı bir tam yıldan daha uzun sürer.</system:String>
+    <system:String x:Key="WhyCatsNotTalk">Kedilerin vergi vermemek için konuşmadığını biliyormuydun?</system:String>
+    <system:String x:Key="SharksOlderThanTrees">Köpekbalıkları ağaçlardan bile daha yaşlıdır; Dünya üzerinde henüz hiçbir ağaç yokken onlar okyanusların hakimiydi.</system:String>
+    <system:String x:Key="BananasAreBerries">Botanik bilimine göre muz aslında bir üzümsü meyve sayılırken, çilek bu kategoriye girmez.</system:String>
+    <system:String x:Key="FreeWillIllusion">Verilen tüm kararların sadece beyindeki kimyasal reaksiyonların kaçınılmaz bir sonucu olduğu tezi, özgür iradeyi tartışmaya açar.</system:String>
+    <system:String x:Key="CatPurrHealing">Kedilerin mırlama frekansının, insanlarda stres seviyesini düşürdüğü ve hatta kemik iyileşmesini hızlandırdığı kanıtlanmıştır.</system:String>
+    <system:String x:Key="DreamOrReality">Rüyaların, beynin gün içi verilerini işlemesi mi yoksa paralel evrenlerdeki yaşantıların yansıması mı olduğu hala edebi bir tartışma konusudur.</system:String>
+    <system:String x:Key="CleopatraAndMoonLanding">Zaman algısı genellikle yanıltıcıdır; Kleopatra'nın yaşadığı dönem, Ay'a ilk insanlı iniş tarihine, Büyük Piramitlerin inşasından daha yakındır.</system:String>
+    <system:String x:Key="CloudsAreHeavy">Gökyüzünde süzülen sıradan ve hafif görünümlü bir bulut kümesi, ortalama olarak 500 ton ağırlığında su taşır.</system:String>
+    <system:String x:Key="TimeTravelThought">Zamanın sadece ileriye doğru akıyor olması, evrenin bir kuralı değil, yalnızca insan algısının bir sınırı olabilir.</system:String>
+    <system:String x:Key="StarsAndSand">Dünya üzerindeki tüm plaj ve çöllerdeki toplam kum tanesi sayısından çok daha fazla sayıda yıldız vardır.</system:String>
+    <system:String x:Key="AIConsciousness">Gün gelir de bir yapay zeka gerçekten bilinç kazanırsa, hissedeceği ilk duygunun ne olacağı modern felsefenin en büyük gizemlerinden biridir.</system:String>
+    <system:String x:Key="MpembaEffect">Belirli koşullar altında sıcak suyun soğuk sudan daha hızlı donması fiziksel bir fenomendir ve buna "Mpemba etkisi" adı verilir.</system:String>
+    <system:String x:Key="GrassSmellIsDistress">Yeni kesilmiş çimenlerin insana huzur veren o ferah kokusu, aslında bitkinin havaya saldığı kimyasal bir acil durum çağrısıdır.</system:String>
+    <system:String x:Key="WhatIsHappiness">Mutluluğun ulaşılacak nihai bir durak mı, yoksa sürekli devam eden yolculuğun kendisi mi olduğu yüzyıllardır tartışılmaktadır.</system:String>
+    <system:String x:Key="ParallelUniverses">Sonsuz sayıda paralel evren varsa, şu an fizik kurallarının tamamen farklı işlediği sayısız gerçeklik yaşanıyor demektir.</system:String>
+    <system:String x:Key="BrainEnergy">İnsan beyni, toplam vücut ağırlığının sadece yüzde ikisini oluşturmasına rağmen, vücuttaki toplam enerjinin yüzde yirmisini tüketir.</system:String>
+    <system:String x:Key="PineappleTime">Sıradan bir ananasın tohumdan hasat edilecek boyuta gelmesi ortalama iki tam yıl sürer.</system:String>
+    <system:String x:Key="ObjectiveMorality">İyi ve kötü kavramlarının evrensel bir geçerliliği olup olmadığı, yoksa sadece insanlığın toplumsal bir inşası mı olduğu derin bir etik sorundur.</system:String>
+    <system:String x:Key="TheSoundOfSilence">Ses yalıtımı kusursuz olan bir odada (yankısız oda) uzun süre kalan bir insan, kendi kan dolaşımının ve sinir sisteminin sesini duyabilir.</system:String>
+    <system:String x:Key="WombatPoop">Avustralya'da yaşayan vombat adlı canlının dışkısı küp şeklindedir, bu da doğadaki en tuhaf mühendislik tasarımlarından biridir.</system:String>
+    <system:String x:Key="MemoryAccuracy">Geçmişe dair anılar asla video kaydı gibi sabit değildir; insan beyni bir olayı her hatırladığında o anıyı yeniden kurgular.</system:String>
+    <system:String x:Key="OxfordUniversityAztecs">Oxford Üniversitesi sandığından çok daha köklüdür; öyle ki, Aztek İmparatorluğu'nun kuruluşundan çok daha önce eğitim veriyordu.</system:String>
+    <system:String x:Key="HumanBioluminescence">İnsan vücudu zayıf da olsa etrafa ışık saçar, ancak bu parıltı insan gözünün algılayamayacağı kadar düşük seviyededir.</system:String>
+
+</ResourceDictionary>
