@@ -6,6 +6,8 @@ using Valorant_Instalocker.Main;
 using System.Windows;
 using RadiantConnect.Methods;
 using RadiantConnect.ValorantApi;
+using Serilog;
+using System.IO;
 namespace Valorant_Instalocker.Main.API
 {
     public class AgentFetcher
@@ -20,31 +22,102 @@ namespace Valorant_Instalocker.Main.API
             [property: JsonPropertyName("data")] Agent Data
         );
 
-        public static async Task UpdateAgents()
+        private static async Task SaveAgentsToCache() {
+            try
+            {
+                Log.Information("SaveAgentsToCache çalıştı.");
+
+                if (AppStateManager.Agents.Count == 0)
+                {
+                    Log.Information("Agent daha çekilmemiş Çıkılıyor.");
+                    return;
+                }
+                Directory.CreateDirectory(Constants.CacheImagesPath);
+
+                foreach (var (Agent, AgentURL) in AppStateManager.Agents)
+                {
+                    using HttpResponseMessage response = await _client.GetAsync(AgentURL, HttpCompletionOption.ResponseHeadersRead);
+
+                    response.EnsureSuccessStatusCode();
+
+
+                    using Stream internetStream = await response.Content.ReadAsStreamAsync();
+                    string SavePath = Path.Combine(Constants.CacheImagesPath, Agent.ToString()+".png");
+
+                    using FileStream fileStream = new FileStream(SavePath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true);
+
+                    await internetStream.CopyToAsync(fileStream);
+                    AppStateManager.Agents[Agent] = SavePath;
+                    Log.Information($"{Agent.ToString()}, Başarıyla Cachelendi.");
+
+                }
+
+
+            }
+            catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound) {
+                Log.Error(ex, $"Ajan resimleri çekilemedi : Ajan reimleri sunucuda bulunamadı.");
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Hata oluştu");
+
+
+            }
+
+
+        }
+
+        public static async Task UpdateAgents(bool UpdateOnline = false)
         {
             try
             {
                 AppStateManager.Agents.Clear();
-                foreach (ValorantTables.Agent agent in Enum.GetValues(typeof(ValorantTables.Agent)))
+
+                if (UpdateOnline)
                 {
-                    string FullUrl = Constants.AgentApiUrl + ValorantTables.AgentToId[agent];
-                    HttpResponseMessage response = await _client.GetAsync(FullUrl);
-                    if (!response.IsSuccessStatusCode) return;
-
-                    string jsonString = await response.Content.ReadAsStringAsync();
-                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                    var result = JsonSerializer.Deserialize<AgentApiResponse>(jsonString, options);
-
-                    if (result?.Data != null)
+                    foreach (ValorantTables.Agent agent in Enum.GetValues(typeof(ValorantTables.Agent)))
                     {
-                        var API = result.Data;
+                        string FullUrl = Constants.AgentApiUrl + ValorantTables.AgentToId[agent];
+                        HttpResponseMessage response = await _client.GetAsync(FullUrl);
+                        if (!response.IsSuccessStatusCode) return;
 
-                        AppStateManager.Agents.Add(agent, API.DisplayIconURL);
+                        string jsonString = await response.Content.ReadAsStringAsync();
+                        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                        var result = JsonSerializer.Deserialize<AgentApiResponse>(jsonString, options);
+
+                        if (result?.Data != null)
+                        {
+                            var API = result.Data;
+
+                            AppStateManager.Agents.Add(agent, API.DisplayIconURL);
+                        }
+
                     }
+                    await SaveAgentsToCache();
                 }
+                else
+                {
+
+                    foreach(ValorantTables.Agent agent in Enum.GetValues(typeof(ValorantTables.Agent)))
+                    {
+                        string AgentPath = Path.Combine(Constants.CacheImagesPath, agent.ToString() + ".png");
+                        if (!Path.Exists(AgentPath))
+                        {
+                            await UpdateAgents(true);
+                            return;
+                        }
+                        AppStateManager.Agents.Add(agent, AgentPath);
+
+                    }
+
+                }
+
             }
             catch (Exception)
             {
+                throw;
             }
         }
     }

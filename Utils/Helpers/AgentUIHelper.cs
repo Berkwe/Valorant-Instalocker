@@ -17,9 +17,30 @@ namespace Valorant_Instalocker.Main.Helpers
                 Tag = name
             };
 
+            BitmapImage bitmap = new BitmapImage();
+
+            if (Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult))
+            {
+                if (uriResult.IsFile)
+                {
+                    bitmap.BeginInit();
+                    bitmap.UriSource = uriResult;
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.EndInit();
+                }
+                else
+                {
+                    bitmap = new BitmapImage(uriResult);
+                }
+            }
+            else
+            {
+                bitmap = new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
+            }
+
             Image img = new Image
             {
-                Source = new BitmapImage(new Uri(url, UriKind.Absolute)),
+                Source = bitmap,
                 Stretch = Stretch.UniformToFill,
                 Margin = new Thickness(2)
             };

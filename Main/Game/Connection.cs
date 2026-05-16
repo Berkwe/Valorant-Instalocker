@@ -111,7 +111,7 @@ namespace Valorant_Instalocker.Main.Game
                     return;
                 }
                 FailureTimes++;
-                Log.Information("Giriş başarısız, Tekrar deneniyor. Deneme sayısı : ", FailureTimes.ToString());
+                Log.Information($"Giriş başarısız, Tekrar deneniyor. Deneme sayısı : {FailureTimes.ToString()}");
                 await ConnectValorant();
             }
             catch (Exception ex)

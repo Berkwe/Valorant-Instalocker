@@ -1,14 +1,15 @@
-﻿<Application x:Class="Valorant_Instalocker.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml">
+﻿<Application
+    x:Class="Valorant_Instalocker.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml"/>
+                <ResourceDictionary Source="Styles.xaml" />
 
-                <ResourceDictionary Source="Langs/Lang_TR.xaml"/>
-                <ResourceDictionary Source="/Views/Themes/Theme_dark.xaml"/>
+                <ResourceDictionary Source="Langs/Lang_TR.xaml" />
+                <ResourceDictionary Source="/Views/Themes/Theme_dark.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

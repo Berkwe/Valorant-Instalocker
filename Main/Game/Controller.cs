@@ -42,7 +42,7 @@ namespace Valorant_Instalocker.Main.Game
                     Log.Debug("[GameControlHandler] 'Kilitleme' modu aktif. LockAgent() çağrılıyor.");
                     await LockAgent();
                 }
-
+                AppStateManager.Instance.IsAgentLocked = true;
                 Log.Debug("[GameControlHandler] OnPreGameMatchLoaded olayından abonelik kaldırılıyor.");
                 AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded -= Controller.GameControlHandler;
 
