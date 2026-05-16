@@ -12,6 +12,8 @@ using Valorant_Instalocker.Main.Game;
 using Serilog;
 using Valorant_Instalocker.Utils.Constants;
 using System.Windows;
+using System.Net;
+using Valorant_Instalocker.Utils.Helpers;
 namespace Valorant_Instalocker.Main
 {
     public partial class AppStateManager : ObservableObject
@@ -28,6 +30,8 @@ namespace Valorant_Instalocker.Main
             (!Instance.IsInstalockRunning && (Instance.CurrentPhase == "pregame" || Instance.CurrentPhase == "gameplay"))
                 ? Visibility.Visible : Visibility.Collapsed;
 
+
+        [ObservableProperty] private string activeGreetingMessage = "";
         [ObservableProperty] private bool isAgentLocked = false;
         [ObservableProperty] private string currentPhase = "";
 
@@ -77,6 +81,8 @@ namespace Valorant_Instalocker.Main
 
             InitializeLogger();
             CurrentUserSettings = ConfigManager.InitializeSettings();
+            GreetingHelper.StartToGreetingTimer();
+
             await Connection.ConnectValorant();
             if (Instance.IsClientLoggedIn)
             {
@@ -101,6 +107,7 @@ namespace Valorant_Instalocker.Main
                 Instance.CurrentPlayerLevel = await Connection.GetCurrentPlayerLevel();
 
             }
+
 
 
         }
