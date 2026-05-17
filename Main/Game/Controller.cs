@@ -17,15 +17,31 @@ namespace Valorant_Instalocker.Main.Game
         private static async Task LockAgent()
         {
             Log.Information("[LockAgent] Ajan kilitleme işlemi başlatılıyor. Hedef Ajan ID: {AgentID}", AppStateManager.SelectedAgent);
-            await AppStateManager.initiator.Endpoints.PreGameEndpoints.LockCharacterAsync(AppStateManager.SelectedAgent);
-            Log.Information("[LockAgent] Ajan kilitleme isteği başarıyla tamamlandı.");
+            try
+            {
+                await AppStateManager.initiator.Endpoints.PreGameEndpoints.LockCharacterAsync(AppStateManager.SelectedAgent);
+                Log.Information("[LockAgent] Ajan kilitleme isteği başarıyla tamamlandı.");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "[LockAgent] Ajan kilitleme sırasında hata oluştu. AgentID: {AgentID}", AppStateManager.SelectedAgent);
+                throw;
+            }
         }
 
         private static async Task SelectAgent()
         {
             Log.Information("[SelectAgent] Ajan hover (seçme) işlemi başlatılıyor. Hedef Ajan ID: {AgentID}", AppStateManager.SelectedAgent);
-            await AppStateManager.initiator.Endpoints.PreGameEndpoints.SelectCharacterAsync(AppStateManager.SelectedAgent);
-            Log.Information("[SelectAgent] Ajan hover (seçme) isteği başarıyla tamamlandı.");
+            try
+            {
+                await AppStateManager.initiator.Endpoints.PreGameEndpoints.SelectCharacterAsync(AppStateManager.SelectedAgent);
+                Log.Information("[SelectAgent] Ajan hover (seçme) isteği başarıyla tamamlandı.");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "[SelectAgent] Ajan seçme sırasında hata oluştu. AgentID: {AgentID}", AppStateManager.SelectedAgent);
+                throw;
+            }
         }
 
         public static async void GameControlHandler(string MatchID = "")
@@ -116,18 +132,22 @@ namespace Valorant_Instalocker.Main.Game
 
         public static async Task QuitPreGame()
         {
+            Log.Information("[QuitPreGame] Maçtan çıkma işlemi başlatılıyor.");
             try
             {
                 AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.BreakProtectionHandler;
                 await AppStateManager.initiator.Endpoints.PreGameEndpoints.QuitGameAsync();
-
+                Log.Information("[QuitPreGame] Maçtan çıkma başarıyla tamamlandı.");
             }
-            catch (RadiantConnectNetworkStatusException)
+            catch (RadiantConnectNetworkStatusException ex)
             {
-
-
+                Log.Warning(ex, "[QuitPreGame] RadiantConnect network hatası oluştu. Uygulama açık olabilir.");
             }
-
+            catch (Exception ex)
+            {
+                Log.Error(ex, "[QuitPreGame] Maçtan çıkma sırasında hata oluştu");
+                throw;
+            }
         }
 
 

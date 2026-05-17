@@ -18,111 +18,99 @@ namespace Valorant_Instalocker.Utils.Styles
             set => SetValue(TextProperty, value);
         }
 
-        private TranslateTransform _translate;
-        private Storyboard _marqueeBoard;
-        private Storyboard _fadeBoard;
+        private double _containerWidth;
         private bool _isFirstLoad = true;
+        private TranslateTransform _translate;
 
         public MarqueeTextBlock()
         {
             InitializeComponent();
             _translate = new TranslateTransform(0, 0);
-            PART_Text.RenderTransform = _translate;
+            PART_Stack.RenderTransform = _translate;
             Loaded += (s, e) => StartMarquee();
         }
 
         private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ctrl = (MarqueeTextBlock)d;
+            string newText = e.NewValue?.ToString() ?? "";
+
             if (ctrl._isFirstLoad)
             {
-                ctrl.PART_Text.Text = e.NewValue?.ToString() ?? "";
+                ctrl.PART_Text.Text = newText;
+                ctrl.PART_TextCopy.Text = newText;
                 ctrl._isFirstLoad = false;
                 return;
             }
-            ctrl.FadeThenChange(e.NewValue?.ToString() ?? "");
+            ctrl.FadeThenChange(newText);
         }
 
-        // Yazı değişince: fade out → yazıyı değiştir → fade in → marquee başlar
         private void FadeThenChange(string newText)
         {
-            _marqueeBoard?.Stop();
+            _translate.BeginAnimation(TranslateTransform.XProperty, null);
 
             var fadeOut = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(300));
             fadeOut.Completed += (s, e) =>
             {
                 PART_Text.Text = newText;
+                PART_TextCopy.Text = newText;
                 _translate.X = 0;
 
                 var fadeIn = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(300));
-                fadeIn.Completed += (_, __) => StartMarquee();
-                PART_Text.BeginAnimation(OpacityProperty, fadeIn);
+                fadeIn.Completed += (_, __) => StartMarquee(enterFromRight: false);
+                PART_Stack.BeginAnimation(OpacityProperty, fadeIn);
             };
-            PART_Text.BeginAnimation(OpacityProperty, fadeOut);
+            PART_Stack.BeginAnimation(OpacityProperty, fadeOut);
         }
 
-        private void StartMarquee()
+        private void StartMarquee(bool enterFromRight = false)
         {
-            _marqueeBoard?.Stop();
-            _translate.X = 0;
+            _translate.BeginAnimation(TranslateTransform.XProperty, null);
 
-            // Yazının gerçek genişliğini ölç
             PART_Text.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             double textWidth = PART_Text.DesiredSize.Width;
             double containerWidth = ActualWidth;
 
-            // Yazı containerdan kısaysa marquee gerekmez
+            if (textWidth == 0 || containerWidth == 0) return;
+
             if (textWidth <= containerWidth)
-                return;
-
-            double scrollDistance = textWidth + containerWidth;
-
-            // Hız: piksel başına ~8ms, min 4sn max 12sn
-            double duration = Math.Clamp(scrollDistance * 0.008, 4, 12);
-
-            _marqueeBoard = new Storyboard();
-
-            // 3sn bekle (başlangıç konumunda dur)
-            var wait = new DoubleAnimation
             {
-                From = 0,
-                To = 0,
-                BeginTime = TimeSpan.Zero,
-                Duration = TimeSpan.FromSeconds(3)
-            };
+                PART_TextCopy.Visibility = Visibility.Collapsed;
+                _translate.X = 0;
+                return;
+            }
 
-            // Sağdan sola kayma
+            PART_Stack.Margin = new Thickness(0, 0, -(textWidth * 2), 0);
+            PART_TextCopy.Visibility = Visibility.Visible;
+
+            double gap = containerWidth;
+            PART_TextCopy.Margin = new Thickness(gap, 0, 0, 0);
+
+            double loopWidth = textWidth + gap;
+            double durationSeconds = Math.Max(1, loopWidth * 0.008);
+
+            _translate.X = 0;
+
             var scroll = new DoubleAnimation
             {
                 From = 0,
-                To = -scrollDistance,
-                BeginTime = TimeSpan.FromSeconds(3),
-                Duration = TimeSpan.FromSeconds(duration),
-                EasingFunction = null
+                To = -loopWidth,
+                Duration = TimeSpan.FromSeconds(durationSeconds),
+                RepeatBehavior = RepeatBehavior.Forever,
+                FillBehavior = FillBehavior.Stop
             };
 
-            // Bitti → sıfırla ve tekrar (loop)
-            scroll.Completed += (s, e) =>
-            {
-                _translate.X = 0;
-                StartMarquee(); // recursive loop
-            };
-
-            Storyboard.SetTarget(wait, PART_Text);
-            Storyboard.SetTargetProperty(wait, new PropertyPath("RenderTransform.X"));
-
-            Storyboard.SetTarget(scroll, PART_Text);
-            Storyboard.SetTargetProperty(scroll, new PropertyPath("RenderTransform.X"));
-
-            _marqueeBoard.Children.Add(wait);
-            _marqueeBoard.Children.Add(scroll);
-            _marqueeBoard.Begin();
+            _translate.BeginAnimation(TranslateTransform.XProperty, scroll);
         }
 
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             base.OnRenderSizeChanged(sizeInfo);
-            StartMarquee(); // container boyutu değişirse yeniden hesapla
+            if (Math.Abs(sizeInfo.NewSize.Width - _containerWidth) > 1)
+            {
+                _containerWidth = ActualWidth;
+                StartMarquee();
+            }
         }
     }
 }

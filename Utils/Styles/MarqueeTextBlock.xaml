@@ -1,11 +1,25 @@
-﻿<UserControl x:Class="Valorant_Instalocker.Utils.Styles.MarqueeTextBlock"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             ClipToBounds="True">
+﻿<UserControl
+    x:Class="Valorant_Instalocker.Utils.Styles.MarqueeTextBlock"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    ClipToBounds="True">
     <Grid>
-        <TextBlock x:Name="PART_Text"
-                   VerticalAlignment="Center"
-                   Foreground="{DynamicResource TextSecondary}"
-                   Opacity="1" />
+        <StackPanel
+            x:Name="PART_Stack"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <TextBlock
+                x:Name="PART_Text"
+                Foreground="{DynamicResource TextSecondary}"
+                TextTrimming="None"
+                TextWrapping="NoWrap" />
+            <TextBlock
+                x:Name="PART_TextCopy"
+                Foreground="{DynamicResource TextSecondary}"
+                TextTrimming="None"
+                TextWrapping="NoWrap"
+                Visibility="Collapsed" />
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -12,6 +12,5 @@ namespace Valorant_Instalocker.Utils.Constants
         public const string english = "EN";
         
         public static List<string> AvailableLanguages = new List<string> { turkish, english };
-
     }
 }

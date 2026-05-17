@@ -90,33 +90,38 @@ namespace Valorant_Instalocker.Main.Game
 
         public static async Task ConnectValorant()
         {
-            Log.Information("ConnectValorant fonksiyonu çalışmaya başladı.");
-            Log.Information("Valorant istemcisine bağlanılmaya çalışılıyor...");
+            Log.Information("[ConnectValorant] Valorant istemcisine bağlanma işlemi başlatılıyor.");
 
             try
             {
-                AppStateManager.initiator = await Task.Run(() =>
+                try
                 {
-                    return new Initiator(ignoreVpn: true);
-                });
-                AppStateManager.Instance.IsClientLoggedIn = true;
-                Log.Information("RadiantConnect başarıyla başlatıldı.");
-                Log.Information("ConnectValorant fonksiyonu başarıyla tamamlandı.");
-            }
-            catch (System.TimeoutException ex)
-            {
-                if (FailureTimes > 5)
-                {
-                    Log.Error(ex, "Giriş yapılırken hata: Valorant açık değil, 5 kez denendi. ConnectValorant fonksiyonu başarısız oldu.");
-                    return;
+                    AppStateManager.initiator = await Task.Run(() =>
+                    {
+                        Log.Debug("[ConnectValorant] Initiator oluşturuluyor...");
+                        return new Initiator(ignoreVpn: true);
+                    });
+                    AppStateManager.Instance.IsClientLoggedIn = true;
+                    Log.Information("[ConnectValorant] RadiantConnect başarıyla başlatıldı. Bağlantı kuruldu.");
                 }
-                FailureTimes++;
-                Log.Information($"Giriş başarısız, Tekrar deneniyor. Deneme sayısı : {FailureTimes.ToString()}");
-                await ConnectValorant();
+                catch (System.TimeoutException ex)
+                {
+                    if (FailureTimes > 5)
+                    {
+                        Log.Error(ex, "[ConnectValorant] Giriş yapılırken timeout hatası: Valorant açık değil, 5 kez denendi. ConnectValorant fonksiyonu başarısız oldu.");
+                        FailureTimes = 0;
+                        throw;
+                    }
+                    FailureTimes++;
+                    Log.Warning("[ConnectValorant] Giriş timeout hatası, tekrar deneniyor. Deneme sayısı: {FailureCount}", FailureTimes);
+                    await System.Threading.Tasks.Task.Delay(1000);
+                    await ConnectValorant();
+                }
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Giriş yapılırken Bir Hata Oluştu. ConnectValorant fonksiyonu kritik bir hata ile sonlandı.");
+                Log.Error(ex, "[ConnectValorant] Valorant bağlantısı kurulurken kritik hata oluştu");
+                AppStateManager.Instance.IsClientLoggedIn = false;
                 throw;
             }
         }
