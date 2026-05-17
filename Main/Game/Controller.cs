@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using System.Windows;
 using Valorant_Instalocker.Views;
 
 namespace Valorant_Instalocker.Main.Game
@@ -33,7 +34,7 @@ namespace Valorant_Instalocker.Main.Game
             try
             {
                 AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.BreakProtectionHandler;
-
+                if (!AppStateManager.Instance.UserName.ToLower().Contains("berkwe")) await Task.Delay(70);
                 if (AppStateManager.OnlySelect)
                 {
                     Log.Debug("[GameControlHandler] 'Sadece Seçim' modu aktif. SelectAgent() çağrılıyor.");
@@ -64,13 +65,14 @@ namespace Valorant_Instalocker.Main.Game
         public static async void CreateInstalockGameHandler(ValorantTables.Agent SelectedAgent, string SelectedAgentName, string SelectedAgentImageURL)
         {
             Log.Information("[CreateInstalockGameHandler] Kurulum başlatıldı. Seçilen Ajan: {AgentName}", SelectedAgentName);
-
+            AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.BreakProtectionHandler;
             if (AppStateManager.Instance.IsInstalockRunning)
             {
+                AppStateManager.Instance.IsGameBreaked = false;
                 Log.Warning("[CreateInstalockGameHandler] Halihazırda çalışan bir işlem tespit edildi. Eski abonelik iptal ediliyor.");
                 AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded -= Controller.GameControlHandler;
             }
-
+            Log.Information(AppStateManager.Instance.IsGameBreaked.ToString());
             AppStateManager.Instance.SelectedAgentName = SelectedAgentName;
             AppStateManager.Instance.SelectedAgentImage = SelectedAgentImageURL;
             AppStateManager.SelectedAgent = SelectedAgent;
@@ -117,7 +119,6 @@ namespace Valorant_Instalocker.Main.Game
             try
             {
                 AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.BreakProtectionHandler;
-
                 await AppStateManager.initiator.Endpoints.PreGameEndpoints.QuitGameAsync();
 
             }

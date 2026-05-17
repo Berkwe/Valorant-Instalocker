@@ -122,7 +122,6 @@
                 <Setter Property="Cursor" Value="No" />
                 <Setter Property="Background" Value="{DynamicResource DisabledButon}" />
                 <Setter Property="Foreground" Value="{DynamicResource TextSecondary}" />
-                <Setter Property="ToolTip" Value="Lütfen önce Valorant istemcisine bağlanın!" />
             </Trigger>
         </Style.Triggers>
     </Style>

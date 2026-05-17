@@ -25,7 +25,6 @@ namespace Valorant_Instalocker.Utils.Helpers
         {
             CurrentDictLang = AppStateManager.CurrentUserSettings.Language;
 
-            // App.xaml'a güvenme, direkt yükle
             var uri = new Uri($"/Langs/GreetingTexts/Greeting_{CurrentDictLang}.xaml", UriKind.Relative);
             GreetingDict = (ResourceDictionary)Application.LoadComponent(uri);
 
@@ -58,7 +57,6 @@ namespace Valorant_Instalocker.Utils.Helpers
 
         static private void SetRandomGreetingMessage(object sender, ElapsedEventArgs e)
         {
-            Log.Information("Random Karşılama Ekranı çalıştı.");
             if (GreetingDict == null || GreetingDict.Count == 0 || AppStateManager.CurrentUserSettings.Language != CurrentDictLang)
             {
                 GetGreetingDict();
@@ -66,7 +64,6 @@ namespace Valorant_Instalocker.Utils.Helpers
             int RandomIndex = rn.Next(GreetingDictKeys.Count);
             var SelectedGreetingKey = GreetingDictKeys[RandomIndex];
             AppStateManager.Instance.ActiveGreetingMessage = GreetingDict[SelectedGreetingKey].ToString();
-            Log.Information($"Şu Anki Karşılama Ekranı : {AppStateManager.Instance.ActiveGreetingMessage}");
         }
     }
 }
