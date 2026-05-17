@@ -58,18 +58,28 @@
                 BorderBrush="{DynamicResource DefaultBorder}"
                 BorderThickness="1"
                 CornerRadius="12">
-                <StackPanel HorizontalAlignment="Stretch">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
                     <TextBlock
+                        Grid.Row="0"
                         Margin="0,0,0,15"
                         FontSize="16"
                         FontWeight="Bold"
                         Foreground="{DynamicResource TextPrimary}"
                         Text="{DynamicResource StatusTitle}" />
                     <Rectangle
+                        Grid.Row="0"
                         Height="1"
-                        Margin="0,0,0,15"
+                        Margin="0,35,0,0"
                         Fill="{DynamicResource SeparatorBrush}" />
-                    <Grid Margin="0,0,0,10">
+
+                    <Grid Grid.Row="1" Margin="0,15,0,10">
                         <TextBlock
                             HorizontalAlignment="Left"
                             Foreground="{DynamicResource TextSecondary}"
@@ -81,7 +91,8 @@
                             Foreground="{DynamicResource AccentWarning}"
                             Text="{Binding Path=CurrentPhaseTranslated, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
                     </Grid>
-                    <Grid Margin="0,0,0,10">
+
+                    <Grid Grid.Row="2" Margin="0,0,0,10">
                         <TextBlock
                             HorizontalAlignment="Left"
                             Foreground="{DynamicResource TextSecondary}"
@@ -94,296 +105,282 @@
                             Text="{Binding Path=CurrentPlayerLevel, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
                     </Grid>
 
-
-                    <StackPanel
-                        Margin="0,15,0,0"
-                        HorizontalAlignment="Stretch"
-                        Visibility="Visible">
-                        <Rectangle
-                            Height="1"
-                            Margin="0,5,0,15"
-                            Fill="{DynamicResource SeparatorBrush}" />
-
-                        <Image
-                            Width="64"
-                            Height="64"
-                            Margin="0,0,0,8"
-                            HorizontalAlignment="Center"
-                            RenderOptions.BitmapScalingMode="HighQuality"
-                            Source="{Binding Path=SelectedAgentImage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
-
-
-                        <TextBlock
-                            Margin="0,0,0,8"
-                            HorizontalAlignment="Center"
-                            FontSize="13"
-                            FontWeight="Bold"
-                            Foreground="{DynamicResource TextPrimary}"
-                            Text="{Binding Path=SelectedAgentName, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
-
-
-
-                        <StackPanel x:Name="WaitingPanel">
-                            <!--<TextBlock
-                                Margin="0,0,0,10"
-                                HorizontalAlignment="Center"
-                                FontSize="10"
-                                Foreground="{DynamicResource TextSecondary}"
-                                Visibility="{Binding Path=IsBreaked, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}, Mode=OneWay}"
-                                Text="{DynamicResource StatusWaitingBreaked}"
-                                TextAlignment="Center"
-                                TextWrapping="Wrap" />-->
-
-                            <TextBlock
-                                Margin="0,0,0,10"
-                                HorizontalAlignment="Center"
-                                FontSize="12"
-                                Foreground="{DynamicResource TextPrimary}"
-                                Text="{DynamicResource WaitingForAgentSelect}"
-                                TextAlignment="Center"
-                                TextWrapping="Wrap" />
-                            <Grid
-                                Width="32"
-                                Height="32"
-                                HorizontalAlignment="Center">
-
-                                <Grid
-                                    Width="50"
-                                    Height="25"
+                    <ScrollViewer
+                        Grid.Row="3"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Auto">
+                        <Grid>
+                            <StackPanel Margin="0,15,0,0" Visibility="{Binding Path=IsInstalockRunning, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}, Mode=OneWay}">
+                                <Rectangle
+                                    Height="1"
+                                    Margin="0,5,0,15"
+                                    Fill="{DynamicResource SeparatorBrush}" />
+                                <Image
+                                    Width="64"
+                                    Height="64"
+                                    Margin="0,0,0,8"
                                     HorizontalAlignment="Center"
-                                    VerticalAlignment="Center">
-                                    <Grid.Triggers>
-                                        <EventTrigger RoutedEvent="Loaded">
-                                            <BeginStoryboard>
-                                                <Storyboard RepeatBehavior="Forever">
-
-                                                    <DoubleAnimationUsingKeyFrames
-                                                        BeginTime="0:0:0"
-                                                        Storyboard.TargetName="Trans1"
-                                                        Storyboard.TargetProperty="Y">
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0" />
-                                                        <SplineDoubleKeyFrame
-                                                            KeySpline="0.2,0,0.3,1"
-                                                            KeyTime="0:0:0.2"
-                                                            Value="-5" />
-                                                        <SplineDoubleKeyFrame
-                                                            KeySpline="0.7,0,0.8,1"
-                                                            KeyTime="0:0:0.4"
-                                                            Value="0" />
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0" />
-                                                    </DoubleAnimationUsingKeyFrames>
-
-                                                    <DoubleAnimationUsingKeyFrames
-                                                        BeginTime="0:0:0"
-                                                        Storyboard.TargetName="Dot1"
-                                                        Storyboard.TargetProperty="Opacity">
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0.4" />
-                                                        <SplineDoubleKeyFrame
-                                                            KeySpline="0.2,0,0.3,1"
-                                                            KeyTime="0:0:0.2"
-                                                            Value="1.0" />
-                                                        <SplineDoubleKeyFrame
-                                                            KeySpline="0.7,0,0.8,1"
-                                                            KeyTime="0:0:0.4"
-                                                            Value="0.4" />
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0.4" />
-                                                    </DoubleAnimationUsingKeyFrames>
-
-                                                    <DoubleAnimationUsingKeyFrames
-                                                        BeginTime="0:0:0.15"
-                                                        Storyboard.TargetName="Trans2"
-                                                        Storyboard.TargetProperty="Y">
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0" />
-                                                        <SplineDoubleKeyFrame
-                                                            KeySpline="0.2,0,0.3,1"
-                                                            KeyTime="0:0:0.2"
-                                                            Value="-5" />
-                                                        <SplineDoubleKeyFrame
-                                                            KeySpline="0.7,0,0.8,1"
-                                                            KeyTime="0:0:0.4"
-                                                            Value="0" />
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0" />
-                                                    </DoubleAnimationUsingKeyFrames>
-                                                    <DoubleAnimationUsingKeyFrames
-                                                        BeginTime="0:0:0.15"
-                                                        Storyboard.TargetName="Dot2"
-                                                        Storyboard.TargetProperty="Opacity">
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0.4" />
-                                                        <SplineDoubleKeyFrame
-                                                            KeySpline="0.2,0,0.3,1"
-                                                            KeyTime="0:0:0.2"
-                                                            Value="1.0" />
-                                                        <SplineDoubleKeyFrame
-                                                            KeySpline="0.7,0,0.8,1"
-                                                            KeyTime="0:0:0.4"
-                                                            Value="0.4" />
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0.4" />
-                                                    </DoubleAnimationUsingKeyFrames>
-
-                                                    <DoubleAnimationUsingKeyFrames
-                                                        BeginTime="0:0:0.3"
-                                                        Storyboard.TargetName="Trans3"
-                                                        Storyboard.TargetProperty="Y">
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0" />
-                                                        <SplineDoubleKeyFrame
-                                                            KeySpline="0.2,0,0.3,1"
-                                                            KeyTime="0:0:0.2"
-                                                            Value="-5" />
-                                                        <SplineDoubleKeyFrame
-                                                            KeySpline="0.7,0,0.8,1"
-                                                            KeyTime="0:0:0.4"
-                                                            Value="0" />
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0" />
-                                                    </DoubleAnimationUsingKeyFrames>
-                                                    <DoubleAnimationUsingKeyFrames
-                                                        BeginTime="0:0:0.3"
-                                                        Storyboard.TargetName="Dot3"
-                                                        Storyboard.TargetProperty="Opacity">
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0.4" />
-                                                        <SplineDoubleKeyFrame
-                                                            KeySpline="0.2,0,0.3,1"
-                                                            KeyTime="0:0:0.2"
-                                                            Value="1.0" />
-                                                        <SplineDoubleKeyFrame
-                                                            KeySpline="0.7,0,0.8,1"
-                                                            KeyTime="0:0:0.4"
-                                                            Value="0.4" />
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0.4" />
-                                                    </DoubleAnimationUsingKeyFrames>
-
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </EventTrigger>
-                                    </Grid.Triggers>
-                                    <StackPanel
-                                        Margin="0,0,0,2"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="{Binding Path=SelectedAgentImage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
+                                <TextBlock
+                                    Margin="0,0,0,8"
+                                    HorizontalAlignment="Center"
+                                    FontSize="13"
+                                    FontWeight="Bold"
+                                    Foreground="{DynamicResource TextPrimary}"
+                                    Text="{Binding Path=SelectedAgentName, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
+                                <StackPanel x:Name="WaitingPanel">
+                                    <TextBlock
+                                        Margin="0,0,0,10"
                                         HorizontalAlignment="Center"
-                                        VerticalAlignment="Bottom"
-                                        Orientation="Horizontal">
-                                        <Ellipse
-                                            x:Name="Dot1"
-                                            Width="5.5"
-                                            Height="5.5"
-                                            Margin="2.5,0"
-                                            Fill="{DynamicResource AccentPrimary}"
-                                            Opacity="0.4">
-                                            <Ellipse.RenderTransform>
-                                                <TranslateTransform x:Name="Trans1" Y="0" />
-                                            </Ellipse.RenderTransform>
-                                        </Ellipse>
+                                        FontSize="10"
+                                        Foreground="{DynamicResource TextSecondary}"
+                                        Text="{DynamicResource StatusWaitingBreaked}"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap"
+                                        Visibility="{Binding Path=IsGameBreaked, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}, Mode=OneWay}" />
+                                    <TextBlock
+                                        Margin="0,0,0,10"
+                                        HorizontalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextPrimary}"
+                                        Text="{DynamicResource WaitingForAgentSelect}"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+                                    <Grid
+                                        Width="32"
+                                        Height="32"
+                                        HorizontalAlignment="Center">
+                                        <Grid
+                                            Width="50"
+                                            Height="25"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                            <Grid.Triggers>
+                                                <EventTrigger RoutedEvent="Loaded">
+                                                    <BeginStoryboard>
+                                                        <Storyboard RepeatBehavior="Forever">
+                                                            <DoubleAnimationUsingKeyFrames
+                                                                BeginTime="0:0:0"
+                                                                Storyboard.TargetName="Trans1"
+                                                                Storyboard.TargetProperty="Y">
+                                                                <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0" />
+                                                                <SplineDoubleKeyFrame
+                                                                    KeySpline="0.2,0,0.3,1"
+                                                                    KeyTime="0:0:0.2"
+                                                                    Value="-5" />
+                                                                <SplineDoubleKeyFrame
+                                                                    KeySpline="0.7,0,0.8,1"
+                                                                    KeyTime="0:0:0.4"
+                                                                    Value="0" />
+                                                                <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames
+                                                                BeginTime="0:0:0"
+                                                                Storyboard.TargetName="Dot1"
+                                                                Storyboard.TargetProperty="Opacity">
+                                                                <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0.4" />
+                                                                <SplineDoubleKeyFrame
+                                                                    KeySpline="0.2,0,0.3,1"
+                                                                    KeyTime="0:0:0.2"
+                                                                    Value="1.0" />
+                                                                <SplineDoubleKeyFrame
+                                                                    KeySpline="0.7,0,0.8,1"
+                                                                    KeyTime="0:0:0.4"
+                                                                    Value="0.4" />
+                                                                <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0.4" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames
+                                                                BeginTime="0:0:0.15"
+                                                                Storyboard.TargetName="Trans2"
+                                                                Storyboard.TargetProperty="Y">
+                                                                <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0" />
+                                                                <SplineDoubleKeyFrame
+                                                                    KeySpline="0.2,0,0.3,1"
+                                                                    KeyTime="0:0:0.2"
+                                                                    Value="-5" />
+                                                                <SplineDoubleKeyFrame
+                                                                    KeySpline="0.7,0,0.8,1"
+                                                                    KeyTime="0:0:0.4"
+                                                                    Value="0" />
+                                                                <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames
+                                                                BeginTime="0:0:0.15"
+                                                                Storyboard.TargetName="Dot2"
+                                                                Storyboard.TargetProperty="Opacity">
+                                                                <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0.4" />
+                                                                <SplineDoubleKeyFrame
+                                                                    KeySpline="0.2,0,0.3,1"
+                                                                    KeyTime="0:0:0.2"
+                                                                    Value="1.0" />
+                                                                <SplineDoubleKeyFrame
+                                                                    KeySpline="0.7,0,0.8,1"
+                                                                    KeyTime="0:0:0.4"
+                                                                    Value="0.4" />
+                                                                <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0.4" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames
+                                                                BeginTime="0:0:0.3"
+                                                                Storyboard.TargetName="Trans3"
+                                                                Storyboard.TargetProperty="Y">
+                                                                <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0" />
+                                                                <SplineDoubleKeyFrame
+                                                                    KeySpline="0.2,0,0.3,1"
+                                                                    KeyTime="0:0:0.2"
+                                                                    Value="-5" />
+                                                                <SplineDoubleKeyFrame
+                                                                    KeySpline="0.7,0,0.8,1"
+                                                                    KeyTime="0:0:0.4"
+                                                                    Value="0" />
+                                                                <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames
+                                                                BeginTime="0:0:0.3"
+                                                                Storyboard.TargetName="Dot3"
+                                                                Storyboard.TargetProperty="Opacity">
+                                                                <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0.4" />
+                                                                <SplineDoubleKeyFrame
+                                                                    KeySpline="0.2,0,0.3,1"
+                                                                    KeyTime="0:0:0.2"
+                                                                    Value="1.0" />
+                                                                <SplineDoubleKeyFrame
+                                                                    KeySpline="0.7,0,0.8,1"
+                                                                    KeyTime="0:0:0.4"
+                                                                    Value="0.4" />
+                                                                <SplineDoubleKeyFrame KeyTime="0:0:1.2" Value="0.4" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </EventTrigger>
+                                            </Grid.Triggers>
+                                            <StackPanel
+                                                Margin="0,0,0,2"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Bottom"
+                                                Orientation="Horizontal">
+                                                <Ellipse
+                                                    x:Name="Dot1"
+                                                    Width="5.5"
+                                                    Height="5.5"
+                                                    Margin="2.5,0"
+                                                    Fill="{DynamicResource AccentPrimary}"
+                                                    Opacity="0.4">
+                                                    <Ellipse.RenderTransform>
+                                                        <TranslateTransform x:Name="Trans1" Y="0" />
+                                                    </Ellipse.RenderTransform>
+                                                </Ellipse>
+                                                <Ellipse
+                                                    x:Name="Dot2"
+                                                    Width="5.5"
+                                                    Height="5.5"
+                                                    Margin="2.5,0"
+                                                    Fill="{DynamicResource AccentPrimary}"
+                                                    Opacity="0.4">
+                                                    <Ellipse.RenderTransform>
+                                                        <TranslateTransform x:Name="Trans2" Y="0" />
+                                                    </Ellipse.RenderTransform>
+                                                </Ellipse>
+                                                <Ellipse
+                                                    x:Name="Dot3"
+                                                    Width="5.5"
+                                                    Height="5.5"
+                                                    Margin="2.5,0"
+                                                    Fill="{DynamicResource AccentPrimary}"
+                                                    Opacity="0.4">
+                                                    <Ellipse.RenderTransform>
+                                                        <TranslateTransform x:Name="Trans3" Y="0" />
+                                                    </Ellipse.RenderTransform>
+                                                </Ellipse>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </StackPanel>
+                                <Button
+                                    x:Name="CancelInstalockAction"
+                                    MinWidth="100"
+                                    MaxWidth="180"
+                                    Margin="0,20,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    Click="CancelInstalockAction_Click"
+                                    Content="{DynamicResource CancelBtn}"
+                                    Style="{StaticResource ModernButton}" />
+                            </StackPanel>
 
-                                        <Ellipse
-                                            x:Name="Dot2"
-                                            Width="5.5"
-                                            Height="5.5"
-                                            Margin="2.5,0"
-                                            Fill="{DynamicResource AccentPrimary}"
-                                            Opacity="0.4">
-                                            <Ellipse.RenderTransform>
-                                                <TranslateTransform x:Name="Trans2" Y="0" />
-                                            </Ellipse.RenderTransform>
-                                        </Ellipse>
-
-                                        <Ellipse
-                                            x:Name="Dot3"
-                                            Width="5.5"
-                                            Height="5.5"
-                                            Margin="2.5,0"
-                                            Fill="{DynamicResource AccentPrimary}"
-                                            Opacity="0.4">
-                                            <Ellipse.RenderTransform>
-                                                <TranslateTransform x:Name="Trans3" Y="0" />
-                                            </Ellipse.RenderTransform>
-                                        </Ellipse>
-                                    </StackPanel>
+                            <StackPanel
+                                x:Name="LockedPanel"
+                                Margin="0,15,0,0"
+                                Visibility="{Binding Path=IsAgentLocked, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}">
+                                <Rectangle
+                                    Height="1"
+                                    Margin="0,5,0,15"
+                                    Fill="{DynamicResource SeparatorBrush}" />
+                                <Image
+                                    Width="64"
+                                    Height="64"
+                                    Margin="0,0,0,8"
+                                    HorizontalAlignment="Center"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="{Binding Path=SelectedAgentImage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
+                                <TextBlock
+                                    Margin="0,0,0,8"
+                                    HorizontalAlignment="Center"
+                                    FontSize="13"
+                                    FontWeight="Bold"
+                                    Foreground="{DynamicResource TextPrimary}"
+                                    Text="{Binding Path=SelectedAgentName, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
+                                <TextBlock
+                                    Margin="0,0,0,10"
+                                    HorizontalAlignment="Center"
+                                    FontSize="11"
+                                    FontWeight="Bold"
+                                    Foreground="#4CAF50"
+                                    Text="{DynamicResource StatusLocked}"
+                                    TextAlignment="Center" />
+                                <Grid
+                                    Width="28"
+                                    Height="28"
+                                    Margin="0,0,0,15"
+                                    HorizontalAlignment="Center">
+                                    <Ellipse Stroke="#4CAF50" StrokeThickness="2.5" />
+                                    <Path
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Data="M 7,14 L 12,19 L 21,9"
+                                        Stroke="#4CAF50"
+                                        StrokeEndLineCap="Round"
+                                        StrokeLineJoin="Round"
+                                        StrokeStartLineCap="Round"
+                                        StrokeThickness="2.5">
+                                        <Path.Triggers>
+                                            <EventTrigger RoutedEvent="Loaded">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            From="0"
+                                                            To="1"
+                                                            Duration="0:0:0.4" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </Path.Triggers>
+                                    </Path>
                                 </Grid>
-
-                            </Grid>
-                        </StackPanel>
-
-                        <Button
-                            x:Name="CancelInstalockAction"
-                            Width="130"
-                            Margin="0,20,0,0"
-                            HorizontalAlignment="Center"
-                            Click="CancelInstalockAction_Click"
-                            Content="{DynamicResource CancelBtn}"
-                            Style="{StaticResource ModernButton}" />
-                    </StackPanel>
-
-                    <StackPanel x:Name="LockedPanel" Visibility="{Binding Path=IsAgentLocked, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}">
-
-                        <Rectangle
-                            Height="1"
-                            Margin="0,5,0,15"
-                            Fill="{DynamicResource SeparatorBrush}" />
-
-                        <Image
-                            Width="64"
-                            Height="64"
-                            Margin="0,0,0,8"
-                            HorizontalAlignment="Center"
-                            RenderOptions.BitmapScalingMode="HighQuality"
-                            Source="{Binding Path=SelectedAgentImage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
-
-                        <TextBlock
-                            Margin="0,0,0,8"
-                            HorizontalAlignment="Center"
-                            FontSize="13"
-                            FontWeight="Bold"
-                            Foreground="{DynamicResource TextPrimary}"
-                            Text="{Binding Path=SelectedAgentName, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
-
-
-                        <TextBlock
-                            Margin="0,0,0,10"
-                            HorizontalAlignment="Center"
-                            FontSize="11"
-                            FontWeight="Bold"
-                            Foreground="#4CAF50"
-                            Text="{DynamicResource StatusLocked}"
-                            TextAlignment="Center" />
-                        <Grid
-                            Width="28"
-                            Height="28"
-                            Margin="0,0,0,15"
-                            HorizontalAlignment="Center">
-                            <Ellipse Stroke="#4CAF50" StrokeThickness="2.5" />
-                            <Path
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top"
-                                Data="M 7,14 L 12,19 L 21,9"
-                                Stroke="#4CAF50"
-                                StrokeEndLineCap="Round"
-                                StrokeLineJoin="Round"
-                                StrokeStartLineCap="Round"
-                                StrokeThickness="2.5">
-                                <Path.Triggers>
-                                    <EventTrigger RoutedEvent="Loaded">
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <DoubleAnimation
-                                                    Storyboard.TargetProperty="Opacity"
-                                                    From="0"
-                                                    To="1"
-                                                    Duration="0:0:0.4" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                </Path.Triggers>
-                            </Path>
+                                <Button
+                                    x:Name="QuitPreGameAction"
+                                    MinWidth="100"
+                                    MaxWidth="180"
+                                    HorizontalAlignment="Stretch"
+                                    Click="QuitPreGameAction_Click"
+                                    Content="{DynamicResource QuitPreGameBtn}"
+                                    IsEnabled="{Binding Path=QuitPreGameBtnBool, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}"
+                                    Style="{StaticResource ModernButton}" />
+                            </StackPanel>
                         </Grid>
+                    </ScrollViewer>
 
-                        <Button
-                            x:Name="QuitPreGameAction"
-                            Width="130"
-                            HorizontalAlignment="Center"
-                            Click="QuitPreGameAction_Click"
-                            Content="{DynamicResource QuitPreGameBtn}"
-                            IsEnabled="{Binding Path=QuitPreGameBtnBool, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}"
-                            Style="{StaticResource ModernButton}" />
-                    </StackPanel>
-                </StackPanel>
+                </Grid>
             </Border>
             <Border
                 Grid.Column="1"

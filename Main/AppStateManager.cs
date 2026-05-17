@@ -60,7 +60,10 @@ namespace Valorant_Instalocker.Main
             Instance.QuitPreGameBtnBool = true;
         }
 
-
+        partial void OnIsGameBreakedChanged(bool oldValue, bool newValue)
+        {
+            Log.Information($"Break game değişti :{oldValue} : {newValue}");
+        }
 
         private static void InitializeLogger()
         {
