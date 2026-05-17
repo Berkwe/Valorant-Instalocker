@@ -23,6 +23,7 @@
 	<system:String x:Key="StateLobby">Lobi</system:String>
 	<system:String x:Key="LevelLabel">Seviye:</system:String>
 	<system:String x:Key="StatusWaiting">Ajan seçimi bekleniyor...</system:String>
+    <system:String x:Key="StatusWaitingBreaked">Oyun bozuldu Instalocker aynı ajanı seçiyor.</system:String>
     <system:String x:Key="StatusLocked">Ajan Başarıyla Kilitlendi</system:String>
     <system:String x:Key="LockAgentBtn">Ajanı Kilitle</system:String>
     <system:String x:Key="OnlySelectCheckBox">Sadece Seç</system:String>

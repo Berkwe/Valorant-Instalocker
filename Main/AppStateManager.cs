@@ -30,7 +30,7 @@ namespace Valorant_Instalocker.Main
             (!Instance.IsInstalockRunning && (Instance.CurrentPhase == "pregame" || Instance.CurrentPhase == "gameplay"))
                 ? Visibility.Visible : Visibility.Collapsed;
 
-
+        [ObservableProperty] private bool isGameBreaked = false;
         [ObservableProperty] private string activeGreetingMessage = "";
         [ObservableProperty] private bool isAgentLocked = false;
         [ObservableProperty] private string currentPhase = "";

@@ -32,6 +32,8 @@ namespace Valorant_Instalocker.Main.Game
             Log.Information("[GameControlHandler] Tetiklendi. MatchID: {MatchID}, OnlySelect Modu: {OnlySelect}", MatchID, AppStateManager.OnlySelect);
             try
             {
+                AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.BreakProtectionHandler;
+
                 if (AppStateManager.OnlySelect)
                 {
                     Log.Debug("[GameControlHandler] 'Sadece Seçim' modu aktif. SelectAgent() çağrılıyor.");
@@ -48,6 +50,9 @@ namespace Valorant_Instalocker.Main.Game
 
                 AppStateManager.Instance.IsInstalockRunning = false;
                 Log.Information("[GameControlHandler] İşlem döngüsü sorunsuz tamamlandı. IsInstalockRunning: false");
+
+                AppStateManager.initiator.TcpEvents.OnGameStateChanged += Controller.BreakProtectionHandler;
+                Log.Information("Bozulma Koruması Başladı");
             }
             catch (Exception ex)
             {
@@ -101,6 +106,7 @@ namespace Valorant_Instalocker.Main.Game
             AppStateManager.Instance.SelectedAgentName = default;
             AppStateManager.Instance.SelectedAgentImage = default;
             AppStateManager.SelectedAgent = default;
+            AppStateManager.Instance.IsGameBreaked = false;
             AppStateManager.Instance.IsInstalockRunning = false;
 
             Log.Information("[CancelControlHandler] İptal işlemi başarıyla tamamlandı. State sıfırlandı.");
@@ -110,12 +116,47 @@ namespace Valorant_Instalocker.Main.Game
         {
             try
             {
+                AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.BreakProtectionHandler;
+
                 await AppStateManager.initiator.Endpoints.PreGameEndpoints.QuitGameAsync();
+
             }
             catch (RadiantConnectNetworkStatusException)
             {
 
 
+            }
+
+        }
+
+
+        public static async void BreakProtectionHandler(string phase)
+        {
+            try
+            {
+                AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.BreakProtectionHandler;
+
+                Log.Information($"BreakProtection çalıştı : {phase}");
+
+                if (phase.ToLower() == "ingame" || phase.ToLower() == "ıngame")
+                {
+                    AppStateManager.Instance.IsGameBreaked = false;
+                    Log.Information("Oyun Bozulmadı.");
+
+                }
+                else
+                {
+                    AppStateManager.Instance.IsGameBreaked = true;
+                    Log.Information($"Oyun Bozuldu instalocker yeniden seçiyor.");
+                    CreateInstalockGameHandler(AppStateManager.SelectedAgent, AppStateManager.Instance.SelectedAgentName, AppStateManager.Instance.SelectedAgentImage);
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.ToString());
             }
 
         }

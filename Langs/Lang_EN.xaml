@@ -22,6 +22,7 @@
 	<system:String x:Key="StateLobby">Lobby</system:String>
 	<system:String x:Key="LevelLabel">Level:</system:String>
 	<system:String x:Key="StatusWaiting">Waiting for agent selection...</system:String>
+    <system:String x:Key="StatusWaitingBreaked">Oyun bozuldu Instalocker aynı ajanı seçiyor.</system:String>
     <system:String x:Key="StatusLocked">Agent Has Been Succesfully Locked</system:String>
     <system:String x:Key="LockAgentBtn">Lock Agent</system:String>
     <system:String x:Key="OnlySelectCheckBox">Only Select</system:String>
