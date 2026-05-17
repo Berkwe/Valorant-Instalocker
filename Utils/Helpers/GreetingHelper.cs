@@ -23,47 +23,83 @@ namespace Valorant_Instalocker.Utils.Helpers
 
         static private void GetGreetingDict()
         {
-            CurrentDictLang = AppStateManager.CurrentUserSettings.Language;
-
-            var uri = new Uri($"/Langs/GreetingTexts/Greeting_{CurrentDictLang}.xaml", UriKind.Relative);
-            GreetingDict = (ResourceDictionary)Application.LoadComponent(uri);
-
-            if (GreetingDict == null || GreetingDict.Count == 0)
+            Log.Information("[GreetingHelper.GetGreetingDict] Selamlaştırma sözlüğü yükleniyor. Dil: {Language}", AppStateManager.CurrentUserSettings.Language);
+            try
             {
-                Log.Warning($"Greeting dictionary yüklenemedi: {CurrentDictLang}");
-                return;
+                CurrentDictLang = AppStateManager.CurrentUserSettings.Language;
+
+                var uri = new Uri($"/Langs/GreetingTexts/Greeting_{CurrentDictLang}.xaml", UriKind.Relative);
+                GreetingDict = (ResourceDictionary)Application.LoadComponent(uri);
+
+                if (GreetingDict == null || GreetingDict.Count == 0)
+                {
+                    Log.Warning("[GreetingHelper.GetGreetingDict] Selamlaştırma sözlüğü yüklenemedi veya boş: {Language}", CurrentDictLang);
+                    return;
+                }
+
+                GreetingDictKeys = GreetingDict.Keys.Cast<object>()
+                    .Select(k => k.ToString())
+                    .ToList();
+
+                Log.Information("[GreetingHelper.GetGreetingDict] Selamlaştırma sözlüğü başarıyla yüklendi. Toplam anahtar: {KeyCount}", GreetingDictKeys.Count);
             }
-
-            GreetingDictKeys = GreetingDict.Keys.Cast<object>()
-                .Select(k => k.ToString())
-                .ToList();
-
-            Log.Information($"Greeting dict yüklendi, {GreetingDictKeys.Count} key.");
+            catch (Exception ex)
+            {
+                Log.Error(ex, "[GreetingHelper.GetGreetingDict] Selamlaştırma sözlüğü yüklenirken hata oluştu. Dil: {Language}", CurrentDictLang);
+                GreetingDictKeys = new List<string>();
+                GreetingDict = null;
+            }
         }
 
 
         static public void StartToGreetingTimer()
         {
-            GreetingHelper.SetRandomGreetingMessage(null, null);
-            _timer = new System.Timers.Timer(AppStateManager.CurrentUserSettings.GreetingDurationSeconds * 1000);
+            Log.Information("[GreetingHelper.StartToGreetingTimer] Selamlaştırma timer başlatılıyor.");
+            try
+            {
+                GreetingHelper.SetRandomGreetingMessage(null, null);
+                _timer = new System.Timers.Timer(AppStateManager.CurrentUserSettings.GreetingDurationSeconds * 1000);
 
-            _timer.Elapsed += SetRandomGreetingMessage;
+                _timer.Elapsed += SetRandomGreetingMessage;
 
-            _timer.AutoReset = true;
+                _timer.AutoReset = true;
 
-            _timer.Start();
+                _timer.Start();
+                Log.Information("[GreetingHelper.StartToGreetingTimer] Timer başarıyla başlatıldı. Interval: {Interval}ms", AppStateManager.CurrentUserSettings.GreetingDurationSeconds * 1000);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "[GreetingHelper.StartToGreetingTimer] Timer başlatılırken hata oluştu");
+            }
         }
 
 
         static private void SetRandomGreetingMessage(object sender, ElapsedEventArgs e)
         {
-            if (GreetingDict == null || GreetingDict.Count == 0 || AppStateManager.CurrentUserSettings.Language != CurrentDictLang)
+            Log.Debug("[GreetingHelper.SetRandomGreetingMessage] Rastgele selamlaştırma mesajı ayarlanıyor.");
+            try
             {
-                GetGreetingDict();
+                if (GreetingDict == null || GreetingDict.Count == 0 || AppStateManager.CurrentUserSettings.Language != CurrentDictLang)
+                {
+                    Log.Debug("[GreetingHelper.SetRandomGreetingMessage] Sözlük yeniden yükleniyor.");
+                    GetGreetingDict();
+                }
+
+                if (GreetingDictKeys == null || GreetingDictKeys.Count == 0)
+                {
+                    Log.Warning("[GreetingHelper.SetRandomGreetingMessage] Kullanılabilir selamlaştırma anahtarı yok");
+                    return;
+                }
+
+                int RandomIndex = rn.Next(GreetingDictKeys.Count);
+                var SelectedGreetingKey = GreetingDictKeys[RandomIndex];
+                AppStateManager.Instance.ActiveGreetingMessage = GreetingDict[SelectedGreetingKey].ToString();
+                Log.Debug("[GreetingHelper.SetRandomGreetingMessage] Selamlaştırma mesajı başarıyla ayarlandı. Anahtar: {Key}", SelectedGreetingKey);
             }
-            int RandomIndex = rn.Next(GreetingDictKeys.Count);
-            var SelectedGreetingKey = GreetingDictKeys[RandomIndex];
-            AppStateManager.Instance.ActiveGreetingMessage = GreetingDict[SelectedGreetingKey].ToString();
+            catch (Exception ex)
+            {
+                Log.Error(ex, "[GreetingHelper.SetRandomGreetingMessage] Selamlaştırma mesajı ayarlanırken hata oluştu");
+            }
         }
     }
 }

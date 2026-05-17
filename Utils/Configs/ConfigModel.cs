@@ -5,6 +5,6 @@ namespace Valorant_Instalocker.Utils.Configs
     {
         public string Language { get; set; } = Languages.english; 
         public string Theme { get; set; } = "dark";
-        public int GreetingDurationSeconds { get; set; } = 13;
+        public int GreetingDurationSeconds { get; set; } = 10;
     }
 }

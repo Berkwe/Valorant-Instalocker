@@ -75,44 +75,110 @@ namespace Valorant_Instalocker.Main
                 outputTemplate: "[{Timestamp:MM/d:HH:mm:ss}] - [{SourceContext}]:[{Level:u3}] : {Message:lj}{NewLine}{Exception}"
             )
             .CreateLogger();
-            Log.Information("Instalocker Başladı..");
-            
+            Log.Information("───────────────────────────────────────────");
+            Log.Information("  Yeni Oturum Başladı » {Time}", DateTime.Now);
+            Log.Information("───────────────────────────────────────────");
+
 
         }
         public static async void Initialize()
         {
-
-            InitializeLogger();
-            CurrentUserSettings = ConfigManager.InitializeSettings();
-            GreetingHelper.StartToGreetingTimer();
-
-            await Connection.ConnectValorant();
-            if (Instance.IsClientLoggedIn)
+            Log.Information("[AppStateManager.Initialize] Uygulama başlatılıyor.");
+            try
             {
-                // AD alnma ksımı
-                Instance.UserName = await Connection.GetUserName();
-                // phase alma ve evente ekleme
-                var CurrentPhase = await Connection.GetCurrentPhase();
-                var TranslatedPhase = DashboardView.TranslatePhase(CurrentPhase);
-                Instance.CurrentPhase = CurrentPhase.ToLower();
-                Instance.CurrentPhaseTranslated = TranslatedPhase;
-                initiator.TcpEvents.OnGameStateChanged += (string phase) =>
+                InitializeLogger();
+
+                try
                 {
-                    var EventTranslatedPhase = DashboardView.TranslatePhase(phase);
-                    Instance.CurrentPhase = phase.ToLower();
-                    Instance.CurrentPhaseTranslated = EventTranslatedPhase;
-                    
-                    if (phase.ToLower() != "pregame") AppStateManager.Instance.IsAgentLocked = false;
+                    CurrentUserSettings = ConfigManager.InitializeSettings();
+                    Log.Information("[AppStateManager.Initialize] Kullanıcı ayarları yüklendi.");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "[AppStateManager.Initialize] Kullanıcı ayarları yüklenirken hata oluştu. Varsayılan ayarlar kullanılıyor.");
+                    CurrentUserSettings = new UserSettings();
+                }
 
-                };
+                try
+                {
+                    GreetingHelper.StartToGreetingTimer();
+                    Log.Debug("[AppStateManager.Initialize] Selamlaştırma timer başlatıldı.");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "[AppStateManager.Initialize] Selamlaştırma timer başlatılırken hata oluştu");
+                }
 
-                // Seviye kısmı
-                Instance.CurrentPlayerLevel = await Connection.GetCurrentPlayerLevel();
+                await Connection.ConnectValorant();
+                if (Instance.IsClientLoggedIn)
+                {
+                    try
+                    {
+                        // Kullanıcı adı alma
+                        Instance.UserName = await Connection.GetUserName();
+                        Log.Information("[AppStateManager.Initialize] Kullanıcı adı alındı: {UserName}", Instance.UserName);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "[AppStateManager.Initialize] Kullanıcı adı alınırken hata oluştu");
+                        Instance.UserName = "Bilinmiyor";
+                    }
 
+                    try
+                    {
+                        // Phase alma ve evente ekleme
+                        var CurrentPhase = await Connection.GetCurrentPhase();
+                        var TranslatedPhase = DashboardView.TranslatePhase(CurrentPhase);
+                        Instance.CurrentPhase = CurrentPhase.ToLower();
+                        Instance.CurrentPhaseTranslated = TranslatedPhase;
+                        Log.Information("[AppStateManager.Initialize] Oyun aşaması alındı: {CurrentPhase}", CurrentPhase);
+
+                        initiator.TcpEvents.OnGameStateChanged += (string phase) =>
+                        {
+                            try
+                            {
+                                var EventTranslatedPhase = DashboardView.TranslatePhase(phase);
+                                Instance.CurrentPhase = phase.ToLower();
+                                Instance.CurrentPhaseTranslated = EventTranslatedPhase;
+
+                                if (phase.ToLower() != "pregame") AppStateManager.Instance.IsAgentLocked = false;
+                                Log.Debug("[AppStateManager.OnGameStateChanged] Oyun aşaması değişti: {Phase}", phase);
+                            }
+                            catch (Exception ex)
+                            {
+                                Log.Error(ex, "[AppStateManager.OnGameStateChanged] Oyun aşaması event'i işlenirken hata oluştu");
+                            }
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "[AppStateManager.Initialize] Oyun aşaması alınırken hata oluştu");
+                        Instance.CurrentPhase = "none";
+                    }
+
+                    try
+                    {
+                        // Seviye alma
+                        Instance.CurrentPlayerLevel = await Connection.GetCurrentPlayerLevel();
+                        Log.Information("[AppStateManager.Initialize] Oyuncu seviyesi alındı: {Level}", Instance.CurrentPlayerLevel);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "[AppStateManager.Initialize] Oyuncu seviyesi alınırken hata oluştu");
+                        Instance.CurrentPlayerLevel = 0;
+                    }
+                }
+                else
+                {
+                    Log.Warning("[AppStateManager.Initialize] Valorant istemcisine bağlanılamadı. Uygulamayı çalıştırmaya devam ediyorum.");
+                }
+
+                Log.Information("[AppStateManager.Initialize] Uygulama başlatılması başarıyla tamamlandı.");
             }
-
-
-
+            catch (Exception ex)
+            {
+                Log.Error(ex, "[AppStateManager.Initialize] Uygulama başlatılması sırasında kritik hata oluştu");
+            }
         }
 
     }
