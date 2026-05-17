@@ -98,7 +98,7 @@
                     <StackPanel
                         Margin="0,15,0,0"
                         HorizontalAlignment="Stretch"
-                        Visibility="{Binding Path=IsInstalockRunning, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}}">
+                        Visibility="Visible">
                         <Rectangle
                             Height="1"
                             Margin="0,5,0,15"
@@ -112,6 +112,7 @@
                             RenderOptions.BitmapScalingMode="HighQuality"
                             Source="{Binding Path=SelectedAgentImage, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
 
+
                         <TextBlock
                             Margin="0,0,0,8"
                             HorizontalAlignment="Center"
@@ -120,7 +121,19 @@
                             Foreground="{DynamicResource TextPrimary}"
                             Text="{Binding Path=SelectedAgentName, Source={x:Static main:AppStateManager.Instance}, Mode=OneWay}" />
 
+
+
                         <StackPanel x:Name="WaitingPanel">
+                            <!--<TextBlock
+                                Margin="0,0,0,10"
+                                HorizontalAlignment="Center"
+                                FontSize="10"
+                                Foreground="{DynamicResource TextSecondary}"
+                                Visibility="{Binding Path=IsBreaked, Source={x:Static main:AppStateManager.Instance}, Converter={StaticResource BoolToVisibility}, Mode=OneWay}"
+                                Text="{DynamicResource StatusWaitingBreaked}"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap" />-->
+
                             <TextBlock
                                 Margin="0,0,0,10"
                                 HorizontalAlignment="Center"

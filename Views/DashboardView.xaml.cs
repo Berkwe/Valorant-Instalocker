@@ -25,7 +25,7 @@ namespace Valorant_Instalocker.Views
         {
             "ıdle" or "menus" or "default" => "PhaseIdle",
             "pregame" => "PhasePregame",
-            "ingame" or "gameplay" => "PhaseIngame",
+            "ingame" or "gameplay" or "ıngame" => "PhaseIngame",
             _ => "PhaseUnknown"
             
         });
