@@ -83,7 +83,6 @@ namespace Valorant_Instalocker.Main
         }
         public static async void Initialize()
         {
-            Log.Information("[AppStateManager.Initialize] Uygulama başlatılıyor.");
             try
             {
                 InitializeLogger();
@@ -98,6 +97,7 @@ namespace Valorant_Instalocker.Main
                     Log.Error(ex, "[AppStateManager.Initialize] Kullanıcı ayarları yüklenirken hata oluştu. Varsayılan ayarlar kullanılıyor.");
                     CurrentUserSettings = new UserSettings();
                 }
+
 
                 try
                 {
@@ -170,8 +170,20 @@ namespace Valorant_Instalocker.Main
                 }
                 else
                 {
-                    Log.Warning("[AppStateManager.Initialize] Valorant istemcisine bağlanılamadı. Uygulamayı çalıştırmaya devam ediyorum.");
+                    Log.Warning("[AppStateManager.Initialize] Valorant istemcisine bağlanılamadı.");
                 }
+
+
+                try
+                {
+                    await Main.API.UpdateApplication.CheckForUpdates();
+                    Log.Information("[AppStateManager.Initialize] Güncelleme kontrolü yapıldı.");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "[AppStateManager.Initialize] Güncelleme kontrolünde bir hata meydana geldi.");
+                }
+
 
                 Log.Information("[AppStateManager.Initialize] Uygulama başlatılması başarıyla tamamlandı.");
             }
