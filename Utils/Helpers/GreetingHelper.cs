@@ -28,7 +28,7 @@ namespace Valorant_Instalocker.Utils.Helpers
             {
                 CurrentDictLang = AppStateManager.CurrentUserSettings.Language;
 
-                var uri = new Uri($"/Langs/GreetingTexts/Greeting_{CurrentDictLang}.xaml", UriKind.Relative);
+                var uri = new Uri($"Assets/Langs/GreetingTexts/Greeting_{CurrentDictLang}.xaml", UriKind.Relative);
                 GreetingDict = (ResourceDictionary)Application.LoadComponent(uri);
 
                 if (GreetingDict == null || GreetingDict.Count == 0)
