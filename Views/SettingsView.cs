@@ -61,7 +61,7 @@ namespace Valorant_Instalocker.Views
             var dicts = Application.Current.Resources.MergedDictionaries;
             var newLang = new ResourceDictionary
             {
-                Source = new Uri($"/Langs/Lang_{langCode}.xaml", UriKind.Relative)
+                Source = new Uri($"Assets/Langs/Lang_{langCode}.xaml", UriKind.Relative)
             };
             foreach  (ComboBoxItem item in LanguageComboBox.Items)
             {
