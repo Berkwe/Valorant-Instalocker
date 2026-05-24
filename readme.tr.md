@@ -60,7 +60,7 @@ TUI (terminal) sürümünde bulunan aşağıdaki özellikler GUI sürümü için
 Uygulamayı sisteminize kurar ve Velopack aracılığıyla otomatik güncelleme desteği sağlar.
 
 1. Son sürümü indirin:
-   [**Instalocker-GUI-Setup.exe**](https://github.com/Berkwe/Valorant-instalocker/releases/latest/download/Instalocker-GUI-Setup.exe)
+   [**Instalocker-GUI-Setup.exe**](https://github.com/Berkwe/Valorant-instalocker/releases/latest/download/Instalocker-win-Setup.exe)
 2. Kurulum dosyasını çalıştırın ve adımları takip edin.
 3. Kurulum tamamlandığında uygulama otomatik olarak başlar.
 
@@ -73,7 +73,7 @@ Uygulamayı sisteminize kurar ve Velopack aracılığıyla otomatik güncelleme 
 Kurulum gerektirmez. İndirin, çıkartın, çalıştırın.
 
 1. Son sürümü indirin:
-   [**Instalocker-GUI-Portable.zip**](https://github.com/Berkwe/Valorant-instalocker/releases/latest/download/Instalocker-GUI-Portable.zip)
+   [**Instalocker-GUI-Portable.zip**](https://github.com/Berkwe/Valorant-instalocker/releases/latest/download/Instalocker-win-Portable.zip)
 2. Arşivi istediğiniz bir klasöre çıkartın.
 3. `Instalocker-GUI.exe` dosyasını çalıştırın.
 

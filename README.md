@@ -59,7 +59,7 @@ The following features from the TUI (terminal) version are planned for the GUI:
 Installs the app to your system with automatic update support via Velopack.
 
 1. Download the latest release:
-   [**Instalocker-GUI-Setup.exe**](https://github.com/Berkwe/Valorant-instalocker/releases/latest/download/Instalocker-GUI-Setup.exe)
+   [**Instalocker-GUI-Setup.exe**](https://github.com/Berkwe/Valorant-instalocker/releases/latest/download/Instalocker-win-Setup.exe)
 2. Run the installer and follow the on-screen steps.
 3. The app will launch automatically when installation is complete.
 
@@ -72,7 +72,7 @@ Installs the app to your system with automatic update support via Velopack.
 No installation required. Download, extract, and run.
 
 1. Download the latest release:
-   [**Instalocker-GUI-Portable.zip**](https://github.com/Berkwe/Valorant-instalocker/releases/latest/download/Instalocker-GUI-Portable.zip)
+   [**Instalocker-GUI-Portable.zip**](https://github.com/Berkwe/Valorant-instalocker/releases/latest/download/Instalocker-win-Portable.zip)
 2. Extract the archive to any folder.
 3. Run `Instalocker-GUI.exe`.
 
