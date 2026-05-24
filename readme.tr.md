@@ -1,5 +1,5 @@
 <p align="center">
-  🌐 <a href="README_EN.md">English</a> | Türkçe
+  🌐 <a href="README.md">English</a> | Türkçe
 </p>
 
 <h1 align="center">🎮 Valorant Instalocker GUI v1.0.0</h1>
@@ -12,7 +12,7 @@
 
 ## 📸 Önizleme
 
-![Dashboard](https://github.com/Berkwe/Valorant-instalocker/Assets/screenshots/dashboard.png)
+![Dashboard](https://github.com/Berkwe/Valorant-Instalocker/blob/master/Assets/screenshots/dashboard.png)
 
 ---
 
