@@ -11,8 +11,8 @@
 	<system:String x:Key="AboutDesc">Valorant Instalocker is an advanced tool designed to give you an edge in agent selection. Our system is optimized to work much faster than human reflexes.</system:String>
 	<system:String x:Key="AboutWarning">⚠️ This software is for educational and testing purposes only.</system:String>
 	<system:String x:Key="DevTeamTitle">Development Team</system:String>
-	<system:String x:Key="LeadDevRole">Lead Developer</system:String>
-	<system:String x:Key="UIDevRole">UI/UX Designer</system:String>
+    <system:String x:Key="UIDevRole">Why aren't you the one?</system:String>
+    <system:String x:Key="LeadDevRole">Lead Developer</system:String>
 
 	<system:String x:Key="WelcomeText">Welcome, </system:String>
 	<system:String x:Key="PlayerText">Player</system:String>
@@ -55,6 +55,5 @@
     <system:String x:Key="ClientConnected">Connected</system:String>
     <system:String x:Key="ClientConnecting">Connecting...</system:String>
 
-    <system:String x:Key="WaitingForAgentSelect">Waiting for Agent Selection Screen...</system:String>
 
 </ResourceDictionary>

@@ -1,7 +1,11 @@
 ﻿<UserControl
     x:Class="Valorant_Instalocker.Views.AboutView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
     <Grid x:Name="AboutSection">
         <Border
             Padding="30"
@@ -9,60 +13,71 @@
             BorderBrush="{DynamicResource DefaultBorder}"
             BorderThickness="1"
             CornerRadius="12">
-            <StackPanel>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
                 <TextBlock
+                    Grid.Row="0"
                     Margin="0,0,0,20"
                     HorizontalAlignment="Center"
                     FontSize="24"
                     FontWeight="Bold"
                     Foreground="{DynamicResource AccentPrimary}"
                     Text="{DynamicResource AboutTitle}" />
-                <TextBlock
-                    Margin="0,0,0,10"
-                    Foreground="{DynamicResource TextMuted}"
-                    Text="{DynamicResource AboutDesc}"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap" />
-                <TextBlock
-                    Margin="0,0,0,30"
-                    HorizontalAlignment="Center"
-                    FontWeight="Bold"
-                    Foreground="{DynamicResource AccentWarning}"
-                    Text="{DynamicResource AboutWarning}" />
 
                 <Rectangle
+                    Grid.Row="1"
                     Height="1"
                     Margin="0,0,0,20"
                     Fill="{DynamicResource SeparatorBrush}" />
+
                 <TextBlock
+                    Grid.Row="2"
                     Margin="0,0,0,15"
+                    HorizontalAlignment="Center"
                     FontSize="18"
                     FontWeight="Bold"
                     Foreground="{DynamicResource TextPrimary}"
                     Text="{DynamicResource DevTeamTitle}" />
 
-                <StackPanel Orientation="Horizontal">
+                <WrapPanel
+                    Grid.Row="3"
+                    HorizontalAlignment="Center"
+                    ItemWidth="220">
+
+
                     <Border
-                        Width="180"
-                        Margin="0,0,10,0"
+                        Margin="10,0,10,10"
                         Padding="15"
                         Background="{DynamicResource AppBackground}"
                         CornerRadius="8">
-                        <StackPanel Orientation="Horizontal">
-                            <Border
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Ellipse
+                                Grid.Column="0"
                                 Width="40"
                                 Height="40"
-                                Margin="0,0,10,0"
-                                Background="{DynamicResource AccentPrimary}"
-                                CornerRadius="20">
-                                <TextBlock
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    FontWeight="Bold"
-                                    Foreground="{DynamicResource TextPrimary}"
-                                    Text="BW" />
-                            </Border>
-                            <StackPanel VerticalAlignment="Center">
+                                Margin="0,0,15,0">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Assets/icons/lead.jpg" Stretch="UniformToFill" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock
                                     FontWeight="Bold"
                                     Foreground="{DynamicResource TextPrimary}"
@@ -70,44 +85,137 @@
                                 <TextBlock
                                     FontSize="11"
                                     Foreground="{DynamicResource TextSecondary}"
-                                    Text="{DynamicResource LeadDevRole}" />
+                                    Text="{DynamicResource LeadDevRole}"
+                                    TextWrapping="Wrap" />
                             </StackPanel>
-                        </StackPanel>
+                        </Grid>
                     </Border>
+
                     <Border
-                        Width="180"
-                        Margin="0,0,10,0"
+                        Margin="10,0,10,10"
                         Padding="15"
                         Background="{DynamicResource AppBackground}"
                         CornerRadius="8">
-                        <StackPanel Orientation="Horizontal">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
                             <Border
+                                Grid.Column="0"
                                 Width="40"
                                 Height="40"
-                                Margin="0,0,10,0"
-                                Background="{DynamicResource AccentSecondary}"
+                                Margin="0,0,15,0"
+                                Background="{DynamicResource SeparatorBrush}"
                                 CornerRadius="20">
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     FontWeight="Bold"
                                     Foreground="{DynamicResource TextPrimary}"
-                                    Text="AS" />
+                                    Text="?" />
                             </Border>
-                            <StackPanel VerticalAlignment="Center">
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock
                                     FontWeight="Bold"
                                     Foreground="{DynamicResource TextPrimary}"
-                                    Text="Asistan" />
+                                    Text="??" />
                                 <TextBlock
                                     FontSize="11"
                                     Foreground="{DynamicResource TextSecondary}"
-                                    Text="{DynamicResource UIDevRole}" />
+                                    Text="{DynamicResource UIDevRole}"
+                                    TextWrapping="Wrap" />
                             </StackPanel>
-                        </StackPanel>
+                        </Grid>
                     </Border>
+                </WrapPanel>
+
+                <Rectangle
+                    Grid.Row="4"
+                    Height="1"
+                    Margin="0,20,0,20"
+                    Fill="{DynamicResource SeparatorBrush}" />
+
+                <StackPanel
+                    Grid.Row="5"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+
+                    <Button
+                        Margin="10,0"
+                        Click="DevLink_Click"
+                        Cursor="Hand"
+                        ToolTip="Developer GitHub">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Ellipse Width="40" Height="40">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="/Assets/icons/github.png" Stretch="UniformToFill" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button
+                        Margin="10,0"
+                        Click="DiscordLink_Click"
+                        Cursor="Hand"
+                        ToolTip="Discord">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Ellipse Width="40" Height="40">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="/Assets/icons/discord.png" Stretch="UniformToFill" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button
+                        Margin="10,0"
+                        Click="TuiLink_Click"
+                        Cursor="Hand"
+                        ToolTip="Instalocker TUI GitHub">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Ellipse Width="40" Height="40">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="/Assets/icons/instalocker-TUI.ico" Stretch="UniformToFill" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
                 </StackPanel>
-            </StackPanel>
+
+                <Rectangle
+                    Grid.Row="6"
+                    Height="1"
+                    Margin="0,20,0,20"
+                    Fill="{DynamicResource SeparatorBrush}" />
+
+                <StackPanel Grid.Row="7" HorizontalAlignment="Center">
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        HorizontalAlignment="Center"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource AccentWarning}"
+                        Text="{DynamicResource AboutWarning}" />
+
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource TextSecondary}"
+                        Text="{DynamicResource AboutWarningDesc}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

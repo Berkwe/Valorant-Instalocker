@@ -2,27 +2,30 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
+    
+    <!-- Tablar -->
     <system:String x:Key="HomeTab">Hızlı Seçim</system:String>
     <system:String x:Key="MacrosTab">Makrolar</system:String>
     <system:String x:Key="SettingsTab">Ayarlar</system:String>
     <system:String x:Key="AboutTab">Hakkında</system:String>
     
     
-	<system:String x:Key="AboutTitle">Hakkında</system:String>
-	<system:String x:Key="AboutDesc">Valorant Instalocker, ajan seçiminde size avantaj sağlamak için tasarlanmış gelişmiş bir araçtır. Sistemimiz, insan reflekslerinden çok daha hızlı çalışacak şekilde optimize edilmiştir.</system:String>
-	<system:String x:Key="AboutWarning">⚠️ Bu yazılım sadece eğitim ve test amaçlıdır.</system:String>
-	<system:String x:Key="DevTeamTitle">Geliştirici Ekip</system:String>
-	<system:String x:Key="LeadDevRole">Lead Developer</system:String>
-	<system:String x:Key="UIDevRole">UI/UX Designer</system:String>
+    <!-- MainWindow -->
 
-	<system:String x:Key="WelcomeText">Hoş Geldin, </system:String>
+    <system:String x:Key="ClientConnected">Bağlandı</system:String>
+    <system:String x:Key="ClientConnecting">Bağlanıyor...</system:String>
+
+    
+    <!-- Dashboard (home tab) -->
+
+    <system:String x:Key="WelcomeText">Hoş Geldin, </system:String>
 	<system:String x:Key="PlayerText">Oyuncu</system:String>
 	<system:String x:Key="DashboardSubtitle">Ajanını seç ve herkesten önce kilitlen!</system:String>
 	<system:String x:Key="StatusTitle">📊 Anlık Durum</system:String>
 	<system:String x:Key="StateLabel">Durum:</system:String>
 	<system:String x:Key="StateLobby">Lobi</system:String>
 	<system:String x:Key="LevelLabel">Seviye:</system:String>
-	<system:String x:Key="StatusWaiting">Ajan seçimi bekleniyor...</system:String>
+	<system:String x:Key="StatusWaiting">Ajan seçim ekranı bekleniyor...</system:String>
     <system:String x:Key="StatusWaitingBreaked">Oyun bozuldu Instalocker aynı ajanı seçiyor.</system:String>
     <system:String x:Key="StatusLocked">Ajan Başarıyla Kilitlendi</system:String>
     <system:String x:Key="LockAgentBtn">Ajanı Kilitle</system:String>
@@ -30,16 +33,21 @@
     <system:String x:Key="CancelBtn">İptal Et</system:String>
     <system:String x:Key="QuitPreGameBtn">Oyunu Boz</system:String>
 
+    <system:String x:Key="PhaseIdle">Lobide</system:String>
+    <system:String x:Key="PhasePregame">Ajan Seçimi</system:String>
+    <system:String x:Key="PhaseIngame">Oyunda</system:String>
+    <system:String x:Key="PhaseUnknown">Bilinmiyor</system:String>
+
+    
+    <!-- Macros (makrolar) -->
 
     <system:String x:Key="MacrosTitle">⚙️ Gelişmiş Makrolar</system:String>
-	<system:String x:Key="MacrosDesc">Oyun içi otomasyonlarınızı buradan yapılandırın.</system:String>
-	<system:String x:Key="Macro1Title">Multi-Agent Lock</system:String>
-	<system:String x:Key="Macro1Desc">Sırasıyla birden fazla ajan deneme önceliği.</system:String>
-	<system:String x:Key="Macro2Title">Anti-Ban Tekniği</system:String>
-	<system:String x:Key="Macro2Desc">İnsan benzeri gecikme süreleri ekleyerek tespiti zorlaştırır.</system:String>
-	<system:String x:Key="EnableBtn">Aktif Et</system:String>
+    <system:String x:Key="MacrosDesc">Oyun içi otomasyonlarınızı buradan yapılandırın.</system:String>
 
-	<system:String x:Key="SettingsConfigTitle">🛠️ Yapılandırma</system:String>
+    
+    <!-- Settings (ayarlar) -->
+
+    <system:String x:Key="SettingsConfigTitle">🛠️ Yapılandırma</system:String>
     <system:String x:Key="SettingsThemesConfig">Tema</system:String>
     <system:String x:Key="SettingsDarkTheme">Koyu</system:String>
     <system:String x:Key="SettingsLightTheme">Açık</system:String>
@@ -47,13 +55,15 @@
     <system:String x:Key="SettingsLanguage">Dil (Language)</system:String>
     <system:String x:Key="SettingsSaveBtn">AYARLARI KAYDET</system:String>
 
+    <!-- About (hakknda) -->
+    <system:String x:Key="AboutTitle">Hakkında</system:String>
+    <system:String x:Key="AboutWarning">⚠️ Bu yazılım sadece eğitim ve test amaçlıdır.</system:String>
+    <system:String x:Key="AboutWarningDesc">Tam sorumluluk reddine github üzerinden ulaşabilirsiniz.</system:String>
+    <system:String x:Key="DevTeamTitle">Geliştirici Ekip</system:String>
+    <system:String x:Key="LeadDevRole">Lead Developer</system:String>
+    <system:String x:Key="UIDevRole">Neden sen olmuyorsun?</system:String>
+    <system:String x:Key="GithubPage">Github Sayfası</system:String>
+    
 
-    <system:String x:Key="PhaseIdle">Lobide</system:String>
-    <system:String x:Key="PhasePregame">Ajan Seçimi</system:String>
-    <system:String x:Key="PhaseIngame">Oyunda</system:String>
-    <system:String x:Key="PhaseUnknown">Bilinmiyor</system:String>
 
-    <system:String x:Key="ClientConnected">Bağlandı</system:String>
-    <system:String x:Key="ClientConnecting">Bağlanıyor...</system:String>
-    <system:String x:Key="WaitingForAgentSelect">Ajan seçim ekranı bekleniyor...</system:String>
 </ResourceDictionary>
