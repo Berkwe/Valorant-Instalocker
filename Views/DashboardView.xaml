@@ -144,7 +144,7 @@
                                         HorizontalAlignment="Center"
                                         FontSize="12"
                                         Foreground="{DynamicResource TextPrimary}"
-                                        Text="{DynamicResource WaitingForAgentSelect}"
+                                        Text="{DynamicResource StatusWaiting}"
                                         TextAlignment="Center"
                                         TextWrapping="Wrap" />
                                     <Grid
