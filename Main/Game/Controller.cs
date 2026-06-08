@@ -39,8 +39,32 @@ namespace Valorant_Instalocker.Main.Game
                     Log.Warning(selectEx, "[LockAgent] Ajan hover (seçme) başarısız oldu, doğrudan kilitlemeye geçiliyor.");
                 }
 
-                await AppStateManager.initiator.Endpoints.PreGameEndpoints.LockCharacterAsync(AppStateManager.SelectedAgent);
-                Log.Information("[LockAgent] Ajan kilitleme isteği başarıyla tamamlandı.");
+                // Lock, then confirm the server actually registered us as "locked". Firing the
+                // lock the instant pregame starts can land before the match is fully
+                // provisioned, which can leave us looking only hovered to other clients, so we
+                // retry until the returned match reports our own selection state as "locked".
+                var userId = AppStateManager.initiator.Client.UserId;
+                const int maxAttempts = 6;
+                for (int attempt = 1; attempt <= maxAttempts; attempt++)
+                {
+                    var match = await AppStateManager.initiator.Endpoints.PreGameEndpoints.LockCharacterAsync(AppStateManager.SelectedAgent);
+
+                    string? state = match?.AllyTeam?.Players?
+                        .FirstOrDefault(p => string.Equals(p.Subject, userId, StringComparison.OrdinalIgnoreCase))
+                        ?.CharacterSelectionState;
+
+                    Log.Information("[LockAgent] Kilit denemesi {Attempt}/{Max}. Sunucu durumu (CharacterSelectionState): {State}", attempt, maxAttempts, state ?? "null");
+
+                    if (string.Equals(state, "locked", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Log.Information("[LockAgent] Ajan kilitleme sunucu tarafında doğrulandı.");
+                        return;
+                    }
+
+                    await Task.Delay(150);
+                }
+
+                Log.Warning("[LockAgent] Kilit isteği gönderildi ancak sunucu durumu 'locked' olarak doğrulanamadı.");
             }
             catch (Exception ex)
             {
