@@ -23,6 +23,22 @@ namespace Valorant_Instalocker.Main.Game
             Log.Information("[LockAgent] Ajan kilitleme işlemi başlatılıyor. Hedef Ajan ID: {AgentID}", AppStateManager.SelectedAgent);
             try
             {
+                // Hover (select) the agent first, then lock it. The select action is what
+                // broadcasts the chosen agent to the rest of the lobby; locking directly
+                // without it makes teammates see you as only hovering even though you are
+                // locked in on your own side. Select is best-effort so a failed hover never
+                // blocks the actual lock.
+                try
+                {
+                    await AppStateManager.initiator.Endpoints.PreGameEndpoints.SelectCharacterAsync(AppStateManager.SelectedAgent);
+                    // Small gap so the hover state propagates to other players before the lock.
+                    await Task.Delay(100);
+                }
+                catch (Exception selectEx)
+                {
+                    Log.Warning(selectEx, "[LockAgent] Ajan hover (seçme) başarısız oldu, doğrudan kilitlemeye geçiliyor.");
+                }
+
                 await AppStateManager.initiator.Endpoints.PreGameEndpoints.LockCharacterAsync(AppStateManager.SelectedAgent);
                 Log.Information("[LockAgent] Ajan kilitleme isteği başarıyla tamamlandı.");
             }
