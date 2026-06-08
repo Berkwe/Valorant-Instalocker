@@ -14,13 +14,57 @@ namespace Valorant_Instalocker.Main.Game
 {
     internal class Controller
     {
+        // Ensures we only lock/select once per pregame (agent select) session.
+        // Reset when the game leaves the pregame phase, so every new match locks again.
+        private static bool _hasLockedThisPregame = false;
+
         private static async Task LockAgent()
         {
             Log.Information("[LockAgent] Ajan kilitleme işlemi başlatılıyor. Hedef Ajan ID: {AgentID}", AppStateManager.SelectedAgent);
             try
             {
-                await AppStateManager.initiator.Endpoints.PreGameEndpoints.LockCharacterAsync(AppStateManager.SelectedAgent);
-                Log.Information("[LockAgent] Ajan kilitleme isteği başarıyla tamamlandı.");
+                // Hover (select) the agent first, then lock it. The select action is what
+                // broadcasts the chosen agent to the rest of the lobby; locking directly
+                // without it makes teammates see you as only hovering even though you are
+                // locked in on your own side. Select is best-effort so a failed hover never
+                // blocks the actual lock.
+                try
+                {
+                    await AppStateManager.initiator.Endpoints.PreGameEndpoints.SelectCharacterAsync(AppStateManager.SelectedAgent);
+                    // Small gap so the hover state propagates to other players before the lock.
+                    await Task.Delay(100);
+                }
+                catch (Exception selectEx)
+                {
+                    Log.Warning(selectEx, "[LockAgent] Ajan hover (seçme) başarısız oldu, doğrudan kilitlemeye geçiliyor.");
+                }
+
+                // Lock, then confirm the server actually registered us as "locked". Firing the
+                // lock the instant pregame starts can land before the match is fully
+                // provisioned, which can leave us looking only hovered to other clients, so we
+                // retry until the returned match reports our own selection state as "locked".
+                var userId = AppStateManager.initiator.Client.UserId;
+                const int maxAttempts = 6;
+                for (int attempt = 1; attempt <= maxAttempts; attempt++)
+                {
+                    var match = await AppStateManager.initiator.Endpoints.PreGameEndpoints.LockCharacterAsync(AppStateManager.SelectedAgent);
+
+                    string? state = match?.AllyTeam?.Players?
+                        .FirstOrDefault(p => string.Equals(p.Subject, userId, StringComparison.OrdinalIgnoreCase))
+                        ?.CharacterSelectionState;
+
+                    Log.Information("[LockAgent] Kilit denemesi {Attempt}/{Max}. Sunucu durumu (CharacterSelectionState): {State}", attempt, maxAttempts, state ?? "null");
+
+                    if (string.Equals(state, "locked", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Log.Information("[LockAgent] Ajan kilitleme sunucu tarafında doğrulandı.");
+                        return;
+                    }
+
+                    await Task.Delay(150);
+                }
+
+                Log.Warning("[LockAgent] Kilit isteği gönderildi ancak sunucu durumu 'locked' olarak doğrulanamadı.");
             }
             catch (Exception ex)
             {
@@ -47,9 +91,18 @@ namespace Valorant_Instalocker.Main.Game
         public static async void GameControlHandler(string MatchID = "")
         {
             Log.Information("[GameControlHandler] Tetiklendi. MatchID: {MatchID}, OnlySelect Modu: {OnlySelect}", MatchID, AppStateManager.OnlySelect);
+
+            // Skip if we already locked in this pregame (both the log and presence events can
+            // fire around the same time; this prevents a double lock).
+            if (_hasLockedThisPregame)
+            {
+                Log.Debug("[GameControlHandler] Bu pregame için kilitleme zaten yapıldı, atlanıyor.");
+                return;
+            }
+            _hasLockedThisPregame = true;
+
             try
             {
-                AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.BreakProtectionHandler;
                 if (!AppStateManager.Instance.UserName.ToLower().Contains("berkwe")) await Task.Delay(70);
                 if (AppStateManager.OnlySelect)
                 {
@@ -62,49 +115,55 @@ namespace Valorant_Instalocker.Main.Game
                     await LockAgent();
                 }
                 AppStateManager.Instance.IsAgentLocked = true;
-                Log.Debug("[GameControlHandler] OnPreGameMatchLoaded olayından abonelik kaldırılıyor.");
-                AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded -= Controller.GameControlHandler;
 
                 AppStateManager.Instance.IsInstalockRunning = false;
                 Log.Information("[GameControlHandler] İşlem döngüsü sorunsuz tamamlandı. IsInstalockRunning: false");
-
-                AppStateManager.initiator.TcpEvents.OnGameStateChanged += Controller.BreakProtectionHandler;
-                Log.Information("Bozulma Koruması Başladı");
             }
             catch (Exception ex)
             {
+                // Lock failed (e.g. pregame not ready yet). Reset the flag so another event
+                // (presence/log) within the same pregame can retry.
+                _hasLockedThisPregame = false;
                 Log.Error(ex, "[GameControlHandler] Ajan seçimi veya kilitlenmesi sırasında kritik bir API/Sistem hatası oluştu. MatchID: {MatchID}", MatchID);
             }
         }
 
 
-        public static async void CreateInstalockGameHandler(ValorantTables.Agent SelectedAgent, string SelectedAgentName, string SelectedAgentImageURL)
+        public static void CreateInstalockGameHandler(ValorantTables.Agent SelectedAgent, string SelectedAgentName, string SelectedAgentImageURL)
         {
             Log.Information("[CreateInstalockGameHandler] Kurulum başlatıldı. Seçilen Ajan: {AgentName}", SelectedAgentName);
-            AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.BreakProtectionHandler;
-            if (AppStateManager.Instance.IsInstalockRunning)
-            {
-                AppStateManager.Instance.IsGameBreaked = false;
-                Log.Warning("[CreateInstalockGameHandler] Halihazırda çalışan bir işlem tespit edildi. Eski abonelik iptal ediliyor.");
-                AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded -= Controller.GameControlHandler;
-            }
-            Log.Information(AppStateManager.Instance.IsGameBreaked.ToString());
+
             AppStateManager.Instance.SelectedAgentName = SelectedAgentName;
             AppStateManager.Instance.SelectedAgentImage = SelectedAgentImageURL;
             AppStateManager.SelectedAgent = SelectedAgent;
+            AppStateManager.Instance.IsGameBreaked = false;
+
+            // New setup: allow locking again for this pregame (the agent may have changed).
+            _hasLockedThisPregame = false;
+
+            // We trigger locking from two independent sources:
+            //  1) OnPreGameMatchLoaded  -> log-based, fast but one-shot/can be missed.
+            //  2) OnGameStateChanged    -> presence/websocket-based, fires reliably every match.
+            // Subscriptions are persistent, so once set up every match auto-locks.
+            // Remove then re-add first to avoid duplicate subscriptions.
+            AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded -= Controller.GameControlHandler;
+            AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded += Controller.GameControlHandler;
+            AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.GameStateWatcher;
+            AppStateManager.initiator.TcpEvents.OnGameStateChanged += Controller.GameStateWatcher;
+
+            AppStateManager.Instance.IsInstalockRunning = true;
 
             Log.Debug("[CreateInstalockGameHandler] State Manager güncellendi. Mevcut Oyun Aşaması: {CurrentPhase}", AppStateManager.Instance.CurrentPhase);
 
-            if (AppStateManager.Instance.CurrentPhase.ToLower() == "pregame" || AppStateManager.Instance.CurrentPhase.ToLower() == "gameplay")
+            // If we're already in agent select, lock right away without waiting for events.
+            if (AppStateManager.Instance.CurrentPhase.ToLower() == "pregame")
             {
-                Log.Information("[CreateInstalockGameHandler] Oyun halihazırda {CurrentPhase} aşamasında. Olay beklenmeden GameControlHandler anında tetikleniyor.", AppStateManager.Instance.CurrentPhase);
+                Log.Information("[CreateInstalockGameHandler] Oyun halihazırda pregame aşamasında. GameControlHandler anında tetikleniyor.");
                 Controller.GameControlHandler();
                 return;
             }
 
-            Log.Information("[CreateInstalockGameHandler] Bekleme moduna geçiliyor. OnPreGameMatchLoaded olayına abone olundu.");
-            AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded += Controller.GameControlHandler;
-            AppStateManager.Instance.IsInstalockRunning = true;
+            Log.Information("[CreateInstalockGameHandler] Bekleme moduna geçildi. Pregame olayları dinleniyor.");
         }
 
 
@@ -118,9 +177,11 @@ namespace Valorant_Instalocker.Main.Game
                 return;
             }
 
-            Log.Debug("[CancelControlHandler] OnPreGameMatchLoaded olayından abonelik kaldırılıyor ve AppStateManager değerleri default olarak sıfırlanıyor.");
+            Log.Debug("[CancelControlHandler] Removing all pregame subscriptions and resetting AppStateManager values to default.");
             AppStateManager.initiator.GameEvents.PreGame.OnPreGameMatchLoaded -= Controller.GameControlHandler;
+            AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.GameStateWatcher;
 
+            _hasLockedThisPregame = false;
             AppStateManager.Instance.SelectedAgentName = default;
             AppStateManager.Instance.SelectedAgentImage = default;
             AppStateManager.SelectedAgent = default;
@@ -135,7 +196,6 @@ namespace Valorant_Instalocker.Main.Game
             Log.Information("[QuitPreGame] Maçtan çıkma işlemi başlatılıyor.");
             try
             {
-                AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.BreakProtectionHandler;
                 await AppStateManager.initiator.Endpoints.PreGameEndpoints.QuitGameAsync();
                 Log.Information("[QuitPreGame] Maçtan çıkma başarıyla tamamlandı.");
             }
@@ -151,35 +211,36 @@ namespace Valorant_Instalocker.Main.Game
         }
 
 
-        public static async void BreakProtectionHandler(string phase)
+        // Presence/websocket-based game phase watcher. Unlike the log-based OnPreGameMatchLoaded
+        // event, this fires reliably every match, so it guarantees locking works on both the
+        // first match and all subsequent ones. It also covers break protection (falling back
+        // into agent select).
+        public static void GameStateWatcher(string phase)
         {
             try
             {
-                AppStateManager.initiator.TcpEvents.OnGameStateChanged -= Controller.BreakProtectionHandler;
+                string currentPhase = phase.ToLower();
+                Log.Information("[GameStateWatcher] Oyun aşaması: {Phase}", phase);
 
-                Log.Information($"BreakProtection çalıştı : {phase}");
-
-                if (phase.ToLower() == "ingame" || phase.ToLower() == "ıngame")
+                if (currentPhase == "pregame")
                 {
-                    AppStateManager.Instance.IsGameBreaked = false;
-                    Log.Information("Oyun Bozulmadı.");
-
+                    // Entered agent select (or fell back into it after a break) -> lock.
+                    GameControlHandler();
                 }
                 else
                 {
-                    AppStateManager.Instance.IsGameBreaked = true;
-                    Log.Information($"Oyun Bozuldu instalocker yeniden seçiyor.");
-                    CreateInstalockGameHandler(AppStateManager.SelectedAgent, AppStateManager.Instance.SelectedAgentName, AppStateManager.Instance.SelectedAgentImage);
+                    // Left agent select (ingame/menus/idle). Allow locking again for the
+                    // next pregame.
+                    _hasLockedThisPregame = false;
+
+                    if (currentPhase == "ingame" || currentPhase == "ıngame")
+                        AppStateManager.Instance.IsGameBreaked = false;
                 }
-
-
-
             }
             catch (Exception ex)
             {
                 Log.Error(ex.ToString());
             }
-
         }
     }
 }
