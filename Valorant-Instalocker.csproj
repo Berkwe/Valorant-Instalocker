@@ -24,7 +24,7 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="RadiantConnect" Version="10.6.1" />
+    <ProjectReference Include="Libs\RadiantConnect\RadiantConnect.csproj" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="Velopack" Version="0.0.1298" />
   </ItemGroup>
